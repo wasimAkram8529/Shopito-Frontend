@@ -1,0 +1,14 @@
+.footer-top span {
+  cursor: pointer;
+}
+@media screen and (max-width: 464px) {
+  .footer-top {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .footer-top div {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

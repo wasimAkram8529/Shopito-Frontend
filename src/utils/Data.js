@@ -1,0 +1,55 @@
+export const services = [
+  // {
+  //   images: "../images/service.png",
+  //   title: "Free Shipping",
+  //   tagline: "From all orders over $100",
+  // },
+  {
+    images: "../images/service-02.png",
+    title: "Daily Surprise Offers",
+    tagline: "Save up to 25% off",
+  },
+  {
+    images: "../images/service-03.png",
+    title: "Support 24/7",
+    tagline: "Shop with an expert",
+  },
+  {
+    images: "../images/service-04.png",
+    title: "Affordable Prices",
+    tagline: "Get Factory Default Price",
+  },
+  {
+    images: "../images/service-05.png",
+    title: "Secure Payments",
+    tagline: "100% Protected Payments",
+  },
+];
+
+export const indianStates = [
+  { name: "Andhra Pradesh" },
+  { name: "Arunachal Pradesh" },
+  { name: "Bihar" },
+  { name: "Chandigarh" },
+  { name: "Chhattisgarh" },
+  { name: "Delhi" },
+  { name: "Goa" },
+  { name: "Gujarat" },
+  { name: "Haryana" },
+  { name: "Himachal Pradesh" },
+  { name: "Jammu and Kashmir" },
+  { name: "Jharkhand" },
+  { name: "Karnataka" },
+  { name: "Kerala" },
+  { name: "Madhya Pradesh" },
+  { name: "Maharashtra" },
+  { name: "Odisha" },
+  { name: "Punjab" },
+  { name: "Rajasthan" },
+  { name: "Sikkim" },
+  { name: "Tamil Nadu" },
+  { name: "Telangana" },
+  { name: "Uttar Pradesh" },
+  { name: "Uttarakhand" },
+  { name: "West Bengal" },
+];
