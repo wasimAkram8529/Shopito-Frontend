@@ -46,19 +46,27 @@ const Home = () => {
   let popularProducts = [];
   let featureProducts = [];
   let specialProducts = [];
+  let slider = [];
 
-  if (!products || products.length !== 0) {
-    popularProducts = products.filter((product) => product.tags === "popular");
+  if (!products || products?.length !== 0) {
+    popularProducts = products?.filter((product) => product.tags === "popular");
   }
 
-  if (!products || products.length !== 0) {
-    featureProducts = products.filter((product) => product.tags === "featured");
+  if (!products || products?.length !== 0) {
+    featureProducts = products?.filter(
+      (product) => product.tags === "featured"
+    );
   }
 
-  if (!products || products.length !== 0) {
-    specialProducts = products.filter((product) => product.tags === "special");
+  if (!products || products?.length !== 0) {
+    specialProducts = products?.filter((product) => product.tags === "special");
   }
 
+  if (!products || products?.length !== 0) {
+    slider = products?.filter((product) => product.tags === "slider");
+  }
+
+  //console.log("Slider", slider);
   //console.log("Popular Product", popularProducts);
   //console.log("Featured Product", featureProducts);
   // console.log("Special Product",specialProducts);
@@ -76,7 +84,7 @@ const Home = () => {
   return (
     <>
       <Meta title="Ecommerce App" />
-      <Slider />
+      <Slider slider={slider} />
       <Container class1="py-5">
         <div className="home-container-1">
           <div>

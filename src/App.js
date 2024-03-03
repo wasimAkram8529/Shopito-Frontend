@@ -19,7 +19,7 @@ import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import TermsAndCondition from "./pages/TermsAndCondition";
 import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/checkout/Checkout";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getLoginStatus } from "./features/user/userSlice";

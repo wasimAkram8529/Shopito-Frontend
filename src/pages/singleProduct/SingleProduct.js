@@ -12,7 +12,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
 import {
   deleteProductReview,
   getAProduct,
@@ -383,7 +383,24 @@ const SingleProduct = () => {
                           GO TO CART
                         </NavLink>
                       )}
-                      <button className="button signup">BUY IT NOW</button>
+                      <button
+                        className="button signup"
+                        onClick={() => {
+                          if (!color) {
+                            toast.error("Please select color and quantity");
+                          } else {
+                            navigate("/checkout", {
+                              state: {
+                                product,
+                                color,
+                                quantity,
+                              },
+                            });
+                          }
+                        }}
+                      >
+                        BUY IT NOW
+                      </button>
                     </div>
                   </div>
                   <div className="d-flex align-items-center gap-15">

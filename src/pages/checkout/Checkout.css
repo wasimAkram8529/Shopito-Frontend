@@ -1,0 +1,31 @@
+.checkout {
+  display: flex;
+  flex-direction: row;
+}
+
+.checkout .address {
+  width: 60%;
+  margin-right: 10px;
+}
+
+.checkout .product-details {
+  width: 40%;
+}
+
+.checkout .product-details div {
+  padding: 0 2px;
+}
+
+@media screen and (max-width: 1000px) {
+  .checkout {
+    flex-direction: column;
+  }
+  .checkout .address,
+  .checkout .product-details {
+    width: 100%;
+  }
+
+  .checkout .product-details {
+    margin-top: 10px;
+  }
+}

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Slider.css";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { sliderData } from "./slider-data";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { shortenText } from "../../utils/Validateor";
 
-const Slider = () => {
+const Slider = ({ slider }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
-  const slideLength = sliderData.length;
+  const slideLength = slider?.length;
   const autoScroll = true;
   let slideInterval;
   const intervalTime = 5000;
@@ -37,8 +37,8 @@ const Slider = () => {
     <div className="slider">
       <AiOutlineArrowLeft className="arrow prev" onClick={prevSlide} />
       <AiOutlineArrowRight className="arrow next" onClick={nextSlide} />
-      {sliderData.map((slide, indx) => {
-        const { image, heading, desc } = slide;
+      {slider?.map((slide, indx) => {
+        const { title, description } = slide;
         return (
           <div
             key={indx}
@@ -46,21 +46,26 @@ const Slider = () => {
           >
             {indx === currentSlide && (
               <>
-                <img className="" src={image} alt="slide" />
-                <div className="content">
+                <img className="" src={slide?.image?.[0]?.url} alt="slide" />
+                <div
+                  style={{ cursor: "pointer" }}
+                  className="content"
+                  onClick={() => navigate(`/product/${slide?._id}`)}
+                >
                   <span className="span1"></span>
                   <span className="span2"></span>
                   <span className="span3"></span>
                   <span className="span4"></span>
-                  <h2>{heading}</h2>
-                  <p>{desc}</p>
+                  <h2>{title}</h2>
+                  <p>{shortenText(description, 20)}</p>
                   <hr />
-                  <button
+                  <NavLink
+                    style={{ cursor: "pointer" }}
                     className="--btn --btn-primary"
-                    onClick={() => navigate("/shop")}
+                    to={`/product/${slide?._id}`}
                   >
                     Shop Now
-                  </button>
+                  </NavLink>
                 </div>
               </>
             )}

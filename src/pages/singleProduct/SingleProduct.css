@@ -5,6 +5,7 @@
 
 .product-with-details .product-img {
   width: 50%;
+  background-color: white;
 }
 .product-with-details .product-details {
   padding: 30px 20px;
