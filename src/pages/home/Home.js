@@ -35,29 +35,33 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllBlogs());
-    dispatch(getProducts());
+    dispatch(getProducts({ sort: "", minAmount: 0, maxAmount: 1000000007 }));
   }, []);
 
   const { blogs } = useSelector((state) => state.blog);
   const { products } = useSelector((state) => state.product);
-  //console.log(products);
+
+  //console.log("products", products);
+
   let popularProducts = [];
   let featureProducts = [];
   let specialProducts = [];
-  if (!products && products.length !== 0) {
+
+  if (!products || products.length !== 0) {
     popularProducts = products.filter((product) => product.tags === "popular");
   }
 
-  if (!products && products.length !== 0) {
+  if (!products || products.length !== 0) {
     featureProducts = products.filter((product) => product.tags === "featured");
   }
 
-  if (!products && products.length !== 0) {
+  if (!products || products.length !== 0) {
     specialProducts = products.filter((product) => product.tags === "special");
   }
-  // console.log(popularProducts);
-  // console.log(featureProducts);
-  // console.log(specialProducts);
+
+  //console.log("Popular Product", popularProducts);
+  //console.log("Featured Product", featureProducts);
+  // console.log("Special Product",specialProducts);
 
   const latestProducts = productData.map((item) => (
     <div key={item.id}>

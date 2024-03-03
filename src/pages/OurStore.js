@@ -31,9 +31,9 @@ const OurStore = () => {
     (state) => state.product
   );
 
-  console.log("Min", minAmount);
-  console.log("Max", maxAmount, typeof maxAmount);
-  console.log(products);
+  // console.log("Min", minAmount);
+  // console.log("Max", maxAmount, typeof maxAmount);
+  // console.log(products);
   useEffect(() => {
     let availableMinAmount = 1e9 + 7;
     let availableMaxAmount = 0;

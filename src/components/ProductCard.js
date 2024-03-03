@@ -13,6 +13,7 @@ const ProductCard = ({
   title,
   price,
   rating,
+  colNumber,
 }) => {
   let location = useLocation();
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ const ProductCard = ({
     <>
       <div
         className={`${
-          location.pathname === "/products" ? `gr-${grid}` : "col-3"
+          location.pathname === "/products"
+            ? `gr-${grid}`
+            : `col-${colNumber ? colNumber : 3}`
         }`}
       >
         <NavLink

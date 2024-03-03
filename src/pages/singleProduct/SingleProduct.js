@@ -1,15 +1,16 @@
+import "./SingleProduct.css";
 import React, { useEffect, useState } from "react";
-import Meta from "../components/Meta";
-import BreadCrumb from "../components/BreadCrumb";
-import ProductCard from "../components/ProductCard";
+import Meta from "../../components/Meta";
+import BreadCrumb from "../../components/BreadCrumb";
+import ProductCard from "../../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
-import ReactImageZoom from "react-image-zoom";
-import Color from "../components/Color";
+import ReactImageMagnify from "react-image-magnify";
+import Color from "../../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import Container from "../components/Container";
+import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -18,17 +19,18 @@ import {
   getProducts,
   updateProductReview,
   writeProductReview,
-} from "../features/products/productSlice";
+} from "../../features/products/productSlice";
 import {
   addToCart,
   addToWishList,
   getAUser,
   getUserCart,
-} from "../features/user/userSlice";
+} from "../../features/user/userSlice";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import CustomModel from "../components/CustomModel";
+import CustomModel from "../../components/CustomModel";
+import { totalDisplayImg } from "../../utils/importantFunctions";
 
 const reviewSchema = Yup.object().shape({
   review: Yup.string().required("Product Review is Required"),
@@ -43,6 +45,19 @@ const SingleProduct = () => {
 
   const [open, setOpen] = useState(false);
   const [reviewId, setReviewId] = useState();
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const updateScreenWidth = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateScreenWidth);
+    return () => {
+      window.removeEventListener("resize", updateScreenWidth);
+    };
+  }, []);
 
   const hideModal = () => {
     setOpen(false);
@@ -65,7 +80,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     dispatch(getAProduct(productId));
-    dispatch(getProducts());
+    dispatch(getProducts({ sort: "", minAmount: 0, maxAmount: 1000000007 }));
     dispatch(getUserCart());
   }, [productId]);
 
@@ -84,6 +99,10 @@ const SingleProduct = () => {
 
   if (products.length !== 0) {
     popularProducts = products.filter((product) => product.tags === "popular");
+  }
+
+  if (screenWidth <= 800) {
+    popularProducts = totalDisplayImg(3, popularProducts);
   }
 
   const { product, isLoading } = useSelector((state) => state.product);
@@ -153,14 +172,6 @@ const SingleProduct = () => {
     setEdit(true);
   };
 
-  const props = {
-    width: 570,
-    height: 570,
-    zoomWidth: 600,
-    img: `${product?.image?.[0]?.url}`,
-  };
-
-  // "https://www.ooberpad.com/cdn/shop/products/B_WPx7_S2-grey.jpg?v=1670560675&width=750"
   const [orderedProduct, setOrderedProduct] = useState(true);
 
   const copyToClipboard = (text) => {
@@ -186,14 +197,25 @@ const SingleProduct = () => {
         <>
           <BreadCrumb title={`${product?.title}`} />
           <Container class1="main-product-wrapper home-wrapper-2 py-5">
-            <div className="row">
-              <div className="col-6">
+            <div className="product-with-details">
+              <div className="product-img">
                 <div className="main-product-image">
-                  <div>
-                    <ReactImageZoom {...props} />
-                  </div>
+                  <ReactImageMagnify
+                    {...{
+                      smallImage: {
+                        alt: `Product Image`,
+                        isFluidWidth: true,
+                        src: `${product?.image?.[0]?.url}`,
+                      },
+                      largeImage: {
+                        src: `${product?.image?.[0]?.url}`,
+                        width: 1200,
+                        height: 1200,
+                      },
+                    }}
+                  />
                 </div>
-                <div className="others-product-images d-flex flex-wrap gap-15">
+                <div className="others-product-images d-flex flex-wrap justify-content-between">
                   <div>
                     <img
                       src={product?.image?.[0]?.url}
@@ -245,80 +267,80 @@ const SingleProduct = () => {
               </div> */}
                 </div>
               </div>
-              <div className="col-6">
-                <div className="main-product-details">
-                  <div className="border-bottom">
-                    <h3 className="title">{product?.title}</h3>
+              <div className="product-details">
+                <div className="border-bottom">
+                  <h3 className="title">{product?.title}</h3>
+                </div>
+                <div className="border-bottom py-3">
+                  <p className="price">{`₹${product?.price}`}</p>
+                  <div className="d-flex align-items-center gap-10">
+                    <ReactStars
+                      count={5}
+                      size={24}
+                      value={Number(product?.totalrating)}
+                      edit={false}
+                      activeColor="#ffd700"
+                    />
+                    <p className="mb-0 t-review">{`(${product?.ratings?.length} review)`}</p>
                   </div>
-                  <div className="border-bottom py-3">
-                    <p className="price">{`₹${product?.price}`}</p>
-                    <div className="d-flex align-items-center gap-10">
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={Number(product?.totalrating)}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                      <p className="mb-0 t-review">{`(${product?.ratings?.length} review)`}</p>
-                    </div>
-                    <a href="#review">Write a Review</a>
+                  <a href="#review">Write a Review</a>
+                </div>
+                <div className="py-3">
+                  <div className="d-flex gap-10 align-items-center my-2">
+                    <h3 className="product-heading">Type:</h3>
+                    <p className="product-data">{product?.title}</p>
                   </div>
-                  <div className="py-3">
-                    <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Type:</h3>
-                      <p className="product-data">{product?.title}</p>
+                  <div className="d-flex gap-10 align-items-center my-2">
+                    <h3 className="product-heading">Brand:</h3>
+                    <p className="product-data">{product?.brand}</p>
+                  </div>
+                  <div className="d-flex gap-10 align-items-center my-2">
+                    <h3 className="product-heading">Category:</h3>
+                    <p className="product-data">{product?.category}</p>
+                  </div>
+                  <div className="d-flex gap-10 align-items-center my-2">
+                    <h3 className="product-heading">Tags:</h3>
+                    <p className="product-data">{product?.tags}</p>
+                  </div>
+                  <div className="d-flex gap-10 align-items-center my-2">
+                    <h3 className="product-heading">Availability:</h3>
+                    <p className="product-data">
+                      {product?.quantity ? `In Stock` : `Out of Stock`}
+                    </p>
+                  </div>
+                  <div className="d-flex gap-10 flex-column mt-2 mb-3 product-size">
+                    <h3 className="product-heading">Size:</h3>
+                    <div className="d-flex flex-wrap gap-15">
+                      <span className="badge border border-1 bg-white text-dark border-secondary">
+                        S
+                      </span>
+                      <span className="badge border border-1 bg-white text-dark border-secondary">
+                        M
+                      </span>
+                      <span className="badge border border-1 bg- text-dark border-secondary">
+                        L
+                      </span>
+                      <span className="badge border border-1 bg-white text-dark border-secondary">
+                        XL
+                      </span>
+                      <span className="badge border border-1 bg-white text-dark border-secondary">
+                        XXl
+                      </span>
                     </div>
-                    <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Brand:</h3>
-                      <p className="product-data">{product?.brand}</p>
-                    </div>
-                    <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Category:</h3>
-                      <p className="product-data">{product?.category}</p>
-                    </div>
-                    <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Tags:</h3>
-                      <p className="product-data">{product?.tags}</p>
-                    </div>
-                    <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Availability:</h3>
-                      <p className="product-data">
-                        {product?.quantity ? `In Stock` : `Out of Stock`}
-                      </p>
-                    </div>
+                  </div>
+                  {!isAvailable && (
                     <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                      <h3 className="product-heading">Size:</h3>
-                      <div className="d-flex flex-wrap gap-15">
-                        <span className="badge border border-1 bg-white text-dark border-secondary">
-                          S
-                        </span>
-                        <span className="badge border border-1 bg-white text-dark border-secondary">
-                          M
-                        </span>
-                        <span className="badge border border-1 bg- text-dark border-secondary">
-                          L
-                        </span>
-                        <span className="badge border border-1 bg-white text-dark border-secondary">
-                          XL
-                        </span>
-                        <span className="badge border border-1 bg-white text-dark border-secondary">
-                          XXl
-                        </span>
-                      </div>
+                      <h3 className="product-heading">Color:</h3>
+                      <Color
+                        colorData={product?.color}
+                        setColorHandler={setColorHandler}
+                      />
                     </div>
+                  )}
+                  <div className="">
                     {!isAvailable && (
-                      <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                        <h3 className="product-heading">Color:</h3>
-                        <Color
-                          colorData={product?.color}
-                          setColorHandler={setColorHandler}
-                        />
-                      </div>
-                    )}
-                    <div className="d-flex gap-10 align-items-center mt-2 mb-3">
-                      {!isAvailable && (
-                        <>
+                      <>
+                        <div className="product-quantity gap-15">
                           <h3 className="product-heading">Quantity:</h3>
                           <div>
                             <input
@@ -333,75 +355,74 @@ const SingleProduct = () => {
                               onChange={(e) => setQuantity(e.target.value)}
                             />
                           </div>
-                        </>
-                      )}
-                      <div className="d-flex align-items-center gap-15">
-                        {!isAvailable ? (
-                          <button
-                            className="button border-0"
-                            // data-bs-toggle="modal"s
-                            // data-bs-target="#staticBackdrop"
-                            type="button"
-                            onClick={() => {
-                              const price = product?.price * quantity;
-                              let cartData = {
-                                productId,
-                                price,
-                                quantity,
-                                color,
-                              };
-                              updateCart(cartData);
-                            }}
-                          >
-                            ADD TO CART
-                          </button>
-                        ) : (
-                          <NavLink to={`/cart`} className="button border-0">
-                            GO TO CART
-                          </NavLink>
-                        )}
-                        <button className="button signup">BUY IT NOW</button>
-                      </div>
-                    </div>
-                    <div className="d-flex align-items-center gap-15">
-                      <div>
-                        <NavLink to="">
-                          <TbGitCompare className="fs-5 me-2" />
-                          Add to Compare
-                        </NavLink>
-                      </div>
-                      <div>
-                        <button className="border-0 bg-transparent">
-                          <AiOutlineHeart
-                            className="fs-5 me-2"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              addToWishListHandler(productId);
-                            }}
-                          />
-                          Add to Wishlist
+                        </div>
+                      </>
+                    )}
+                    <div className="d-flex align-items-center gap-15 mt-3 mb-3">
+                      {!isAvailable ? (
+                        <button
+                          className="button border-0"
+                          // data-bs-toggle="modal"s
+                          // data-bs-target="#staticBackdrop"
+                          type="button"
+                          onClick={() => {
+                            const price = product?.price * quantity;
+                            let cartData = {
+                              productId,
+                              price,
+                              quantity,
+                              color,
+                            };
+                            updateCart(cartData);
+                          }}
+                        >
+                          ADD TO CART
                         </button>
-                      </div>
+                      ) : (
+                        <NavLink to={`/cart`} className="button border-0">
+                          GO TO CART
+                        </NavLink>
+                      )}
+                      <button className="button signup">BUY IT NOW</button>
                     </div>
-                    <div className="d-flex flex-column gap-10 my-3">
-                      <h3 className="product-heading">Shipping & Returns :</h3>
-                      <p className="product-data">
-                        Free shipping and returns available on all orders! we
-                        ship all us domestic orders within{" "}
-                        <b>5-10 business days!</b>
-                      </p>
-                    </div>
-                    <div className="d-flex gap-10 align-items-center my-3">
-                      <h3 className="product-heading">Product Link :</h3>
-                      <NavLink
-                        to="javascript:void(0);"
-                        onClick={() => {
-                          copyToClipboard(window.location.href);
-                        }}
-                      >
-                        Copy Product Link
+                  </div>
+                  <div className="d-flex align-items-center gap-15">
+                    <div>
+                      <NavLink to="">
+                        <TbGitCompare className="fs-5 me-2" />
+                        Add to Compare
                       </NavLink>
                     </div>
+                    <div>
+                      <button className="border-0 bg-transparent">
+                        <AiOutlineHeart
+                          className="fs-5 me-2"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            addToWishListHandler(productId);
+                          }}
+                        />
+                        Add to Wishlist
+                      </button>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column gap-10 my-3">
+                    <h3 className="product-heading">Shipping & Returns :</h3>
+                    <p className="product-data">
+                      Free shipping and returns available on all orders! we ship
+                      all us domestic orders within <b>5-10 business days!</b>
+                    </p>
+                  </div>
+                  <div className="d-flex gap-10 align-items-center my-3">
+                    <h3 className="product-heading">Product Link :</h3>
+                    <NavLink
+                      to="javascript:void(0);"
+                      onClick={() => {
+                        copyToClipboard(window.location.href);
+                      }}
+                    >
+                      Copy Product Link
+                    </NavLink>
                   </div>
                 </div>
               </div>
@@ -557,6 +578,7 @@ const SingleProduct = () => {
                       price={price}
                       imgURL={product?.image?.[0].url}
                       rating={totalrating ? totalrating : ""}
+                      colNumber={Math.round(12 / popularProducts?.length)}
                     />
                   );
                 })}

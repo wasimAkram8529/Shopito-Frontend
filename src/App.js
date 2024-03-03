@@ -18,7 +18,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import TermsAndCondition from "./pages/TermsAndCondition";
-import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import axios from "axios";
@@ -27,6 +26,7 @@ import { getLoginStatus } from "./features/user/userSlice";
 import MyOrders from "./pages/MyOrders";
 import ViewOrder from "./pages/ViewOrder";
 import Profile from "./pages/profile/Profile";
+import SingleProduct from "./pages/singleProduct/SingleProduct";
 
 function App() {
   axios.defaults.withCredentials = true;
