@@ -23,7 +23,7 @@ const Color = ({ colorData, setColorHandler }) => {
               return (
                 <li
                   style={{ backgroundColor: `${item?.title}` }}
-                  onClick={() => setColorHandler(item?._id)}
+                  onClick={() => setColorHandler(item?._id, item?.title)}
                   key={item?._id}
                 ></li>
               );

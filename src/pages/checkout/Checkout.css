@@ -5,16 +5,17 @@
 
 .checkout .address {
   width: 60%;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .checkout .product-details {
   width: 40%;
+  padding-right: 5px;
 }
 
-.checkout .product-details div {
+/* .checkout .product-details div {
   padding: 0 2px;
-}
+} */
 
 @media screen and (max-width: 1000px) {
   .checkout {
@@ -23,9 +24,10 @@
   .checkout .address,
   .checkout .product-details {
     width: 100%;
+    margin-left: 0;
   }
 
-  .checkout .product-details {
+  .checkout .address {
     margin-top: 10px;
   }
 }

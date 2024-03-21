@@ -1,9 +1,9 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToWishList } from "../features/user/userSlice";
-import { shortenText } from "../utils/Validateor";
+import { addToCart, addToWishList } from "../features/user/userSlice";
+import { shortenText } from "../utils/Validator";
 
 const ProductCard = ({
   grid,
@@ -14,12 +14,23 @@ const ProductCard = ({
   price,
   rating,
   colNumber,
+  color,
 }) => {
+  //console.log("color", color);
   let location = useLocation();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const addToWishListHandler = (productId) => {
     dispatch(addToWishList(productId));
+  };
+  const updateCart = (cartItem) => {
+    if (!cartItem.quantity || !cartItem.color) {
+      cartItem.quantity = 1;
+    }
+    console.log(cartItem);
+    // dispatch(addToCart(cartItem));
+    // // setIsAvailable(true);
+    // navigate("/cart");
   };
   return (
     <>
@@ -30,10 +41,7 @@ const ProductCard = ({
             : `col-${colNumber ? colNumber : 3}`
         }`}
       >
-        <NavLink
-          to={`/product/${id}`}
-          className="product-card position-relative"
-        >
+        <Link to={`/product/${id}`} className="product-card position-relative">
           <div className="wishlist-icon position-absolute">
             <button
               className="border-0 bg-transparent"
@@ -74,12 +82,22 @@ const ProductCard = ({
               <button className="border-0 bg-transparent">
                 <img src="../images/view.svg" alt="view" />
               </button>
-              <button className="border-0 bg-transparent">
+              <button
+                className="border-0 bg-transparent"
+                onClick={(e) => {
+                  e.preventDefault();
+                  let cartData = {
+                    productId: id,
+                    price,
+                  };
+                  updateCart(cartData);
+                }}
+              >
                 <img src="../images/add-cart.svg" alt="addCart" />
               </button>
             </div>
           </div>
-        </NavLink>
+        </Link>
       </div>
     </>
   );

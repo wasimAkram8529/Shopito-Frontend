@@ -73,9 +73,11 @@ const SingleProduct = () => {
 
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState(0);
+  const [colorName, setColorName] = useState("");
 
-  const setColorHandler = (colorId) => {
+  const setColorHandler = (colorId, colorTitle) => {
     setColor(colorId);
+    setColorName(colorTitle);
   };
 
   useEffect(() => {
@@ -95,6 +97,7 @@ const SingleProduct = () => {
   const { products } = useSelector((state) => state.product);
   const { user } = useSelector((state) => state.auth);
 
+  //console.log(products);
   let popularProducts = [];
 
   if (products.length !== 0) {
@@ -244,27 +247,6 @@ const SingleProduct = () => {
                       alt={product?.title}
                     />
                   </div>
-                  {/* <div>
-                <img
-                  src="https://www.ooberpad.com/cdn/shop/products/B_WPx7_S2-grey.jpg?v=1670560675&width=750"
-                  className="img-fluid"
-                  alt="headphone"
-                />
-              </div>
-              <div>
-                <img
-                  src="https://www.ooberpad.com/cdn/shop/products/B_WPx7_S2-grey.jpg?v=1670560675&width=750"
-                  className="img-fluid"
-                  alt="headphone"
-                />
-              </div>
-              <div>
-                <img
-                  src="https://www.ooberpad.com/cdn/shop/products/B_WPx7_S2-grey.jpg?v=1670560675&width=750"
-                  className="img-fluid"
-                  alt="headphone"
-                />
-              </div> */}
                 </div>
               </div>
               <div className="product-details">
@@ -392,7 +374,10 @@ const SingleProduct = () => {
                             navigate("/checkout", {
                               state: {
                                 product,
-                                color,
+                                color: {
+                                  color,
+                                  colorName,
+                                },
                                 quantity,
                               },
                             });

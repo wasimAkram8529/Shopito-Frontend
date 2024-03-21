@@ -1,0 +1,38 @@
+.special-product {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.special-product .product-img {
+  width: 50%;
+}
+
+.special-product .product-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.special-product-card {
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.special-product-card .badge {
+  background-color: var(--color-fc353c00) !important;
+}
+
+.special-product a {
+  width: 100%;
+  text-align: center;
+}
+@media screen and (max-width: 1000px) {
+  .special-product {
+    flex-direction: column;
+  }
+
+  .special-product .product-img {
+    margin-bottom: 10px;
+  }
+}

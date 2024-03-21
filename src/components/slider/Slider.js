@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Slider.css";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate, NavLink } from "react-router-dom";
-import { shortenText } from "../../utils/Validateor";
+import { shortenText } from "../../utils/Validator";
 
 const Slider = ({ slider }) => {
   const [currentSlide, setCurrentSlide] = useState(0);

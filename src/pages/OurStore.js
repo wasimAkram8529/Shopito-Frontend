@@ -7,9 +7,11 @@ import Color from "../components/Color";
 import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/products/productSlice";
+import { useLocation } from "react-router-dom";
 
 const OurStore = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [brands, setBrands] = useState([]);
   const [pCategories, setPCategories] = useState([]);
   const [pTags, setProductTags] = useState([]);
@@ -23,8 +25,12 @@ const OurStore = () => {
   const [maxAmount, setMaxAmount] = useState(1000000007);
   const [sort, setSort] = useState("");
 
+  //console.log(location?.state);
+
   useEffect(() => {
-    dispatch(getProducts({ sort, minAmount, maxAmount }));
+    dispatch(
+      getProducts({ sort, minAmount, maxAmount, tags: location?.state?.type })
+    );
   }, [sort, minAmount, maxAmount]);
 
   const { products, isLoading, isSuccess } = useSelector(
@@ -33,7 +39,7 @@ const OurStore = () => {
 
   // console.log("Min", minAmount);
   // console.log("Max", maxAmount, typeof maxAmount);
-  // console.log(products);
+  //console.log(products);
   useEffect(() => {
     let availableMinAmount = 1e9 + 7;
     let availableMaxAmount = 0;
@@ -123,7 +129,7 @@ const OurStore = () => {
   // }, [minAmount, maxAmount]);
 
   const [grid, setGrid] = useState(4);
-  console.log(sort);
+  //console.log(sort);
   return (
     <>
       <Meta title="Our Store" />

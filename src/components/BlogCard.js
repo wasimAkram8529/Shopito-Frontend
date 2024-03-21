@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { shortenText } from "../utils/Validateor";
+import { shortenText } from "../utils/Validator";
 
 const BlogCard = ({ id, title, description, imgURL, date }) => {
   return (

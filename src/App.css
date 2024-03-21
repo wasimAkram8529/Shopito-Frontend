@@ -350,17 +350,7 @@ footer .input-group-text {
   right: 15px;
 }
 /* Product Card ends */
-/* Special Products */
-.special-product-card {
-  padding: 20px 10px;
-  border-radius: 10px;
-  background-color: white;
-}
 
-.special-product-card .badge {
-  background-color: var(--color-fc353c00) !important;
-}
-/* Special Product ends*/
 /* Famous Products*/
 .famous-card .famous-content {
   top: 10%;

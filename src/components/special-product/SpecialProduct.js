@@ -1,6 +1,7 @@
+import "./specialProduct.css";
 import React from "react";
 import ReactStars from "react-rating-stars-component";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SpecialProduct = ({
   id,
@@ -23,19 +24,13 @@ const SpecialProduct = ({
   return (
     <div className="col-6 mb-3">
       <div className="special-product-card">
-        <div className="d-flex justify-content-between">
-          <div>
-            <img
-              src={imgURL ? imgURL : "images/watch.jpg"}
-              className="img-fluid"
-              alt="Watch"
-            />
+        <div className="special-product">
+          <div className="product-img">
+            <img src={imgURL} alt="Watch" />
           </div>
           <div className="special-product-content">
-            <h5 className="brand">{brand ? brand : "Havels"}</h5>
-            <h6 className="title">
-              {title ? title : "Samsung Galaxy Note10+ Mobile Phone; Sim..."}
-            </h6>
+            <h5 className="brand">{brand}</h5>
+            <h6 className="title">{title}</h6>
             <ReactStars
               count={5}
               size={24}
@@ -44,7 +39,7 @@ const SpecialProduct = ({
               activeColor="#ffd700"
             />
             <p className="price">
-              <span className="red-p">{price ? price : `₹8000`}</span>&nbsp;
+              <span className="red-p">{`₹${price}`}</span>&nbsp;
               <strike>₹16000</strike>
             </p>
             <div className="discount-till d-flex align-items-center gap-10">

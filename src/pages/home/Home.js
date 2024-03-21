@@ -1,15 +1,14 @@
 import React from "react";
 import "./Home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../../components/BlogCard";
 import ProductCard from "../../components/ProductCard";
-import SpecialProduct from "../../components/SpecialProduct";
+import SpecialProduct from "../../components/special-product/SpecialProduct";
 import Meta from "../../components/Meta";
 import Container from "../../components/Container";
 import { services } from "../../utils/Data";
 import Slider from "../../components/slider/Slider";
-import { productData } from "../../components/corousel/data";
 import CarouselItem from "../../components/corousel/CarouselItem";
 import ProductCarousel from "../../components/corousel/Carousel";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,13 +16,26 @@ import { useEffect } from "react";
 import { getAllBlogs } from "../../features/blogs/blogSlice";
 import moment from "moment";
 import { getProducts } from "../../features/products/productSlice";
+import { shortenText } from "../../utils/Validator";
 
 const PageHeading = ({ heading, btnText }) => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="--flex-between">
         <h2 className="--fw-thin">{heading}</h2>
-        <button className="--btn">{btnText}</button>
+        <button
+          className="--btn"
+          onClick={() =>
+            navigate("/products", {
+              state: {
+                type: "latest",
+              },
+            })
+          }
+        >
+          {btnText}
+        </button>
       </div>
       <div className="--hr"></div>
     </>
@@ -32,6 +44,7 @@ const PageHeading = ({ heading, btnText }) => {
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllBlogs());
@@ -47,6 +60,8 @@ const Home = () => {
   let featureProducts = [];
   let specialProducts = [];
   let slider = [];
+  let newLaunch = [];
+  let latestProduct = [];
 
   if (!products || products?.length !== 0) {
     popularProducts = products?.filter((product) => product.tags === "popular");
@@ -65,19 +80,27 @@ const Home = () => {
   if (!products || products?.length !== 0) {
     slider = products?.filter((product) => product.tags === "slider");
   }
+  if (!products || products?.length !== 0) {
+    newLaunch = products?.filter((product) => product.tags === "newLaunch");
+  }
+  if (!products || products?.length !== 0) {
+    latestProduct = products?.filter((product) => product.tags === "latest");
+  }
 
+  //console.log("New Launch", newLaunch);
   //console.log("Slider", slider);
   //console.log("Popular Product", popularProducts);
   //console.log("Featured Product", featureProducts);
   // console.log("Special Product",specialProducts);
 
-  const latestProducts = productData.map((item) => (
-    <div key={item.id}>
+  const latestProducts = latestProduct.map((item) => (
+    <div key={item?._id}>
       <CarouselItem
-        name={item.name}
-        url={item.imageurl}
-        price={item.price}
-        description={item.description}
+        name={item?.title}
+        url={item?.image?.[0]?.url}
+        price={item?.price}
+        description={item?.description}
+        _id={item?._id}
       />
     </div>
   ));
@@ -98,19 +121,25 @@ const Home = () => {
               </div>
               <div className="main-banner-content position-absolute">
                 <h4>SUPERCHARGED FOR PROS.</h4>
-                <h5>iPad S13+ Pro.</h5>
+                <h5>{newLaunch?.[0]?.title}</h5>
                 <p>
-                  From $999.00 or $41.62/mo. <br />
-                  for 24 mo. Footnote*
+                  From {`₹${newLaunch?.[0]?.price}`} or{" "}
+                  {`₹${Math.round(newLaunch?.[0]?.price / 6)}`}/mo. <br />
+                  for 6 mo. Footnote*
                 </p>
-                <Link className="button">BUY NOW</Link>
+                <Link className="button" to={`/product/${newLaunch?.[0]?._id}`}>
+                  BUY NOW
+                </Link>
               </div>
             </div>
           </div>
           <div>
             <div className="main-banner-content-2">
               <div className="inner-container">
-                <div className="small-banner-content-2 position-relative">
+                <div
+                  className="small-banner-content-2 position-relative"
+                  onClick={() => navigate(`/product/${newLaunch?.[1]?._id}`)}
+                >
                   <div className="picture-container">
                     <img
                       src="images/catbanner-01.jpg"
@@ -120,8 +149,11 @@ const Home = () => {
                   </div>
                   <div className="small-banner-content position-absolute">
                     <h4>BEST SALE</h4>
-                    <h5>Laptops Max</h5>
-                    <p>From $1699.00 or $64.62/mo.</p>
+                    <h5>{shortenText(newLaunch?.[1]?.title, 10)}</h5>
+                    <p>
+                      From {`₹${newLaunch?.[1]?.price}`} or{" "}
+                      {`₹${Math.round(newLaunch?.[1]?.price / 6)}`}/mo.
+                    </p>
                   </div>
                 </div>
                 <div className="small-banner-content-2 position-relative">
@@ -132,10 +164,10 @@ const Home = () => {
                   />
                   <div className="small-banner-content position-absolute">
                     <h4>NEW ARRIVAL</h4>
-                    <h5>Buy IPad Air</h5>
+                    <h5>{shortenText(newLaunch?.[2]?.title, 10)}</h5>
                     <p>
-                      From $599.00 or <br />
-                      $49.91/mo for 12 mo.
+                      From {`₹${newLaunch?.[2]?.price}`} or{" "}
+                      {`₹${Math.round(newLaunch?.[2]?.price / 6)}`}/mo.
                     </p>
                   </div>
                 </div>
@@ -151,10 +183,10 @@ const Home = () => {
                   </div>
                   <div className="small-banner-content position-absolute">
                     <h4>BEST SALE</h4>
-                    <h5>Laptops Max</h5>
+                    <h5>{shortenText(newLaunch?.[3]?.title, 10)}</h5>
                     <p>
-                      From $1699.00 or <br />
-                      $64.62/mo.
+                      From {`₹${newLaunch?.[3]?.price}`} or{" "}
+                      {`₹${Math.round(newLaunch?.[3]?.price / 6)}`}/mo.
                     </p>
                   </div>
                 </div>
@@ -166,10 +198,10 @@ const Home = () => {
                   />
                   <div className="small-banner-content position-absolute">
                     <h4>NEW ARRIVAL</h4>
-                    <h5>Buy IPad Air</h5>
+                    <h5>{shortenText(newLaunch?.[4]?.title, 10)}</h5>
                     <p>
-                      From $599.00 or <br />
-                      $49.91/mo for 12 mo.
+                      From {`₹${newLaunch?.[4]?.price}`} or{" "}
+                      {`₹${Math.round(newLaunch?.[4]?.price / 6)}`}/mo.
                     </p>
                   </div>
                 </div>
@@ -368,8 +400,20 @@ const Home = () => {
       {featureProducts.length !== 0 && (
         <Container class1="featured-wrapper home-wrapper-2 py-5">
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 --flex-between">
               <h3 className="section-heading">Featured Collection</h3>
+              <button
+                className="--btn"
+                onClick={() =>
+                  navigate("/products", {
+                    state: {
+                      type: "featured",
+                    },
+                  })
+                }
+              >
+                Shop Now {">>>"}
+              </button>
             </div>
             {featureProducts?.length !== 0 &&
               featureProducts.map((product) => {
@@ -452,52 +496,79 @@ const Home = () => {
         </div>
       </Container> */}
       {specialProducts.length !== 0 && (
-        <section className="special-product py-5 home-wrapper-2">
-          <div className="container-xxl">
-            <div className="row">
-              <div className="col-12">
-                <h3 className="section-heading">Special Products</h3>
+        <Container class1="home-wrapper-2 py-5">
+          <section className="special-product py-5 home-wrapper-2">
+            <div className="container-xxl">
+              <div className="row">
+                <div className="col-12 --flex-between">
+                  <h3 className="section-heading">Special Products</h3>
+                  <button
+                    className="--btn"
+                    onClick={() =>
+                      navigate("/products", {
+                        state: {
+                          type: "special",
+                        },
+                      })
+                    }
+                  >
+                    Shop Now {">>>"}
+                  </button>
+                </div>
+              </div>
+              <div className="row">
+                {specialProducts.length !== 0 &&
+                  specialProducts.map((product) => {
+                    const {
+                      _id,
+                      sold,
+                      quantity,
+                      title,
+                      price,
+                      totalrating,
+                      brand,
+                    } = product;
+                    return (
+                      <SpecialProduct
+                        key={_id}
+                        id={_id}
+                        brand={brand}
+                        title={title}
+                        sold={sold}
+                        quantity={quantity}
+                        price={price}
+                        imgURL={product?.image?.[0].url}
+                        rating={Number(totalrating)}
+                      />
+                    );
+                  })}
               </div>
             </div>
-            <div className="row">
-              {specialProducts.length !== 0 &&
-                specialProducts.map((product) => {
-                  const {
-                    _id,
-                    sold,
-                    quantity,
-                    title,
-                    price,
-                    totalrating,
-                    brand,
-                  } = product;
-                  return (
-                    <SpecialProduct
-                      key={_id}
-                      id={_id}
-                      brand={brand}
-                      title={title}
-                      sold={sold}
-                      quantity={quantity}
-                      price={price}
-                      imgURL={product?.image?.[0].url}
-                      rating={Number(totalrating)}
-                    />
-                  );
-                })}
-            </div>
-          </div>
-        </section>
+          </section>
+        </Container>
       )}
       {popularProducts.length !== 0 && (
         <Container class1="popular-wrapper home-wrapper-2 py-5">
           <div className="row">
-            <div className="col-12">
+            <div className="col-12 --flex-between">
               <h3 className="section-heading">Our Popular Products</h3>
+              <button
+                className="--btn"
+                onClick={() =>
+                  navigate("/products", {
+                    state: {
+                      type: "popular",
+                    },
+                  })
+                }
+              >
+                Shop Now {">>>"}
+              </button>
             </div>
             {popularProducts?.length !== 0 &&
               popularProducts.map((product) => {
-                const { _id, description, title, price, totalrating } = product;
+                const { _id, description, title, price, totalrating, color } =
+                  product;
                 return (
                   <ProductCard
                     key={_id}
@@ -507,6 +578,7 @@ const Home = () => {
                     price={price}
                     imgURL={product?.image?.[0].url}
                     rating={Number(totalrating)}
+                    color={color?.[0]?.title}
                   />
                 );
               })}
