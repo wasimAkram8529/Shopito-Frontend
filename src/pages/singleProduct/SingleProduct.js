@@ -4,7 +4,6 @@ import Meta from "../../components/Meta";
 import BreadCrumb from "../../components/BreadCrumb";
 import ProductCard from "../../components/ProductCard";
 import ReactStars from "react-rating-stars-component";
-import ReactImageMagnify from "react-image-magnify";
 import Color from "../../components/Color";
 import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -13,6 +12,8 @@ import { MdDelete } from "react-icons/md";
 import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
+import ReactImageMagnify from "react-image-magnify";
+
 import {
   deleteProductReview,
   getAProduct,
@@ -217,6 +218,22 @@ const SingleProduct = () => {
                       },
                     }}
                   />
+                  {/* <ReactImageMagnifier
+                    {...{
+                      smallImage: {
+                        alt: "Small Image",
+                        src: "path_to_your_small_image",
+                        isFluidWidth: true,
+                      },
+                      largeImage: {
+                        src: "path_to_your_large_image",
+                        width: 1200,
+                        height: 1800,
+                      },
+                      enlargedImagePosition: "over",
+                      hoverDelayInMs: 0,
+                    }}
+                  /> */}
                 </div>
                 <div className="others-product-images d-flex flex-wrap justify-content-between">
                   <div>
