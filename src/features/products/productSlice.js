@@ -100,7 +100,7 @@ export const deleteProductReview = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { id, userId } = payload;
-      console.log(id, userId);
+      //console.log(id, userId);
       return await productService.deleteProductReview(id, userId);
     } catch (error) {
       const message =

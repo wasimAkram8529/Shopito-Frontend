@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API_URL = `http://localhost:5000/api/upload/`;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+export const API_URL = `${BACKEND_URL}/api/upload/`;
 const uploadProductImg = async (data) => {
   const response = await axios.post(API_URL + "upload-productImg", data);
   return response.data;

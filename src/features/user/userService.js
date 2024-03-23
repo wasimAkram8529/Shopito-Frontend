@@ -1,7 +1,8 @@
 import axios from "axios";
 
-// const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API_URL = `http://localhost:5000/api/user/`;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+export const API_URL = `${BACKEND_URL}/api/user/`;
+//console.log(BACKEND_URL);
 
 // Register User
 const registerUser = async (userData) => {

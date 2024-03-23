@@ -36,7 +36,7 @@ const Contact = () => {
   });
 
   const { contact } = useSelector((state) => state.contact);
-  console.log(contact);
+  //console.log(contact);
 
   return (
     <>

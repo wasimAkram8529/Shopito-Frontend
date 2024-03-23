@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API_URL = `http://localhost:5000/api/products/`;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+export const API_URL = `${BACKEND_URL}/api/products/`;
 
 // Get All Products
 const getProducts = async (query) => {
@@ -30,13 +30,13 @@ const writeProductReview = async (id, review) => {
 
 // Update Product Review
 const updateProductReview = async (id, newReview) => {
-  console.log(newReview);
+  //console.log(newReview);
   const response = await axios.patch(API_URL + `updateReview/${id}`, newReview);
   return response.data;
 };
 // Delete A Review
 const deleteProductReview = async (id, userId) => {
-  console.log("id", userId);
+  //console.log("id", userId);
   const response = await axios.patch(API_URL + `deleteReview/${id}`, {
     userId,
   });

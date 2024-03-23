@@ -58,7 +58,7 @@ const Profile = () => {
       dispatch(updateUser(values))
         .then((data) => {
           const userData = data.payload;
-          console.log(userData);
+          //console.log(userData);
           formik.setValues({
             firstName: userData?.[0]?.firstName,
             lastName: userData?.[0]?.lastName,

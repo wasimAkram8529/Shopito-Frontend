@@ -35,13 +35,13 @@ const Login = () => {
   const { user, isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.auth
   );
-  console.log(user);
+  //console.log(user);
 
   useEffect(() => {
     if (isSuccess && user?.length !== 0) {
       navigate("/");
     } else if (isError) {
-      console.log(message);
+      //console.log(message);
     }
     return () => {
       RESET_AUTH();

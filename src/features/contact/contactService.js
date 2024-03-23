@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API_URL = `http://localhost:5000/api/enquiry/`;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+export const API_URL = `${BACKEND_URL}/api/enquiry/`;
 
 // Get All Blogs
 const createEnquiry = async (enquiry) => {

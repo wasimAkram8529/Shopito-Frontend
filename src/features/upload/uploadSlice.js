@@ -91,7 +91,7 @@ export const uploadSlice = createSlice({
         state.images = state.images.filter(
           (image) => image.public_id !== action.payload.id
         );
-        console.log(state.images);
+        //console.log(state.images);
         toast.success(action.payload.message);
       })
       .addCase(deleteProductImg.rejected, (state, action) => {

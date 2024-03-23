@@ -18,7 +18,7 @@ const Blog = () => {
   }, []);
 
   const { blogs } = useSelector((state) => state.blog);
-  console.log(blogs);
+  //console.log(blogs);
   return (
     <>
       <Meta title="Blog" />
