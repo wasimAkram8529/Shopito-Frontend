@@ -12,7 +12,7 @@ import { MdDelete } from "react-icons/md";
 import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
-import ReactImageMagnify from "react-image-magnify";
+//import ReactImageMagnify from "react-image-magnify";
 
 import {
   deleteProductReview,
@@ -204,7 +204,7 @@ const SingleProduct = () => {
             <div className="product-with-details">
               <div className="product-img">
                 <div className="main-product-image">
-                  <ReactImageMagnify
+                  {/* <ReactImageMagnify
                     {...{
                       smallImage: {
                         alt: `Product Image`,
@@ -216,22 +216,6 @@ const SingleProduct = () => {
                         width: 1200,
                         height: 1200,
                       },
-                    }}
-                  />
-                  {/* <ReactImageMagnifier
-                    {...{
-                      smallImage: {
-                        alt: "Small Image",
-                        src: "path_to_your_small_image",
-                        isFluidWidth: true,
-                      },
-                      largeImage: {
-                        src: "path_to_your_large_image",
-                        width: 1200,
-                        height: 1800,
-                      },
-                      enlargedImagePosition: "over",
-                      hoverDelayInMs: 0,
                     }}
                   /> */}
                 </div>
