@@ -56,6 +56,7 @@ const Checkout = (props) => {
 
   const checkOutHandler = async () => {
     // Load Razorpay SDK
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -67,7 +68,7 @@ const Checkout = (props) => {
     // Make request to create a checkout order
     try {
       const result = await axios.post(
-        "http://localhost:5000/api/user/order/checkout",
+        `${BACKEND_URL}/api/user/order/checkout`,
         { amount: totalAmount + 40 }
       );
 
@@ -101,7 +102,7 @@ const Checkout = (props) => {
           // Verify the payment
           try {
             const result = await axios.post(
-              "http://localhost:5000/api/user/order/paymentVerification",
+              `${BACKEND_URL}/api/user/order/paymentVerification`,
               data
             );
 
