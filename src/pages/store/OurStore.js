@@ -133,10 +133,10 @@ const OurStore = () => {
   const [grid, setGrid] = useState(12);
   //console.log(sort);
 
-  console.log(filterMenu);
+  //console.log(filterMenu);
   return (
     <>
-      <Meta title="Our Store" />
+      <Meta title="Shopito" />
       <BreadCrumb title="Our Store" />
       <Container class1="store-wrapper home-wrapper-2 py-5">
         <div className="store">

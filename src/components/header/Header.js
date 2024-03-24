@@ -245,7 +245,7 @@ const Header = () => {
                     <div className="tooltip-login">Login</div>
                   </div>
                 </ShowOnLogout>
-                <ShowOnLogout>
+                {/* <ShowOnLogout>
                   <div className="register-container">
                     <div>
                       <NavLink to={"signup"} className={activeLink}>
@@ -254,7 +254,7 @@ const Header = () => {
                     </div>
                     <div className="tooltip-register">Register</div>
                   </div>
-                </ShowOnLogout>
+                </ShowOnLogout> */}
                 <ShowOnLogout>
                   <div className="register-container">
                     <div>

@@ -144,10 +144,10 @@ const Home = () => {
     );
   });
 
-  console.log(specialProducts);
+  //console.log(specialProducts);
   return (
     <>
-      <Meta title="Ecommerce App" />
+      <Meta title="Shopito" />
       <Slider slider={slider} />
       <Container class1="py-5">
         <div className="home-container-1">

@@ -6,6 +6,7 @@ import {
   LinkOutlined,
   MailOutlined,
   SettingOutlined,
+  OrderedListOutlined,
 } from "@ant-design/icons";
 import { FaBloggerB } from "react-icons/fa";
 import { Menu } from "antd";
@@ -53,7 +54,11 @@ const items = [
   //   getItem("Option 11", "11"),
   //   getItem("Option 12", "12"),
   // ]),
-  // getItem(<NavLink to="/">Ant Design</NavLink>, "link", <LinkOutlined />),
+  getItem(
+    <NavLink to="/my-orders">My Order</NavLink>,
+    "link",
+    <OrderedListOutlined />
+  ),
 ];
 
 // submenu keys of first level

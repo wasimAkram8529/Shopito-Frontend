@@ -299,7 +299,7 @@ const SingleProduct = () => {
                       {product?.quantity ? `In Stock` : `Out of Stock`}
                     </p>
                   </div>
-                  <div className="d-flex gap-10 flex-column mt-2 mb-3 product-size">
+                  {/* <div className="d-flex gap-10 flex-column mt-2 mb-3 product-size">
                     <h3 className="product-heading">Size:</h3>
                     <div className="d-flex flex-wrap gap-15">
                       <span className="badge border border-1 bg-white text-dark border-secondary">
@@ -318,7 +318,7 @@ const SingleProduct = () => {
                         XXl
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                   {!isAvailable && (
                     <div className="d-flex gap-10 flex-column mt-2 mb-3">
                       <h3 className="product-heading">Color:</h3>
@@ -427,7 +427,7 @@ const SingleProduct = () => {
                   <div className="d-flex gap-10 align-items-center my-3">
                     <h3 className="product-heading">Product Link :</h3>
                     <NavLink
-                      to="javascript:void(0);"
+                      to="#"
                       onClick={() => {
                         copyToClipboard(window.location.href);
                       }}

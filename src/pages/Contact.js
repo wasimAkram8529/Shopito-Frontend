@@ -40,7 +40,7 @@ const Contact = () => {
 
   return (
     <>
-      <Meta title="Contact Us" />
+      <Meta title="Shopito" />
       <BreadCrumb title="Contact Us" />
       <Container class1="contact-wrapper home-wrapper-2 py-5">
         <div className="row">

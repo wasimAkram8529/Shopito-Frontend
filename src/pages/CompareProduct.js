@@ -7,7 +7,7 @@ import Container from "../components/Container";
 const CompareProduct = () => {
   return (
     <>
-      <Meta title="Compare Products" />
+      <Meta title="Shopito" />
       <BreadCrumb title="Compare Products" />
       <Container class1="compare-product-wrapper home-wrapper-2 py-5">
         <div className="row">
