@@ -1,0 +1,72 @@
+.store {
+  position: relative;
+  display: flex;
+}
+
+.store-right-part {
+  margin-left: 10px;
+}
+
+.store-middle-right-part {
+  display: none;
+}
+
+.store-left-part {
+  width: 30%;
+}
+
+.price-available-option {
+  width: 100%;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.to {
+  text-align: center;
+}
+@media screen and (max-width: 1000px) {
+  .store .store-left-part {
+    position: absolute;
+    top: 138px;
+    bottom: 0;
+    left: 10px;
+    z-index: 2;
+    background-color: white;
+    width: 96%;
+    border-radius: 10px;
+  }
+
+  .price-available-option {
+    padding-left: 40%;
+  }
+  .store .close-filter-menu {
+    display: none;
+  }
+  .layout-selector .fourProduct {
+    display: none !important;
+  }
+  .store .store-top-right-part {
+    margin-left: 10px;
+    text-align: center;
+  }
+  .store-middle-right-part {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+
+  .store-middle-right-part img {
+    width: 30px;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .layout-selector {
+    display: none !important;
+  }
+}

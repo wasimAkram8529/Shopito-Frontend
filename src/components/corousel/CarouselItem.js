@@ -17,7 +17,7 @@ const CarouselItem = ({ url, name, price, description, _id }) => {
         className="--btn --btn-primary --btn-block"
         onClick={() => navigate(`/product/${_id}`)}
       >
-        Add to Cart
+        View
       </button>
     </div>
   );

@@ -18,7 +18,7 @@ import moment from "moment";
 import { getProducts } from "../../features/products/productSlice";
 import { shortenText } from "../../utils/Validator";
 
-const PageHeading = ({ heading, btnText }) => {
+const PageHeading = ({ heading, btnText, type }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -29,7 +29,7 @@ const PageHeading = ({ heading, btnText }) => {
           onClick={() =>
             navigate("/products", {
               state: {
-                type: "latest",
+                type: type,
               },
             })
           }
@@ -126,6 +126,25 @@ const Home = () => {
       />
     </div>
   ));
+
+  specialProducts = specialProducts.map((item) => {
+    const { totalrating, brand } = item;
+    return (
+      <div key={item?._id}>
+        <SpecialProduct
+          name={item?.title}
+          url={item?.image?.[0]?.url}
+          price={item?.price}
+          description={item?.description}
+          _id={item?._id}
+          brand={brand}
+          rating={Number(totalrating)}
+        />
+      </div>
+    );
+  });
+
+  console.log(specialProducts);
   return (
     <>
       <Meta title="Ecommerce App" />
@@ -345,7 +364,11 @@ const Home = () => {
       </Container> */}
       <Container class1="py-5">
         <div className="container">
-          <PageHeading heading={"Latest Products"} btnText={"Shop Now >>>"} />
+          <PageHeading
+            heading={"Latest Products"}
+            btnText={"Shop Now >>>"}
+            type="latest"
+          />
           <ProductCarousel products={latestProducts} />
         </div>
       </Container>
@@ -457,8 +480,22 @@ const Home = () => {
       )} */}
       <Container class1="py-5">
         <div className="container">
-          <PageHeading heading={"Featured Products"} btnText={"Shop Now >>>"} />
+          <PageHeading
+            heading={"Featured Products"}
+            btnText={"Shop Now >>>"}
+            type="featured"
+          />
           <ProductCarousel products={featureProducts} />
+        </div>
+      </Container>
+      <Container class1="py-5">
+        <div className="container">
+          <PageHeading
+            heading={"Special Products"}
+            btnText={"Shop Now >>>"}
+            type="special"
+          />
+          <ProductCarousel products={specialProducts} />
         </div>
       </Container>
       {/* <Container class1="famous-wrapper py-5 home-wrapper-2">
@@ -523,7 +560,7 @@ const Home = () => {
           </div>
         </div>
       </Container> */}
-      {specialProducts.length !== 0 && (
+      {/* {specialProducts.length !== 0 && (
         <Container class1="home-wrapper-2 py-5">
           <section className="special-product py-5 home-wrapper-2">
             <div className="container-xxl">
@@ -574,7 +611,7 @@ const Home = () => {
             </div>
           </section>
         </Container>
-      )}
+      )} */}
       {/* {popularProducts.length !== 0 && (
         <Container class1="popular-wrapper home-wrapper-2 py-5">
           <div className="row">

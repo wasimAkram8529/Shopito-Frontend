@@ -1,12 +1,13 @@
+import "./OurStore.css";
 import React, { useEffect, useState } from "react";
-import BreadCrumb from "../components/BreadCrumb";
-import Meta from "../components/Meta";
+import BreadCrumb from "../../components/BreadCrumb";
+import Meta from "../../components/Meta";
 import ReactStars from "react-rating-stars-component";
-import ProductCard from "../components/ProductCard";
-import Color from "../components/Color";
-import Container from "../components/Container";
+import ProductCard from "../../components/ProductCard";
+import Color from "../../components/Color";
+import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../features/products/productSlice";
+import { getProducts } from "../../features/products/productSlice";
 import { useLocation } from "react-router-dom";
 
 const OurStore = () => {
@@ -24,6 +25,7 @@ const OurStore = () => {
   const [minAmount, setMinAmount] = useState(0);
   const [maxAmount, setMaxAmount] = useState(1000000007);
   const [sort, setSort] = useState("");
+  const [filterMenu, setFilterMenu] = useState(false);
 
   //console.log(location?.state);
 
@@ -128,15 +130,17 @@ const OurStore = () => {
   //   setRelatedProducts(filteredProduct);
   // }, [minAmount, maxAmount]);
 
-  const [grid, setGrid] = useState(4);
+  const [grid, setGrid] = useState(12);
   //console.log(sort);
+
+  console.log(filterMenu);
   return (
     <>
       <Meta title="Our Store" />
       <BreadCrumb title="Our Store" />
       <Container class1="store-wrapper home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-3">
+        <div className="store">
+          <div className={filterMenu ? "store-left-part" : "close-filter-menu"}>
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop By Categories</h3>
               <div>
@@ -148,6 +152,7 @@ const OurStore = () => {
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
                         onClick={(e) => {
+                          setFilterMenu(false);
                           setSelectedTags({
                             searchCategory: "category",
                             value: e.target.innerText,
@@ -172,6 +177,7 @@ const OurStore = () => {
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
                         onClick={(e) => {
+                          setFilterMenu(false);
                           setSelectedTags({
                             searchCategory: "tags",
                             value: e.target.innerText,
@@ -220,6 +226,7 @@ const OurStore = () => {
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
                         onClick={(e) => {
+                          setFilterMenu(false);
                           setSelectedTags({
                             searchCategory: "brand",
                             value: e.target.innerText,
@@ -275,12 +282,14 @@ const OurStore = () => {
                   <div className="form-floating" style={{ flex: "1" }}>
                     <select
                       onChange={(e) => {
+                        setFilterMenu(false);
                         if (e.target.value !== "Min") {
                           setMinAmount(Number(e.target.value));
                         } else {
                           setMinAmount(0);
                         }
                       }}
+                      className="price-available-option"
                     >
                       <option value="Min" selected>
                         Min
@@ -297,7 +306,7 @@ const OurStore = () => {
                       <option value="5000">₹5000</option>
                     </select>
                   </div>
-                  <div className="form-floating" style={{ flex: "1" }}>
+                  <div className="form-floating to" style={{ flex: "1" }}>
                     <h6>To</h6>
                   </div>
                   <div className="form-floating" style={{ flex: "1" }}>
@@ -309,6 +318,7 @@ const OurStore = () => {
                           setMaxAmount(0);
                         }
                       }}
+                      className="price-available-option"
                     >
                       <option value="Max" selected>
                         Max
@@ -401,7 +411,7 @@ const OurStore = () => {
               </div>
             </div>
           </div>
-          <div className="col-9">
+          <div className="store-right-part">
             <div className="filter-sort-grid mb-3">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-10">
@@ -428,44 +438,55 @@ const OurStore = () => {
                     <option value="-createdAt">Date, new to old</option>
                   </select>
                 </div>
-                <div className="d-flex align-items-center gap-10 grid">
+                <div className="d-flex align-items-center gap-10 grid store-top-right-part">
                   <p className="totalProducts mb-0">
                     {relatedProducts.length !== 0
                       ? relatedProducts?.length
                       : products?.length}{" "}
                     Products
                   </p>
-                  <div className="d-flex align-items-center gap-10">
+                  <div className="d-flex align-items-center gap-10 layout-selector">
                     <img
                       onClick={() => setGrid(3)}
                       src="images/gr4.svg"
-                      className="d-block img-fluid"
+                      className="d-block img-fluid fourProduct"
                       alt="grid"
                     />
                     <img
                       onClick={() => setGrid(4)}
                       src="images/gr3.svg"
-                      className="d-block img-fluid"
+                      className="d-block img-fluid threeProduct"
                       alt="grid"
                     />
                     <img
                       onClick={() => setGrid(6)}
                       src="images/gr2.svg"
-                      className="d-block img-fluid"
+                      className="d-block img-fluid twoProduct"
                       alt="grid"
                     />
                     <img
                       onClick={() => setGrid(12)}
                       src="images/gr.svg"
-                      className="d-block img-fluid"
+                      className="d-block img-fluid oneProduct"
                       alt="grid"
                     />
                   </div>
                 </div>
               </div>
             </div>
+            <div className="store-middle-right-part">
+              <p className="mb-0 d-block" style={{ width: "100px" }}>
+                Apply filters {">"}
+              </p>
+              <img
+                src="images/gr.svg"
+                className=""
+                alt="grid"
+                onClick={() => setFilterMenu(!filterMenu)}
+              />
+            </div>
             <div className="product-list pb-5">
-              <div className="d-flex gap-10 flex-wrap">
+              <div className="d-flex flex-wrap">
                 {isSuccess && relatedProducts?.length !== 0
                   ? relatedProducts?.map((product) => {
                       return (
