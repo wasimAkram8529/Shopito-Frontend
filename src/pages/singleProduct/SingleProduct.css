@@ -172,6 +172,23 @@
   align-items: center;
 }
 
+.main-product-image img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.main-product-image div img {
+  width: 100% !important;
+  height: 450px !important;
+}
+.js-image-zoom__zoomed-area {
+  width: 50px !important;
+  height: 50px !important;
+}
+.js-image-zoom__zoomed-image {
+  width: 100% !important;
+  height: 100% !important;
+}
 @media screen and (max-width: 1000px) {
   .popular-product {
     margin: 0 0 !important;

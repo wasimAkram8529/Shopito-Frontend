@@ -104,6 +104,28 @@ const Home = () => {
       />
     </div>
   ));
+  featureProducts = featureProducts.map((item) => (
+    <div key={item?._id}>
+      <CarouselItem
+        name={item?.title}
+        url={item?.image?.[0]?.url}
+        price={item?.price}
+        description={item?.description}
+        _id={item?._id}
+      />
+    </div>
+  ));
+  popularProducts = popularProducts.map((item) => (
+    <div key={item?._id}>
+      <CarouselItem
+        name={item?.title}
+        url={item?.image?.[0]?.url}
+        price={item?.price}
+        description={item?.description}
+        _id={item?._id}
+      />
+    </div>
+  ));
   return (
     <>
       <Meta title="Ecommerce App" />
@@ -327,7 +349,7 @@ const Home = () => {
           <ProductCarousel products={latestProducts} />
         </div>
       </Container>
-      <Container class1="home-wrapper-2 py-5">
+      {/* <Container class1="home-wrapper-2 py-5">
         <div className="row home-container-2">
           <div className="">
             <div className="categories d-flex align-items-center flex-wrap">
@@ -396,8 +418,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </Container>
-      {featureProducts.length !== 0 && (
+      </Container> */}
+      {/* {featureProducts.length !== 0 && (
         <Container class1="featured-wrapper home-wrapper-2 py-5">
           <div className="row">
             <div className="col-12 --flex-between">
@@ -432,7 +454,13 @@ const Home = () => {
               })}
           </div>
         </Container>
-      )}
+      )} */}
+      <Container class1="py-5">
+        <div className="container">
+          <PageHeading heading={"Featured Products"} btnText={"Shop Now >>>"} />
+          <ProductCarousel products={featureProducts} />
+        </div>
+      </Container>
       {/* <Container class1="famous-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-3">
@@ -547,7 +575,7 @@ const Home = () => {
           </section>
         </Container>
       )}
-      {popularProducts.length !== 0 && (
+      {/* {popularProducts.length !== 0 && (
         <Container class1="popular-wrapper home-wrapper-2 py-5">
           <div className="row">
             <div className="col-12 --flex-between">
@@ -584,7 +612,13 @@ const Home = () => {
               })}
           </div>
         </Container>
-      )}
+      )} */}
+      <Container class1="py-5">
+        <div className="container">
+          <PageHeading heading={"Popular Products"} btnText={"Shop Now >>>"} />
+          <ProductCarousel products={popularProducts} />
+        </div>
+      </Container>
       <Container class1="marquee-wrapper py-5">
         <h3 className="section-heading">Our Brands</h3>
         <div className="row">

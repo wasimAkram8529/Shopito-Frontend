@@ -157,3 +157,17 @@
     text-align: center;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .main-banner-content p {
+    display: none;
+  }
+
+  .main-banner-content h5 {
+    margin-top: 70px;
+  }
+
+  .small-banner-content h5 {
+    display: none;
+  }
+}

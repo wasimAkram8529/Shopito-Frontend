@@ -13,6 +13,7 @@ import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate, Link } from "react-router-dom";
 //import ReactImageMagnify from "react-image-magnify";
+import ReactImageZoom from "react-image-zoom";
 
 import {
   deleteProductReview,
@@ -194,6 +195,12 @@ const SingleProduct = () => {
     //console.log(payload);
     hideModal();
   };
+  const props = {
+    // width: 650,
+    // height: 400,
+    zoomWidth: 500,
+    img: `${product?.image?.[0]?.url}`,
+  };
   return (
     <>
       <Meta title="ShopIto" />
@@ -218,6 +225,7 @@ const SingleProduct = () => {
                       },
                     }}
                   /> */}
+                  <ReactImageZoom {...props} />
                 </div>
                 <div className="others-product-images d-flex flex-wrap justify-content-between">
                   <div>
