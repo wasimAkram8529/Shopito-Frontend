@@ -4,7 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { updateCartQuantity } from "../../features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { MdProductionQuantityLimits } from "react-icons/md";
-import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import dayjs from "dayjs";
 
 const findDate = (number = 7) => {
   const today = dayjs();
