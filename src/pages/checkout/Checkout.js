@@ -24,21 +24,22 @@ let shippingAddressSchema = Yup.object().shape({
 const Checkout = (props) => {
   const location = useLocation();
   const product = location.state;
-  //console.log(product?.color);
+  //console.log(product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userCart } = useSelector((state) => state.auth);
   const [shippingInfo, setShippingInfo] = useState({});
 
   //console.log(userCart);
-  let totalAmount = 0;
-  if (product) {
-    totalAmount = product?.product?.price * Number(product?.quantity);
-  } else {
-    userCart.forEach((cartItem) => {
-      totalAmount += cartItem?.quantity * cartItem?.price;
-    });
-  }
+  let totalAmount = product?.totalAmount;
+  //console.log(totalAmount);
+  // if (product) {
+  //   totalAmount = product?.product?.price * Number(product?.quantity);
+  // } else {
+  //   userCart.forEach((cartItem) => {
+  //     totalAmount += cartItem?.quantity * cartItem?.price;
+  //   });
+  // }
 
   const loadScript = (src) => {
     return new Promise((resolve) => {
@@ -69,7 +70,7 @@ const Checkout = (props) => {
     try {
       const result = await axios.post(
         `${BACKEND_URL}/api/user/order/checkout`,
-        { amount: totalAmount + 40 }
+        { amount: totalAmount }
       );
 
       //console.log(result.status !== 200);
@@ -231,48 +232,7 @@ const Checkout = (props) => {
                 className="product-details"
                 style={{ backgroundColor: "lightgray" }}
               >
-                {product ? (
-                  <div
-                    key={product?.product?._id}
-                    className="border-bottom py-4"
-                  >
-                    <div className="d-flex mb-2 align-items-center justify-content-between">
-                      <div className="d-flex gap-10 w-75">
-                        <div className="w-25 position-relative">
-                          <span
-                            style={{ top: "-14px", right: "-3px" }}
-                            className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
-                          >
-                            {product?.quantity}
-                          </span>
-                          <img
-                            className="img-fluid"
-                            src={product?.product?.image?.[0]?.url}
-                            alt="Headphone"
-                          />
-                        </div>
-                        <div>
-                          <h5 className="title">{product?.product?.title}</h5>
-                          <p
-                            className="size-color"
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                              borderRadius: "10px",
-                              backgroundColor: `${product?.color?.colorName}`,
-                            }}
-                          >
-                            {/* {product?.color?.colorName} */}
-                          </p>
-                        </div>
-                      </div>
-                      <h5 className="total-price">{`₹${
-                        Number(product?.quantity) * product?.product?.price
-                      }`}</h5>
-                    </div>
-                  </div>
-                ) : (
-                  userCart?.length !== 0 &&
+                {userCart?.length !== 0 &&
                   userCart?.map((cartItem) => {
                     return (
                       <div key={cartItem?._id} className="border-bottom py-4">
@@ -312,9 +272,8 @@ const Checkout = (props) => {
                         </div>
                       </div>
                     );
-                  })
-                )}
-                <div className="border-bottom py-4">
+                  })}
+                {/* <div className="border-bottom py-4">
                   <div className="d-flex justify-content-between align-items-center">
                     <p className="total">SubTotal</p>
                     <p className="total-price">{`₹${totalAmount}`}</p>
@@ -323,10 +282,10 @@ const Checkout = (props) => {
                     <p className="mb-0 total">Shipping</p>
                     <p className="mb-0 total-price">{`₹40`}</p>
                   </div>
-                </div>
+                </div> */}
                 <div className="d-flex justify-content-between align-items-center border-bottom py-4">
                   <h4 className="total">Total</h4>
-                  <h5 className="total-price">{`₹${totalAmount + 40}`}</h5>
+                  <h5 className="total-price">{`₹${totalAmount}`}</h5>
                 </div>
               </div>
               <div className=" address">

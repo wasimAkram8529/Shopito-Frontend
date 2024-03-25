@@ -18,7 +18,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import TermsAndCondition from "./pages/TermsAndCondition";
-import Cart from "./pages/Cart";
+import Cart from "./pages/cart/Cart";
 import Checkout from "./pages/checkout/Checkout";
 import axios from "axios";
 import { useDispatch } from "react-redux";

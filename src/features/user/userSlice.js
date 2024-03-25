@@ -550,7 +550,8 @@ export const authSlice = createSlice({
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        //state.userCart = action.payload;
+        state.userCart = action.payload;
+        //console.log(action.payload);
         // console.log(action.payload);
         toast.success("Cart Updated");
       })

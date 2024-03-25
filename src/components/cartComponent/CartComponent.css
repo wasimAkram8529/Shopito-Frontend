@@ -1,0 +1,23 @@
+.cart-quantity input {
+  cursor: pointer;
+}
+
+.cart-quantity {
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-quantity div {
+  margin-top: -5px;
+}
+@media screen and (max-width: 1000px) {
+  .cart-quantity {
+    flex-direction: column;
+  }
+  .cart-quantity div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+}

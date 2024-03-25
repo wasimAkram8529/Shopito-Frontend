@@ -140,6 +140,7 @@ const Header = () => {
             placeholder="Search..."
             onChange={(selected) => {
               setSearchBar(false);
+              console.log("id", selected[0].productId);
               navigate(`/product/${selected[0].productId}`);
             }}
           />
@@ -179,6 +180,10 @@ const Header = () => {
                 paginate={paginate}
                 labelKey={"name"}
                 placeholder="search..."
+                onChange={(selected) => {
+                  setSearchBar(false);
+                  navigate(`/product/${selected[0].productId}`);
+                }}
               />
               <span className="input-group-text" id="basic-addon2">
                 <BsSearch className="fs-6" />
