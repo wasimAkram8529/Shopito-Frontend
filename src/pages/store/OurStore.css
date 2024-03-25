@@ -24,6 +24,22 @@
 .to {
   text-align: center;
 }
+
+.our-store-product-card div a {
+  display: flex;
+  flex-direction: column;
+  border: 2px rgb(231, 230, 230) solid;
+}
+
+.our-store-product-card div a .product-details {
+  margin-top: 220px;
+  margin-left: 20%;
+}
+
+.our-store-product-card {
+  gap: 5px;
+}
+
 @media screen and (max-width: 1000px) {
   .store .store-left-part {
     position: absolute;
@@ -37,7 +53,7 @@
   }
 
   .price-available-option {
-    padding-left: 40%;
+    padding-left: 20%;
   }
   .store .close-filter-menu {
     display: none;

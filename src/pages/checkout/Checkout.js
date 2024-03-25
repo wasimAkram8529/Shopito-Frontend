@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import { indianStates } from "../../utils/Data";
 import axios from "axios";
 import { createOrder } from "../../features/user/userSlice";
+import { formateCurrency } from "../../utils/money";
 
 let shippingAddressSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is Required"),
@@ -23,7 +24,9 @@ let shippingAddressSchema = Yup.object().shape({
 
 const Checkout = (props) => {
   const location = useLocation();
-  const product = location.state;
+  const productAmount = location.state.totalAmount;
+  const product = location.state.product;
+  const quantity = location.state.quantity;
   //console.log(product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +34,7 @@ const Checkout = (props) => {
   const [shippingInfo, setShippingInfo] = useState({});
 
   //console.log(userCart);
-  let totalAmount = product?.totalAmount;
+  let totalAmount = productAmount;
   //console.log(totalAmount);
   // if (product) {
   //   totalAmount = product?.product?.price * Number(product?.quantity);
@@ -115,8 +118,8 @@ const Checkout = (props) => {
               const orderDetails = [
                 {
                   product: product?._id,
-                  color: product?.color?.color,
-                  quantity: product?.quantity,
+                  color: product?.color?.[0]?._id,
+                  quantity: quantity,
                   price: totalAmount,
                 },
               ];
@@ -232,7 +235,43 @@ const Checkout = (props) => {
                 className="product-details"
                 style={{ backgroundColor: "lightgray" }}
               >
-                {userCart?.length !== 0 &&
+                {product ? (
+                  <div className="border-bottom py-4">
+                    <div className="d-flex mb-2 align-items-center justify-content-between">
+                      <div className="d-flex gap-10 w-75">
+                        <div className="w-25 position-relative">
+                          <span
+                            style={{ top: "-14px", right: "-3px" }}
+                            className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
+                          >
+                            {quantity}
+                          </span>
+                          <img
+                            className="img-fluid"
+                            src={product?.image?.[0]?.url}
+                            alt="Headphone"
+                          />
+                        </div>
+                        <div>
+                          <h5 className="title">{product?.title}</h5>
+                          <p
+                            className="size-color"
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "10px",
+                              backgroundColor: `${product?.color?.[0]?.title}`,
+                            }}
+                          ></p>
+                        </div>
+                      </div>
+                      <h5 className="total-price">{`₹${formateCurrency(
+                        quantity * product?.price
+                      )}`}</h5>
+                    </div>
+                  </div>
+                ) : (
+                  userCart?.length !== 0 &&
                   userCart?.map((cartItem) => {
                     return (
                       <div key={cartItem?._id} className="border-bottom py-4">
@@ -272,7 +311,49 @@ const Checkout = (props) => {
                         </div>
                       </div>
                     );
-                  })}
+                  })
+                )}
+                {/* {userCart?.length !== 0 &&
+                  userCart?.map((cartItem) => {
+                    return (
+                      <div key={cartItem?._id} className="border-bottom py-4">
+                        <div className="d-flex mb-2 align-items-center justify-content-between">
+                          <div className="d-flex gap-10 w-75">
+                            <div className="w-25 position-relative">
+                              <span
+                                style={{ top: "-14px", right: "-3px" }}
+                                className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
+                              >
+                                {cartItem?.quantity}
+                              </span>
+                              <img
+                                className="img-fluid"
+                                src={cartItem?.productId?.image?.[0]?.url}
+                                alt="Headphone"
+                              />
+                            </div>
+                            <div>
+                              <h5 className="title">
+                                {cartItem?.productId?.title}
+                              </h5>
+                              <p
+                                className="size-color"
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "10px",
+                                  backgroundColor: `${cartItem?.color?.title}`,
+                                }}
+                              ></p>
+                            </div>
+                          </div>
+                          <h5 className="total-price">{`₹${
+                            cartItem?.quantity * cartItem?.productId?.price
+                          }`}</h5>
+                        </div>
+                      </div>
+                    );
+                  })} */}
                 {/* <div className="border-bottom py-4">
                   <div className="d-flex justify-content-between align-items-center">
                     <p className="total">SubTotal</p>

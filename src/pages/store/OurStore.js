@@ -40,8 +40,8 @@ const OurStore = () => {
   );
 
   // console.log("Min", minAmount);
-  // console.log("Max", maxAmount, typeof maxAmount);
-  //console.log(products);
+  //console.log("Max", maxAmount);
+  console.log(products);
   useEffect(() => {
     let availableMinAmount = 1e9 + 7;
     let availableMaxAmount = 0;
@@ -152,11 +152,11 @@ const OurStore = () => {
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
                         onClick={(e) => {
-                          setFilterMenu(false);
                           setSelectedTags({
                             searchCategory: "category",
                             value: e.target.innerText,
                           });
+                          setFilterMenu(!filterMenu);
                         }}
                       >
                         {category}
@@ -177,11 +177,11 @@ const OurStore = () => {
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
                         onClick={(e) => {
-                          setFilterMenu(false);
                           setSelectedTags({
                             searchCategory: "tags",
                             value: e.target.innerText,
                           });
+                          setFilterMenu(!filterMenu);
                         }}
                       >
                         {tag}
@@ -244,7 +244,10 @@ const OurStore = () => {
               <button
                 className="button"
                 style={{ width: "100%" }}
-                onClick={() => setRelatedProducts([])}
+                onClick={() => {
+                  setRelatedProducts([]);
+                  setFilterMenu(!filterMenu);
+                }}
               >
                 Reset Tags
               </button>
@@ -288,6 +291,7 @@ const OurStore = () => {
                         } else {
                           setMinAmount(0);
                         }
+                        setFilterMenu(!filterMenu);
                       }}
                       className="price-available-option"
                     >
@@ -317,6 +321,7 @@ const OurStore = () => {
                         } else {
                           setMaxAmount(0);
                         }
+                        setFilterMenu(!filterMenu);
                       }}
                       className="price-available-option"
                     >
@@ -486,7 +491,7 @@ const OurStore = () => {
               />
             </div>
             <div className="product-list pb-5">
-              <div className="d-flex flex-wrap">
+              <div className="d-flex flex-wrap our-store-product-card">
                 {isSuccess && relatedProducts?.length !== 0
                   ? relatedProducts?.map((product) => {
                       return (

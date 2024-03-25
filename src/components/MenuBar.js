@@ -11,6 +11,7 @@ import {
 import { FaBloggerB } from "react-icons/fa";
 import { Menu } from "antd";
 import { NavLink } from "react-router-dom";
+import { CiLogin } from "react-icons/ci";
 
 function getItem(label, key, icon, children, type) {
   return {
@@ -56,9 +57,10 @@ const items = [
   // ]),
   getItem(
     <NavLink to="/my-orders">My Order</NavLink>,
-    "link",
+    "my-order",
     <OrderedListOutlined />
   ),
+  getItem(<NavLink to="/login">Login</NavLink>, "login", <CiLogin />),
 ];
 
 // submenu keys of first level

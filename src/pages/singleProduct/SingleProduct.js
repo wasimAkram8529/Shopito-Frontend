@@ -380,14 +380,10 @@ const SingleProduct = () => {
                           if (!color) {
                             toast.error("Please select color and quantity");
                           } else {
-                            navigate("/checkout", {
+                            navigate(`/product/buy-now/${product?._id}`, {
                               state: {
+                                quantity: quantity,
                                 product,
-                                color: {
-                                  color,
-                                  colorName,
-                                },
-                                quantity,
                               },
                             });
                           }
@@ -572,7 +568,7 @@ const SingleProduct = () => {
             </div>
           </Container>
           <Container className="popular-wrapper home-wrapper-2 py-5">
-            <div className="row">
+            <div className="row recommend-popular-product">
               <div className="col-12">
                 <h3 className="section-heading">Our Popular Products</h3>
               </div>

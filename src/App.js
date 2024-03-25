@@ -27,6 +27,7 @@ import MyOrders from "./pages/MyOrders";
 import ViewOrder from "./pages/ViewOrder";
 import Profile from "./pages/profile/Profile";
 import SingleProduct from "./pages/singleProduct/SingleProduct";
+import BuyNow from "./pages/buyNow/BuyNow";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -49,6 +50,7 @@ function App() {
 
             <Route path="products" element={<OurStore />} />
             <Route path="product/:id" element={<SingleProduct />} />
+            <Route path="product/buy-now/:id" element={<BuyNow />} />
 
             <Route path="blog" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />

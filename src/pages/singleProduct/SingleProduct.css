@@ -189,6 +189,20 @@
   width: 100% !important;
   height: 100% !important;
 }
+
+.recommend-popular-product div a {
+  display: flex;
+  flex-direction: column;
+}
+
+.recommend-popular-product div a .product-details {
+  margin-top: 230px;
+  margin-left: 20%;
+}
+
+.recommend-popular-product div a {
+  border: 2px rgb(231, 230, 230) solid;
+}
 @media screen and (max-width: 1000px) {
   .popular-product {
     margin: 0 0 !important;
