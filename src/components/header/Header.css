@@ -310,9 +310,14 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (min-width: 400px) and (max-width: 500px) {
   .header .header-last-section {
     width: 45% !important;
+  }
+}
+@media screen and (max-width: 400px) {
+  .header .header-last-section {
+    width: 50% !important;
   }
   .login-container,
   .register-container {
