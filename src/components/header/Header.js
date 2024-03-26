@@ -47,6 +47,11 @@ const Header = () => {
   const [searchOptions, setSearchOptions] = useState([]);
 
   useEffect(() => {
+    dispatch(getUserWishList());
+    dispatch(getUserCart());
+  });
+  useEffect(() => {
+    //console.log("1");
     dispatch(getProducts());
   }, []);
 
@@ -96,11 +101,6 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logout());
   };
-
-  useEffect(() => {
-    dispatch(getUserWishList());
-    dispatch(getUserCart());
-  }, []);
 
   const { wishList, userCart } = useSelector((state) => state.auth);
   //console.log(userCart);

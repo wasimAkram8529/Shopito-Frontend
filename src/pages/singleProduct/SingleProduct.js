@@ -38,6 +38,7 @@ const reviewSchema = Yup.object().shape({
   review: Yup.string().required("Product Review is Required"),
 });
 const SingleProduct = () => {
+  //console.log(props);
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
@@ -53,13 +54,6 @@ const SingleProduct = () => {
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
   };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateScreenWidth);
-    return () => {
-      window.removeEventListener("resize", updateScreenWidth);
-    };
-  }, []);
 
   const hideModal = () => {
     setOpen(false);
@@ -86,7 +80,7 @@ const SingleProduct = () => {
     dispatch(getAProduct(productId));
     dispatch(getProducts({ sort: "", minAmount: 0, maxAmount: 1000000007 }));
     dispatch(getUserCart());
-  }, [productId]);
+  }, []);
 
   useEffect(() => {
     dispatch(getAUser());
@@ -107,7 +101,7 @@ const SingleProduct = () => {
   }
 
   if (screenWidth <= 800) {
-    popularProducts = totalDisplayImg(3, popularProducts);
+    popularProducts = totalDisplayImg(2, popularProducts);
   }
 
   const { product, isLoading } = useSelector((state) => state.product);
@@ -161,6 +155,7 @@ const SingleProduct = () => {
       return;
     }
     dispatch(addToCart(cartItem));
+    //props.setRender(true);
     // setIsAvailable(true);
     navigate("/cart");
   };
@@ -171,7 +166,11 @@ const SingleProduct = () => {
         setIsAvailable(true);
       }
     });
-  }, []);
+    window.addEventListener("resize", updateScreenWidth);
+    return () => {
+      window.removeEventListener("resize", updateScreenWidth);
+    };
+  }, [userCart]);
 
   const handleEditReview = () => {
     setEdit(true);
@@ -195,7 +194,7 @@ const SingleProduct = () => {
     //console.log(payload);
     hideModal();
   };
-  const props = {
+  const propsZoom = {
     // width: 650,
     // height: 400,
     zoomWidth: 500,
@@ -225,7 +224,7 @@ const SingleProduct = () => {
                       },
                     }}
                   /> */}
-                  <ReactImageZoom {...props} />
+                  <ReactImageZoom {...propsZoom} />
                 </div>
                 <div className="others-product-images d-flex flex-wrap justify-content-between">
                   <div>

@@ -16,7 +16,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getUserCart());
-  }, []);
+  });
 
   const { userCart } = useSelector((state) => state.auth);
   let initialTotalAmount = 0;
@@ -118,81 +118,85 @@ const Cart = () => {
         )}
       </Container> */}
       <Container class1="cart-wrapper home-wrapper-2 py-5">
-        <div className="main">
-          <div className="page-title">Review your order</div>
+        {userCart && userCart?.length !== 0 ? (
+          <div className="main">
+            <div className="page-title">Review your order</div>
 
-          <div className="checkout-grid">
-            <div className="order-summary">
-              {userCart?.length !== 0 &&
-                userCart?.map((cartItem) => {
-                  return (
-                    <div key={cartItem?._id}>
-                      <CartComponent
-                        matchingProduct={cartItem}
-                        setShipping={setShipping}
-                        handleRemoveAProductFromCart={
-                          handleRemoveAProductFromCart
-                        }
-                        handleQuantityChange={handleQuantityChange}
-                      />
-                    </div>
-                  );
-                })}
-            </div>
-
-            <div className="payment-summary">
-              <div className="payment-summary-title">Order Summary</div>
-
-              <div className="payment-summary-row">
-                <div>Items ({countCartItem}):</div>
-                <div className="payment-summary-money">
-                  {`₹${formateCurrency(totalAmount)}`}
-                </div>
+            <div className="checkout-grid">
+              <div className="order-summary">
+                {userCart?.length !== 0 &&
+                  userCart?.map((cartItem) => {
+                    return (
+                      <div key={cartItem?._id}>
+                        <CartComponent
+                          matchingProduct={cartItem}
+                          setShipping={setShipping}
+                          handleRemoveAProductFromCart={
+                            handleRemoveAProductFromCart
+                          }
+                          handleQuantityChange={handleQuantityChange}
+                        />
+                      </div>
+                    );
+                  })}
               </div>
 
-              <div className="payment-summary-row">
-                <div>Shipping &amp; handling:</div>
-                <div className="payment-summary-money">
-                  {`₹${formateCurrency(shipping?.price)}`}
-                </div>
-              </div>
+              <div className="payment-summary">
+                <div className="payment-summary-title">Order Summary</div>
 
-              <div className="payment-summary-row subtotal-row">
-                <div>Total before tax:</div>
-                <div className="payment-summary-money">
-                  {`₹${formateCurrency(totalBeforeTax)}`}
+                <div className="payment-summary-row">
+                  <div>Items ({countCartItem}):</div>
+                  <div className="payment-summary-money">
+                    {`₹${formateCurrency(totalAmount)}`}
+                  </div>
                 </div>
-              </div>
 
-              <div className="payment-summary-row">
-                <div>Estimated tax (10%):</div>
-                <div className="payment-summary-money">
-                  {`₹${formateCurrency(tax)}`}
+                <div className="payment-summary-row">
+                  <div>Shipping &amp; handling:</div>
+                  <div className="payment-summary-money">
+                    {`₹${formateCurrency(shipping?.price)}`}
+                  </div>
                 </div>
-              </div>
 
-              <div className="payment-summary-row total-row">
-                <div>Order total:</div>
-                <div className="payment-summary-money">
-                  {`₹${formateCurrency(totalAfterTax)}`}
+                <div className="payment-summary-row subtotal-row">
+                  <div>Total before tax:</div>
+                  <div className="payment-summary-money">
+                    {`₹${formateCurrency(totalBeforeTax)}`}
+                  </div>
                 </div>
-              </div>
 
-              <button
-                className="place-order-button button-primary"
-                onClick={() => {
-                  navigate("/checkout", {
-                    state: {
-                      totalAmount: totalBeforeTax,
-                    },
-                  });
-                }}
-              >
-                Place your order
-              </button>
+                <div className="payment-summary-row">
+                  <div>Estimated tax (10%):</div>
+                  <div className="payment-summary-money">
+                    {`₹${formateCurrency(tax)}`}
+                  </div>
+                </div>
+
+                <div className="payment-summary-row total-row">
+                  <div>Order total:</div>
+                  <div className="payment-summary-money">
+                    {`₹${formateCurrency(totalAfterTax)}`}
+                  </div>
+                </div>
+
+                <button
+                  className="place-order-button button-primary"
+                  onClick={() => {
+                    navigate("/checkout", {
+                      state: {
+                        totalAmount: totalBeforeTax,
+                      },
+                    });
+                  }}
+                >
+                  Place your order
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div style={{ textAlign: "center" }}>Your Cart is Empty</div>
+        )}
       </Container>
     </>
   );
