@@ -46,13 +46,15 @@ const Header = () => {
   const [paginate, setPaginate] = useState(true);
   const [searchOptions, setSearchOptions] = useState([]);
 
-  useEffect(() => {
-    dispatch(getUserWishList());
-    dispatch(getUserCart());
-  });
+  // useEffect(() => {
+  //   dispatch(getUserWishList());
+  //   dispatch(getUserCart());
+  // });
   useEffect(() => {
     //console.log("1");
     dispatch(getProducts());
+    dispatch(getUserWishList());
+    dispatch(getUserCart());
   }, []);
 
   const { products } = useSelector((state) => state.product);
