@@ -1,0 +1,119 @@
+.card {
+  height: 250px;
+  text-align: center;
+}
+
+.card-img-top img {
+  max-width: 330px;
+  height: 140px;
+}
+
+.product-card a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  cursor: pointer;
+}
+
+.card-body .card-title {
+  color: rgb(154, 151, 151) !important;
+}
+
+.card-body .card-text {
+  color: #0d6efd !important;
+}
+
+.product-star {
+  margin-left: 75px;
+}
+
+@media screen and (max-width: 992px) {
+  .product-star {
+    margin-left: 30px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .product-star {
+    margin-left: 20px;
+  }
+
+  .card-img-top img {
+    max-width: 175px;
+    margin-left: -10px;
+  }
+}
+
+/*.product-card .product-card-product-image {
+  height: 65%;
+}
+
+.product-card .product-card-product-image img {
+  max-width: 100%;
+  height: 100%;
+}
+
+.product-card .product-card-product-details {
+  padding: 5px;
+  text-align: center;
+}
+
+.product-card .product-card-product-details .product-price {
+  color: #0d6efd;
+} */
+
+/* .product-card .product-image > img:last-child {
+  display: none;
+}
+
+.product-card .product-image,
+.product-card .product-image-box {
+  flex: 1;
+  margin-bottom: 10px;
+}
+.product-card .product-image .image-size,
+.product-card .product-image-box .image-size {
+  max-width: 100%;
+  height: 350px;
+}
+.product-card:hover .product-image > img:first-child {
+  display: none;
+}
+.product-card:hover .product-image > img:last-child {
+  display: block;
+}
+
+.product-card:hover .action-bar {
+  right: 15px;
+}
+
+.product-card .product-details h6 {
+  color: var(--color-bf4800);
+  font-size: 13px;
+}
+.product-card .product-details h5 {
+  color: var(--color-1c1b1b);
+  font-size: 15px;
+}
+.product-card .product-details p.price {
+  color: var(--color-1c1b1b);
+  font-size: 16px;
+}
+
+.product-card .description {
+  font-size: 13px;
+  color: var(--color-777777);
+  margin-right: 20px;
+}
+
+.action-bar {
+  top: 10%;
+  right: -20px;
+  transition: 0.3s;
+}
+
+.wishlist-icon {
+  top: 2%;
+  right: 15px;
+} */

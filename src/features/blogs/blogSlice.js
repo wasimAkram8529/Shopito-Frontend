@@ -13,9 +13,9 @@ const initialState = {
 
 export const getAllBlogs = createAsyncThunk(
   "blog/get-All-blog",
-  async (_, thunkAPI) => {
+  async (filterData, thunkAPI) => {
     try {
-      return await blogService.getAllBlogs();
+      return await blogService.getAllBlogs(filterData);
     } catch (error) {
       const message =
         (error.response &&

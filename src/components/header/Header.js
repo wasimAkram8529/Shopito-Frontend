@@ -12,7 +12,7 @@ import {
   CiLogout,
   CiUser,
 } from "react-icons/ci";
-import MenuBar from "./../MenuBar";
+import MenuBar from "./../menuBar/MenuBar";
 import ShowOnLogin, { ShowOnLogout } from "./../hiddenLink/hiddenLink";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ export const logo = (
 );
 
 const activeLink = ({ isActive }) => (isActive ? `active` : "");
-const Header = () => {
+const Header = ({ renderHeader, setRenderHeader }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
@@ -46,16 +46,17 @@ const Header = () => {
   const [paginate, setPaginate] = useState(true);
   const [searchOptions, setSearchOptions] = useState([]);
 
-  // useEffect(() => {
-  //   dispatch(getUserWishList());
-  //   dispatch(getUserCart());
-  // });
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  //console.log(isLoggedIn);
+
   useEffect(() => {
     //console.log("1");
     dispatch(getProducts());
-    dispatch(getUserWishList());
-    dispatch(getUserCart());
-  }, []);
+    if (isLoggedIn) {
+      dispatch(getUserWishList());
+      dispatch(getUserCart());
+    }
+  }, [renderHeader]);
 
   const { products } = useSelector((state) => state.product);
   //console.log(products);
@@ -101,7 +102,13 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout())
+      .then((data) => {
+        setRenderHeader(!renderHeader);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const { wishList, userCart } = useSelector((state) => state.auth);
@@ -344,11 +351,14 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <div className={showMenu ? "show-menu" : "hide-menu"}>
+      <div
+        className={showMenu ? "show-menu" : "hide-menu"}
+        onClick={() => setShowMenu(false)}
+      >
         <div className="close-menu-icon" onClick={hideMenu}>
           <FaTimes />
         </div>
-        <MenuBar click={handleClick} />
+        <MenuBar click={handleClick} handleLogout={handleLogout} />
       </div>
     </>
   );

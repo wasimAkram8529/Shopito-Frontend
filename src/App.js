@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
@@ -36,11 +36,20 @@ function App() {
     dispatch(getLoginStatus());
   }, [dispatch]);
 
+  const [renderHeader, setRenderHeader] = useState(false);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <Layout
+                renderHeader={renderHeader}
+                setRenderHeader={setRenderHeader}
+              />
+            }
+          >
             <Route index element={<Home />} />
             <Route path="shop" element={<Home />} />
 
@@ -49,7 +58,15 @@ function App() {
             <Route path="contact" element={<Contact />} />
 
             <Route path="products" element={<OurStore />} />
-            <Route path="product/:id" element={<SingleProduct />} />
+            <Route
+              path="product/:id"
+              element={
+                <SingleProduct
+                  renderHeader={renderHeader}
+                  setRenderHeader={setRenderHeader}
+                />
+              }
+            />
             <Route path="product/buy-now/:id" element={<BuyNow />} />
 
             <Route path="blog" element={<Blog />} />
@@ -65,7 +82,10 @@ function App() {
 
             <Route path="wishlist" element={<Wishlist />} />
 
-            <Route path="login" element={<Login />} />
+            <Route
+              path="login"
+              element={<Login setRenderHeader={setRenderHeader} />}
+            />
 
             <Route path="signup" element={<SignUp />} />
             <Route path="user-profile" element={<Profile />} />

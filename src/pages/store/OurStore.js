@@ -1,14 +1,16 @@
 import "./OurStore.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BreadCrumb from "../../components/BreadCrumb";
 import Meta from "../../components/Meta";
 import ReactStars from "react-rating-stars-component";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../components/productCard/ProductCard";
 import Color from "../../components/Color";
 import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../features/products/productSlice";
 import { useLocation } from "react-router-dom";
+import { MdFilterAlt } from "react-icons/md";
+import { IoMdClose, IoIosArrowDroprightCircle } from "react-icons/io";
 
 const OurStore = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,10 @@ const OurStore = () => {
     value: "",
   });
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [minAmount, setMinAmount] = useState(0);
-  const [maxAmount, setMaxAmount] = useState(1000000007);
+  const [priceFilter, setPriceFilter] = useState({
+    minAmount: 0,
+    maxAmount: 100000,
+  });
   const [sort, setSort] = useState("");
   const [filterMenu, setFilterMenu] = useState(false);
 
@@ -31,9 +35,16 @@ const OurStore = () => {
 
   useEffect(() => {
     dispatch(
-      getProducts({ sort, minAmount, maxAmount, tags: location?.state?.type })
-    );
-  }, [sort, minAmount, maxAmount]);
+      getProducts({
+        sort,
+        minAmount: priceFilter.minAmount,
+        maxAmount: priceFilter.maxAmount,
+        tags: location?.state?.type,
+      })
+    ).then(() => {
+      //console.log(filterMenu);
+    });
+  }, [sort, priceFilter]);
 
   const { products, isLoading, isSuccess } = useSelector(
     (state) => state.product
@@ -41,7 +52,7 @@ const OurStore = () => {
 
   // console.log("Min", minAmount);
   //console.log("Max", maxAmount);
-  console.log(products);
+  //console.log(products);
   useEffect(() => {
     let availableMinAmount = 1e9 + 7;
     let availableMaxAmount = 0;
@@ -100,36 +111,32 @@ const OurStore = () => {
     setRelatedProducts(searchedProduct);
   }, [selectedTags]);
 
-  // useEffect(() => {
-  //   let filteredProduct = [];
-  //   if (minAmount && maxAmount) {
-  //     filteredProduct = products.filter((product) => {
-  //       if (product?.price >= minAmount && product?.price <= maxAmount) {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     });
-  //   } else if (minAmount && !maxAmount) {
-  //     filteredProduct = products.filter((product) => {
-  //       if (product?.price >= minAmount) {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     });
-  //   } else if (!minAmount && maxAmount) {
-  //     filteredProduct = products.filter((product) => {
-  //       if (product?.price <= maxAmount) {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     });
-  //   }
-  //   setRelatedProducts(filteredProduct);
-  // }, [minAmount, maxAmount]);
+  const minInputRef = useRef(null);
+  const maxInputRef = useRef(null);
 
+  const getValue = () => {
+    if (
+      minInputRef.current.value !== "min" &&
+      maxInputRef.current.value !== "max"
+    ) {
+      setPriceFilter({
+        minAmount: minInputRef.current.value,
+        maxAmount: maxInputRef.current.value,
+      });
+    } else if (minInputRef.current.value !== "min") {
+      setPriceFilter({
+        minAmount: minInputRef.current.value,
+        maxAmount: 100000,
+      });
+    } else if (maxInputRef.current.value !== "max") {
+      setPriceFilter({
+        minAmount: 0,
+        maxAmount: maxInputRef.current.value,
+      });
+    }
+
+    //console.log("max", maxInputRef.current.value);
+  };
   const [grid, setGrid] = useState(12);
   //console.log(sort);
 
@@ -140,107 +147,104 @@ const OurStore = () => {
       <BreadCrumb title="Our Store" />
       <Container class1="store-wrapper home-wrapper-2 py-5">
         <div className="store">
-          <div className={filterMenu ? "store-left-part" : "close-filter-menu"}>
+          <div
+            className={
+              filterMenu
+                ? "store-left-part"
+                : "close-filter-menu store-left-part"
+            }
+            // onClick={(e) => {
+            //   console.log(e.target);
+            // }}
+          >
+            <div className="filter-card close-menu">
+              <IoMdClose onClick={() => setFilterMenu(!filterMenu)} />
+            </div>
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop By Categories</h3>
               <div>
-                <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                <select
+                  className="select"
+                  onClick={(e) => {
+                    setSelectedTags({
+                      searchCategory: "category",
+                      value: e.target.value,
+                    });
+                  }}
+                >
+                  <option>Choose</option>
                   {pCategories?.map((category, indx) => {
                     return (
-                      <span
+                      <option
                         key={indx}
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
-                        onClick={(e) => {
-                          setSelectedTags({
-                            searchCategory: "category",
-                            value: e.target.innerText,
-                          });
-                          setFilterMenu(!filterMenu);
-                        }}
+                        value={category}
                       >
                         {category}
-                      </span>
+                      </option>
                     );
                   })}
-                </div>
+                </select>
               </div>
             </div>
             <div className="filter-card mb-3">
               <h3 className="filter-title">Product Tag</h3>
               <div>
-                <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                <select
+                  className="select"
+                  onClick={(e) => {
+                    setSelectedTags({
+                      searchCategory: "tags",
+                      value: e.target.value,
+                    });
+                  }}
+                >
+                  <option>Choose</option>
                   {pTags?.map((tag, indx) => {
                     return (
-                      <span
+                      <option
                         key={indx}
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
-                        onClick={(e) => {
-                          setSelectedTags({
-                            searchCategory: "tags",
-                            value: e.target.innerText,
-                          });
-                          setFilterMenu(!filterMenu);
-                        }}
+                        value={tag}
                       >
                         {tag}
-                      </span>
+                      </option>
                     );
                   })}
-                </div>
+                </select>
               </div>
             </div>
-            {/* <div className="filter-card mb-3">
-              <h3 className="filter-title">Product Colors</h3>
-              <div>
-                <div className="product-tags d-flex flex-wrap align-items-center gap-10">
-                  {pColors?.map((color, indx) => {
-                    return (
-                      <span
-                        key={indx}
-                        style={{ cursor: "pointer" }}
-                        className="badge bg-light rounded-3 text-secondary py-2 px-3"
-                        onClick={(e) => {
-                          setSelectedTags({
-                            searchCategory: "color",
-                            value: e.target.innerText,
-                          });
-                        }}
-                      >
-                        {color}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-            </div> */}
             <div className="filter-card mb-3">
               <h3 className="filter-title">Product Brands</h3>
               <div>
-                <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                <select
+                  className="select"
+                  onClick={(e) => {
+                    setSelectedTags({
+                      searchCategory: "brand",
+                      value: e.target.value,
+                    });
+                  }}
+                >
+                  <option>Choose</option>
                   {brands?.map((brand, indx) => {
                     return (
-                      <span
+                      <option
                         key={indx}
                         style={{ cursor: "pointer" }}
                         className="badge bg-light rounded-3 text-secondary py-2 px-3"
-                        onClick={(e) => {
-                          setFilterMenu(false);
-                          setSelectedTags({
-                            searchCategory: "brand",
-                            value: e.target.innerText,
-                          });
-                        }}
+                        value={brand}
                       >
                         {brand}
-                      </span>
+                      </option>
                     );
                   })}
-                </div>
+                </select>
               </div>
             </div>
-            <div className="text-center mb-3">
+            {/* <div className="filter-card mb-3">
               <button
                 className="button"
                 style={{ width: "100%" }}
@@ -251,168 +255,24 @@ const OurStore = () => {
               >
                 Reset Tags
               </button>
-            </div>
+            </div> */}
             <div className="filter-card mb-3">
               <h3 className="filter-title">Filter By</h3>
               <div>
-                {/* <h5 className="sub-title">Availability</h5>
-                <div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id=""
-                    />
-                    <label className="form-check-label" htmlFor="">
-                      In Stock (10)
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id=""
-                    />
-                    <label className="form-check-label" htmlFor="">
-                      Out Of Stock (0)
-                    </label>
-                  </div>
-                </div> */}
                 <h5 className="sub-title">Price</h5>
-                <div className="d-flex align-items-center">
-                  <div className="form-floating" style={{ flex: "1" }}>
-                    <select
-                      onChange={(e) => {
-                        setFilterMenu(false);
-                        if (e.target.value !== "Min") {
-                          setMinAmount(Number(e.target.value));
-                        } else {
-                          setMinAmount(0);
-                        }
+                <div className="price-filter-box">
+                  <input type="text" placeholder="Min" ref={minInputRef} />
+                  <span>To</span>
+                  <input type="text" placeholder="Max" ref={maxInputRef} />
+                  <div>
+                    <IoIosArrowDroprightCircle
+                      onClick={() => {
+                        getValue();
                         setFilterMenu(!filterMenu);
                       }}
-                      className="price-available-option"
-                    >
-                      <option value="Min" selected>
-                        Min
-                      </option>
-                      <option value="500">₹500</option>
-                      <option value="700">₹700</option>
-                      <option value="1000">₹1000</option>
-                      <option value="1500">₹1500</option>
-                      <option value="1800">₹1800</option>
-                      <option value="2000">₹2000</option>
-                      <option value="2500">₹2500</option>
-                      <option value="3000">₹3000</option>
-                      <option value="4000">₹4000</option>
-                      <option value="5000">₹5000</option>
-                    </select>
-                  </div>
-                  <div className="form-floating to" style={{ flex: "1" }}>
-                    <h6>To</h6>
-                  </div>
-                  <div className="form-floating" style={{ flex: "1" }}>
-                    <select
-                      onChange={(e) => {
-                        if (e.target.value !== "Max") {
-                          setMaxAmount(Number(e.target.value));
-                        } else {
-                          setMaxAmount(0);
-                        }
-                        setFilterMenu(!filterMenu);
-                      }}
-                      className="price-available-option"
-                    >
-                      <option value="Max" selected>
-                        Max
-                      </option>
-                      <option value="7000">₹7000</option>
-                      <option value="10000">₹10000</option>
-                      <option value="15000">₹15000</option>
-                      <option value="20000">₹20000</option>
-                      <option value="25000">₹25000</option>
-                      <option value="40000">₹40000</option>
-                      <option value="50000">₹50000</option>
-                      <option value="70000">₹70000</option>
-                      <option value="100000">₹100000</option>
-                      <option value="1000000">₹100000</option>
-                    </select>
-                    {/* <input
-                      type="number"
-                      className="form-control"
-                      id="floatingInput1"
-                      placeholder="To"
-                      value={maxAmount}
-                      max={possibleMaxAmount}
-                      onChange={(e) => setMaxAmount(e.target.value)}
                     />
-                    <label htmlFor="floatingInput1">To</label> */}
                   </div>
                 </div>
-                {/* <h5 className="sub-title">Colors</h5>
-                <div>
-                  <Color />
-                </div>
-                <h5 className="sub-title">Size</h5>
-                <div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-1"
-                    />
-                    <label className="form-check-label" htmlFor="color-1">
-                      S (10)
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-2"
-                    />
-                    <label className="form-check-label" htmlFor="color-2">
-                      M (10)
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-2"
-                    />
-                    <label className="form-check-label" htmlFor="color-2">
-                      L (10)
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-2"
-                    />
-                    <label className="form-check-label" htmlFor="color-2">
-                      XL (10)
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="color-2"
-                    />
-                    <label className="form-check-label" htmlFor="color-2">
-                      XXL (10)
-                    </label>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -450,32 +310,6 @@ const OurStore = () => {
                       : products?.length}{" "}
                     Products
                   </p>
-                  <div className="d-flex align-items-center gap-10 layout-selector">
-                    <img
-                      onClick={() => setGrid(3)}
-                      src="images/gr4.svg"
-                      className="d-block img-fluid fourProduct"
-                      alt="grid"
-                    />
-                    <img
-                      onClick={() => setGrid(4)}
-                      src="images/gr3.svg"
-                      className="d-block img-fluid threeProduct"
-                      alt="grid"
-                    />
-                    <img
-                      onClick={() => setGrid(6)}
-                      src="images/gr2.svg"
-                      className="d-block img-fluid twoProduct"
-                      alt="grid"
-                    />
-                    <img
-                      onClick={() => setGrid(12)}
-                      src="images/gr.svg"
-                      className="d-block img-fluid oneProduct"
-                      alt="grid"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -483,21 +317,22 @@ const OurStore = () => {
               <p className="mb-0 d-block" style={{ width: "100px" }}>
                 Apply filters {">"}
               </p>
-              <img
-                src="images/gr.svg"
-                className=""
-                alt="grid"
+              <div
+                className="open-filter"
                 onClick={() => setFilterMenu(!filterMenu)}
-              />
+              >
+                <MdFilterAlt />
+              </div>
             </div>
-            <div className="product-list pb-5">
-              <div className="d-flex flex-wrap our-store-product-card">
+            <div className="container-xxl">
+              <div className="row">
                 {isSuccess && relatedProducts?.length !== 0
                   ? relatedProducts?.map((product) => {
                       return (
                         <ProductCard
                           grid={grid}
                           key={product._id}
+                          baseURL="product"
                           id={product._id}
                           title={product.title}
                           description={product.description}
@@ -510,7 +345,7 @@ const OurStore = () => {
                   : products?.map((product) => {
                       return (
                         <ProductCard
-                          grid={grid}
+                          baseURL="product"
                           key={product._id}
                           id={product._id}
                           title={product.title}

@@ -285,14 +285,16 @@
   }
 
   .close-menu-icon {
-    text-align: center;
+    text-align: end;
     color: #1455ac;
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px;
+    padding-right: 10px;
   }
   .hide-menu {
-    transform: translateX(-200%);
+    transform: translateY(-200%);
+    /* transition: transform 10s ease; */
   }
 
   .show-menu {
@@ -300,6 +302,7 @@
     background-color: white;
     top: 0;
     height: 100vh;
+    width: 30%;
     left: 0;
     transform: translateX(0);
     z-index: 999;
@@ -310,14 +313,18 @@
   }
 }
 
-@media screen and (min-width: 400px) and (max-width: 500px) {
+/* @media screen and (min-width: 400px) and (max-width: 500px) {
   .header .header-last-section {
     width: 45% !important;
   }
-}
-@media screen and (max-width: 400px) {
+} */
+@media screen and (max-width: 460px) {
   .header .header-last-section {
     width: 50% !important;
+  }
+
+  .show-menu {
+    width: 50%;
   }
   .login-container,
   .register-container {

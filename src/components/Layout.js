@@ -5,10 +5,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./footer/Footer";
 
-const Layout = () => {
+const Layout = ({ renderHeader, setRenderHeader }) => {
+  //console.log("Layout", renderHeader);
   return (
     <>
-      <Header />
+      <Header renderHeader={renderHeader} setRenderHeader={setRenderHeader} />
       <ToastContainer
         position="top-right"
         autoClose={1000}

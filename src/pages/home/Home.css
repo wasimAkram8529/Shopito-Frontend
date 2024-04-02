@@ -103,6 +103,9 @@
   flex-wrap: wrap;
 }
 
+.special-product-slider .product-card {
+  width: 99%;
+}
 @media screen and (max-width: 1000px) {
   .services div {
     width: 50%;

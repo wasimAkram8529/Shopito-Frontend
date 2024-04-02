@@ -16,7 +16,7 @@ let loginSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 
-const Login = () => {
+const Login = ({ setRenderHeader }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,6 +39,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && user?.length !== 0) {
+      setRenderHeader(true);
       navigate("/");
     } else if (isError) {
       //console.log(message);

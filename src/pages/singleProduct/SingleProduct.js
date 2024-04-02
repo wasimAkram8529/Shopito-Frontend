@@ -2,7 +2,7 @@ import "./SingleProduct.css";
 import React, { useEffect, useState } from "react";
 import Meta from "../../components/Meta";
 import BreadCrumb from "../../components/BreadCrumb";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../components/productCard/ProductCard";
 import ReactStars from "react-rating-stars-component";
 import Color from "../../components/Color";
 import { TbGitCompare } from "react-icons/tb";
@@ -37,7 +37,7 @@ import { totalDisplayImg } from "../../utils/importantFunctions";
 const reviewSchema = Yup.object().shape({
   review: Yup.string().required("Product Review is Required"),
 });
-const SingleProduct = () => {
+const SingleProduct = ({ renderHeader, setRenderHeader }) => {
   //console.log(props);
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
@@ -80,14 +80,16 @@ const SingleProduct = () => {
     dispatch(getAProduct(productId));
     dispatch(getProducts({ sort: "", minAmount: 0, maxAmount: 1000000007 }));
     dispatch(getUserCart());
-  }, []);
+  }, [productId]);
 
   useEffect(() => {
     dispatch(getAUser());
   }, [edit]);
 
   const addToWishListHandler = (id) => {
-    dispatch(addToWishList(id));
+    dispatch(addToWishList(id)).then(() => {
+      setRenderHeader(!renderHeader);
+    });
   };
 
   const { products } = useSelector((state) => state.product);
@@ -154,7 +156,9 @@ const SingleProduct = () => {
       toast.error(`Please Choose Product Quantity and Color`);
       return;
     }
-    dispatch(addToCart(cartItem));
+    dispatch(addToCart(cartItem)).then(() => {
+      setRenderHeader(!renderHeader);
+    });
     //props.setRender(true);
     // setIsAvailable(true);
     navigate("/cart");
@@ -224,38 +228,39 @@ const SingleProduct = () => {
                       },
                     }}
                   /> */}
-                  <ReactImageZoom {...propsZoom} />
+                  {/* <ReactImageZoom {...propsZoom} /> */}
+                  <img src={`${product?.image?.[0]?.url}`} alt="" />
                 </div>
-                <div className="others-product-images d-flex flex-wrap justify-content-between">
+                {/* <div className="others-product-images d-flex flex-wrap justify-content-between">
                   <div>
                     <img
                       src={product?.image?.[0]?.url}
-                      className="img-fluid"
+                      className=""
                       alt={product?.title}
                     />
                   </div>
                   <div>
                     <img
                       src={product?.image?.[0]?.url}
-                      className="img-fluid"
+                      className=""
                       alt={product?.title}
                     />
                   </div>
                   <div>
                     <img
                       src={product?.image?.[0]?.url}
-                      className="img-fluid"
+                      className=""
                       alt={product?.title}
                     />
                   </div>
                   <div>
                     <img
                       src={product?.image?.[0]?.url}
-                      className="img-fluid"
+                      className=""
                       alt={product?.title}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="product-details">
                 <div className="border-bottom">
@@ -474,7 +479,7 @@ const SingleProduct = () => {
                         </div>
                       )}
                     </div>
-                    {orderedProduct && (
+                    {/* {orderedProduct && (
                       <div>
                         <NavLink
                           className="text-dark text-decoration-underline"
@@ -483,7 +488,7 @@ const SingleProduct = () => {
                           Write a review
                         </NavLink>
                       </div>
-                    )}
+                    )} */}
                   </div>
                   <div className="review-form py-4">
                     <h4>{edit ? "Update Your Review" : "Write a Review"}</h4>
@@ -566,8 +571,8 @@ const SingleProduct = () => {
               </div>
             </div>
           </Container>
-          <Container className="popular-wrapper home-wrapper-2 py-5">
-            <div className="row recommend-popular-product">
+          <div className="container-xxl">
+            <div className="row ">
               <div className="col-12">
                 <h3 className="section-heading">Our Popular Products</h3>
               </div>
@@ -580,6 +585,7 @@ const SingleProduct = () => {
                       key={_id}
                       id={_id}
                       title={title}
+                      baseURL="product"
                       description={description}
                       price={price}
                       imgURL={product?.image?.[0].url}
@@ -595,7 +601,7 @@ const SingleProduct = () => {
               performAction={() => deleteReviewHandler(reviewId)}
               title="Are you sure want to delete this review"
             />
-          </Container>
+          </div>
         </>
       )}
     </>

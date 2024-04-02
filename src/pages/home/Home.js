@@ -3,7 +3,7 @@ import "./Home.css";
 import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../../components/BlogCard";
-import ProductCard from "../../components/ProductCard";
+import ProductCard from "../../components/productCard/ProductCard";
 import SpecialProduct from "../../components/special-product/SpecialProduct";
 import Meta from "../../components/Meta";
 import Container from "../../components/Container";
@@ -130,7 +130,7 @@ const Home = () => {
   specialProducts = specialProducts.map((item) => {
     const { totalrating, brand } = item;
     return (
-      <div key={item?._id}>
+      <div key={item?._id} className="special-product-slider">
         <SpecialProduct
           name={item?.title}
           url={item?.image?.[0]?.url}
@@ -362,7 +362,7 @@ const Home = () => {
           </div>
         </div>
       </Container> */}
-      <Container class1="py-5">
+      <div className="container-xxl py-5">
         <div className="container">
           <PageHeading
             heading={"Latest Products"}
@@ -371,7 +371,7 @@ const Home = () => {
           />
           <ProductCarousel products={latestProducts} />
         </div>
-      </Container>
+      </div>
       {/* <Container class1="home-wrapper-2 py-5">
         <div className="row home-container-2">
           <div className="">

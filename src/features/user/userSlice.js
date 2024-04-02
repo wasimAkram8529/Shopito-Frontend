@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 //   mobile: null,
 //   token: null,
 // };
+const clearTokenCookie = () => {
+  document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+};
 
 const initialState = {
   user: [],
@@ -439,7 +442,11 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.isLoggedIn = false;
         state.user = [];
+        state.userCart = [];
+        state.userOrders = [];
+        state.order = [];
         toast.success(action.payload);
+        clearTokenCookie();
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;

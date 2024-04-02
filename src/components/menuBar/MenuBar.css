@@ -1,0 +1,29 @@
+.menu-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  justify-content: space-between;
+}
+
+.menu-options div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.menu-options div a {
+  color: rgb(91, 89, 89);
+}
+
+.menu-options div button {
+  border: none;
+  background-color: white;
+  color: rgb(91, 89, 89);
+}
+
+.menu-options div span,
+.menu-options div svg {
+  color: #0d6efd;
+}

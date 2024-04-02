@@ -4,15 +4,20 @@
 }
 
 .store-right-part {
+  width: 80%;
   margin-left: 10px;
 }
 
-.store-middle-right-part {
-  display: none;
+.store-left-part {
+  width: 20%;
+  background-color: white;
 }
 
-.store-left-part {
-  width: 30%;
+.store-right-part .filter-sort-grid {
+  width: 100% !important;
+}
+.store-middle-right-part {
+  display: none;
 }
 
 .price-available-option {
@@ -40,16 +45,60 @@
   gap: 5px;
 }
 
+.store .store-left-part .select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #0d6efd;
+  border-radius: 5px;
+  color: rgb(130, 128, 128);
+}
+
+.price-filter-box {
+  display: flex;
+}
+
+.price-filter-box input {
+  width: 46%;
+  padding: 5px;
+  border: 1px solid #0d6efd;
+  border-radius: 5px;
+}
+
+.price-filter-box span {
+  margin: 5px 5px 0px 5px;
+}
+
+.close-menu {
+  display: none;
+}
+
+.price-filter-box svg {
+  font-size: 40px;
+  background-color: #0d6efd;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-left: 2px;
+}
 @media screen and (max-width: 1000px) {
+  .store-right-part {
+    width: 100%;
+  }
+
   .store .store-left-part {
-    position: absolute;
-    top: 138px;
+    position: fixed;
+    top: 0;
     bottom: 0;
-    left: 10px;
+    left: 0;
     z-index: 2;
     background-color: white;
-    width: 96%;
-    border-radius: 10px;
+    width: 40%;
+  }
+
+  .close-menu {
+    display: block;
+    text-align: end;
+    cursor: pointer;
   }
 
   .price-available-option {
@@ -79,10 +128,21 @@
     width: 30px;
     cursor: pointer;
   }
+
+  .open-filter {
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+  }
 }
 
 @media screen and (max-width: 500px) {
   .layout-selector {
     display: none !important;
+  }
+
+  .store .store-left-part {
+    width: 65%;
   }
 }

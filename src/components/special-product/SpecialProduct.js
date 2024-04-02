@@ -89,28 +89,54 @@ const SpecialProduct = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="carouselItem">
-      <Link to={`/product/${_id}`}>
-        <img className="product--image" src={url} alt="product" />
-        <p className="price">{`₹${price}`}</p>
-        {/* <h5 className="brand">{brand}</h5> */}
-        <ReactStars
-          count={5}
-          size={24}
-          value={rating}
-          edit={false}
-          activeColor="#ffd700"
-        />
-        <h4>{shortenText(name, 18)}</h4>
-        {/* <p className="--mb">{shortenText(description, 26)}</p> */}
-      </Link>
-      <button
-        className="--btn --btn-primary --btn-block"
-        onClick={() => navigate(`/product/${_id}`)}
-      >
-        View
-      </button>
-    </div>
+    // <div className="carouselItem">
+    //   <Link to={`/product/${_id}`}>
+    //     <div>
+    //       <img className="product--image" src={url} alt="product" />
+    //     </div>
+    //     <p className="price">{`₹${price}`}</p>
+    //     {/* <h5 className="brand">{brand}</h5> */}
+    //     <ReactStars
+    //       count={5}
+    //       size={24}
+    //       value={rating}
+    //       edit={false}
+    //       activeColor="#ffd700"
+    //     />
+    //     <h4>{shortenText(name, 18)}</h4>
+    //     {/* <p className="--mb">{shortenText(description, 26)}</p> */}
+    //   </Link>
+    //   <button
+    //     className="--btn --btn-primary --btn-block"
+    //     onClick={() => navigate(`/product/${_id}`)}
+    //   >
+    //     View
+    //   </button>
+    // </div>
+    <>
+      <div className="card special-product">
+        <NavLink to={`/product/${_id}`}>
+          <div className="card-img-top">
+            <img src={url} alt="" />
+          </div>
+          <div className="card-body">
+            <div className="card-title">{shortenText(description, 15)}</div>
+            <div className="card-text">{price}</div>
+            {Number(rating) != 0 && (
+              <div className="product-star">
+                <ReactStars
+                  count={5}
+                  size={24}
+                  value={Number(rating)}
+                  edit={false}
+                  activeColor="#ffd700"
+                />
+              </div>
+            )}
+          </div>
+        </NavLink>
+      </div>
+    </>
   );
 };
 
