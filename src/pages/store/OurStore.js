@@ -33,13 +33,14 @@ const OurStore = () => {
 
   //console.log(location?.state);
 
+  // console.log(location?.state?.type, location?.state?.content);
   useEffect(() => {
     dispatch(
       getProducts({
         sort,
         minAmount: priceFilter.minAmount,
         maxAmount: priceFilter.maxAmount,
-        tags: location?.state?.type,
+        [location?.state?.type]: location?.state?.content,
       })
     ).then(() => {
       //console.log(filterMenu);

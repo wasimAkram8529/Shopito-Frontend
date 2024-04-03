@@ -33,14 +33,14 @@ const ProductCard = ({
     // navigate("/cart");
   };
   return (
-    <div className="col-lg-3 col-md-4 col-sm-4 col-6 card">
+    <div className="col-lg-3 col-md-4 col-sm-6 col-6 card">
       <NavLink to={`/${baseURL}/${id}`}>
         <div className="card-img-top">
           <img src={imgURL} alt="" />
         </div>
         <div className="card-body">
           <div className="card-title">{shortenText(title, 15)}</div>
-          <div className="card-text">{price}</div>
+          <div className="card-text">{`₹${price}`}</div>
           {Number(rating) != 0 && (
             <div className="product-star">
               <ReactStars

@@ -1,11 +1,19 @@
 .carouselItem {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 96%;
-  height: 24rem;
+  height: 21rem;
   text-align: center;
   overflow: hidden;
 }
 
+.carouselItem img:hover {
+  transform: scale(1.1);
+  transition: transform 0.6s ease;
+}
+
+.carouselItem img {
+  transition: transform 0.6s ease;
+}
 .carouselItem a {
   display: flex;
   flex-direction: column;
@@ -38,6 +46,10 @@
   color: #333;
 }
 
+.carouselItem h4 {
+  font-size: 16px;
+  font-weight: 500;
+}
 @media screen and (max-width: 464px) {
   .carouselItem {
     margin-left: 2%;

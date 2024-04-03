@@ -13,7 +13,7 @@ const CarouselItem = ({ url, name, price, description, _id }) => {
         </div>
         <p className="price">{`₹${price}`}</p>
         <h4>{shortenText(name, 18)}</h4>
-        <p className="--mb">{shortenText(description, 26)}</p>
+        {/* <p className="--mb">{shortenText(description, 26)}</p> */}
       </Link>
       <button
         className="--btn --btn-primary --btn-block"

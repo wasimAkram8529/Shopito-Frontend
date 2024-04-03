@@ -106,7 +106,57 @@
 .special-product-slider .product-card {
   width: 99%;
 }
-@media screen and (max-width: 1000px) {
+
+.best-top-selling {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.best-top-selling {
+  padding-left: 20px;
+}
+.best-top-selling .best-selling-single-product {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.best-top-selling .best-selling-single-product img {
+  width: 100px !important;
+  height: 80px !important;
+  padding-top: 7px;
+  transition: transform 0.6s ease;
+}
+
+.best-top-selling .best-selling-single-product .card-body {
+  width: 65%;
+}
+
+.best-top-selling .best-selling-single-product .card-img {
+  width: 30%;
+}
+
+.best-top-selling .best-selling-single-product img:hover,
+.best-top-selling .best-selling-single-product img:focus,
+.best-top-selling .best-selling-single-product img:active {
+  transform: scale(1.2);
+  transition: transform 0.6s ease;
+}
+
+/* .new-arrival {
+  background-color: #e1d4f6;
+} */
+@media screen and (min-width: 576px) and (max-width: 700px) {
+  .best-top-selling .best-selling-single-product .card-body {
+    width: 60%;
+  }
+  .best-top-selling .best-selling-single-product .card-img {
+    width: 40%;
+  }
+}
+@media screen and (min-width: 577px) and (max-width: 1000px) {
   .services div {
     width: 50%;
     margin-top: 5px;
@@ -159,9 +209,30 @@
     width: 70%;
     text-align: center;
   }
+
+  .best-top-selling {
+    flex-direction: column;
+  }
+
+  .best-top-selling .best-selling-single-product {
+    border: 1px solid #c1cee1;
+    border-radius: 5px;
+    width: 48%;
+    margin-left: 10px;
+  }
+
+  .--fw-thin {
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .--btn {
+    font-size: 26px;
+    font-weight: 400;
+  }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 576px) {
   .main-banner-content p {
     display: none;
   }
@@ -172,5 +243,25 @@
 
   .small-banner-content h5 {
     display: none;
+  }
+
+  .best-top-selling {
+    flex-direction: column;
+  }
+
+  .best-top-selling .best-selling-single-product {
+    border: 1px solid #c1cee1;
+    border-radius: 5px;
+    width: 98%;
+  }
+
+  .--fw-thin {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .--btn {
+    font-size: 20px;
+    font-weight: 400;
   }
 }

@@ -121,7 +121,7 @@ const SpecialProduct = ({
           </div>
           <div className="card-body">
             <div className="card-title">{shortenText(description, 15)}</div>
-            <div className="card-text">{price}</div>
+            <div className="card-text">{`₹${price}`}</div>
             {Number(rating) != 0 && (
               <div className="product-star">
                 <ReactStars

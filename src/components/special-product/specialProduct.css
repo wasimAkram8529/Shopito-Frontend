@@ -53,18 +53,21 @@
   margin-left: 90px;
 }
 
-@media screen and (max-width: 1000px) {
-  .special-product .product-star {
-    margin-left: 60px;
-  }
+.special-product {
+  border: none !important;
 }
+/* @media screen and (max-width: 1000px) {
+  .special-product .product-star {
+    margin-left: 50px;
+  }
+} */
 @media screen and (max-width: 464px) {
   .carouselItem {
     margin-left: 2%;
   }
-  .special-product .product-star {
+  /* .special-product .product-star {
     margin-left: 120px;
-  }
+  } */
 }
 /* Commented Part */
 /*

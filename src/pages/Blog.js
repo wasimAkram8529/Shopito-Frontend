@@ -196,29 +196,25 @@ const Blog = () => {
                 {isSuccess && relatedProducts?.length !== 0
                   ? relatedProducts?.map((blog) => {
                       return (
-                        <ProductCard
-                          key={blog._id}
-                          baseURL="blog"
-                          id={blog._id}
-                          title={blog.title}
-                          description={blog.description}
-                          price={blog.price}
-                          imgURL={blog.image[0].url}
-                          rating={Number(0)}
+                        <BlogCard
+                          title={blog?.title}
+                          key={blog?._id}
+                          description={blog?.description}
+                          id={blog?._id}
+                          imgURL={blog?.image?.[0]?.url}
+                          date={moment(blog?.createAt).format("DD-MMMM-YYYY")}
                         />
                       );
                     })
                   : blogs?.map((blog) => {
                       return (
-                        <ProductCard
-                          key={blog._id}
-                          id={blog._id}
-                          baseURL="blog"
-                          title={blog.title}
-                          description={blog.description}
-                          price={blog.price}
-                          imgURL={blog.image[0].url}
-                          rating={Number(blog.totalrating)}
+                        <BlogCard
+                          title={blog?.title}
+                          key={blog?._id}
+                          description={blog?.description}
+                          id={blog?._id}
+                          imgURL={blog?.image?.[0]?.url}
+                          date={moment(blog?.createAt).format("DD-MMMM-YYYY")}
                         />
                       );
                     })}

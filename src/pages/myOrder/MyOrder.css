@@ -1,0 +1,144 @@
+.order-container {
+  background-color: #f1f3f6;
+}
+
+.order-container .card {
+  background-color: white;
+  height: 100px;
+  gap: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.order-container .card .card-img {
+  width: 50%;
+}
+
+.order-container .order {
+  background-color: white;
+}
+
+.address {
+  padding-bottom: 10px;
+}
+
+.order-container .order img {
+  width: 120px;
+  height: 80px;
+}
+
+.order-container .order-details {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-container .order .shipment-status {
+  width: 60%;
+}
+
+/* .ant-timeline {
+  display: flex;
+  flex-direction: row;
+}
+
+.ant-timeline-item-tail {
+  border-bottom: 1px solid black;
+} */
+
+.order .order-status {
+  display: flex;
+  gap: 5%;
+}
+
+.order .order-status-line {
+  display: flex;
+  margin-left: 40px;
+}
+
+.order .order-status-line div {
+  display: flex;
+  flex-direction: row;
+}
+.order .order-status-line .dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgb(11, 160, 3);
+}
+
+.order .order-status-line div div {
+  padding-bottom: 15px;
+}
+.order .order-status-line .line {
+  width: 110px;
+  border-bottom: 3px solid rgb(11, 160, 3);
+  margin-bottom: 10px;
+}
+
+.order-container .single-order {
+  display: flex;
+  flex-direction: row;
+}
+
+.order-container .single-order .card-img {
+  width: 20%;
+}
+.order-container .single-order .card-body {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.order-container .card-body .card-price {
+  color: #1455ac;
+}
+
+.order-container .single-order .card-img img {
+  width: 120px;
+  height: 80px;
+  margin-top: 9px;
+  transition: transform 0.6s ease;
+}
+
+.order-container .single-order .card-img img:hover {
+  transform: scale(1.2);
+  transition: transform 0.6s ease;
+}
+
+.order .card {
+  width: 40% !important;
+}
+
+.vertical-shipment-status {
+  display: none;
+}
+@media screen and (max-width: 786px) {
+  .shipment-status {
+    display: none;
+  }
+  .order-container .order .card {
+    width: 60% !important;
+    /* height: 100px !important; */
+  }
+  .vertical-shipment-status {
+    display: block;
+  }
+
+  .ant-timeline {
+    height: 135px;
+    margin-right: 20px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .order-container .single-order .card-img {
+    width: 30%;
+  }
+  .order-container .single-order .card-body {
+    width: 35%;
+  }
+}

@@ -210,13 +210,13 @@ const Checkout = (props) => {
                       Cart
                     </Link>
                   </li>
-                  &nbsp;/
+                  <span className="divider">/</span>
                   <li className="breadcrumb-item active" aria-current="page">
                     Information
                   </li>
-                  &nbsp;/
+                  <span className="divider">/</span>
                   <li className="breadcrumb-item active">Shipping</li>
-                  &nbsp;/
+                  <span className="divider">/</span>
                   <li className="breadcrumb-item active" aria-current="page">
                     Payment
                   </li>

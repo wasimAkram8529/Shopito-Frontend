@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
@@ -17,8 +17,11 @@ import { getAllBlogs } from "../../features/blogs/blogSlice";
 import moment from "moment";
 import { getProducts } from "../../features/products/productSlice";
 import { shortenText } from "../../utils/Validator";
+import Loader from "../../components/loader/Loader";
+import { totalDisplayImg } from "../../utils/importantFunctions";
+import ReactStars from "react-rating-stars-component";
 
-const PageHeading = ({ heading, btnText, type }) => {
+const PageHeading = ({ heading, btnText, type, content }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -29,7 +32,8 @@ const PageHeading = ({ heading, btnText, type }) => {
           onClick={() =>
             navigate("/products", {
               state: {
-                type: type,
+                type,
+                content,
               },
             })
           }
@@ -42,58 +46,19 @@ const PageHeading = ({ heading, btnText, type }) => {
   );
 };
 
-const Home = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(getAllBlogs());
-    dispatch(getProducts({ sort: "", minAmount: 0, maxAmount: 1000000007 }));
-  }, []);
-
-  const { blogs } = useSelector((state) => state.blog);
-  const { products } = useSelector((state) => state.product);
-
-  //console.log("products", products);
-
-  let popularProducts = [];
-  let featureProducts = [];
-  let specialProducts = [];
-  let slider = [];
-  let newLaunch = [];
-  let latestProduct = [];
+const filterProduct = (products, filterType, filterOnWhich) => {
+  let data = [];
 
   if (!products || products?.length !== 0) {
-    popularProducts = products?.filter((product) => product.tags === "popular");
+    data = products?.filter((product) => product[filterType] === filterOnWhich);
   }
 
-  if (!products || products?.length !== 0) {
-    featureProducts = products?.filter(
-      (product) => product.tags === "featured"
-    );
-  }
+  return data;
+};
 
-  if (!products || products?.length !== 0) {
-    specialProducts = products?.filter((product) => product.tags === "special");
-  }
-
-  if (!products || products?.length !== 0) {
-    slider = products?.filter((product) => product.tags === "slider");
-  }
-  if (!products || products?.length !== 0) {
-    newLaunch = products?.filter((product) => product.tags === "newLaunch");
-  }
-  if (!products || products?.length !== 0) {
-    latestProduct = products?.filter((product) => product.tags === "latest");
-  }
-
-  //console.log("New Launch", newLaunch);
-  //console.log("Slider", slider);
-  //console.log("Popular Product", popularProducts);
-  //console.log("Featured Product", featureProducts);
-  // console.log("Special Product",specialProducts);
-
-  const latestProducts = latestProduct.map((item) => (
+const generateCarouselItem = (products) => {
+  let data = [];
+  data = products.map((item) => (
     <div key={item?._id}>
       <CarouselItem
         name={item?.title}
@@ -104,30 +69,11 @@ const Home = () => {
       />
     </div>
   ));
-  featureProducts = featureProducts.map((item) => (
-    <div key={item?._id}>
-      <CarouselItem
-        name={item?.title}
-        url={item?.image?.[0]?.url}
-        price={item?.price}
-        description={item?.description}
-        _id={item?._id}
-      />
-    </div>
-  ));
-  popularProducts = popularProducts.map((item) => (
-    <div key={item?._id}>
-      <CarouselItem
-        name={item?.title}
-        url={item?.image?.[0]?.url}
-        price={item?.price}
-        description={item?.description}
-        _id={item?._id}
-      />
-    </div>
-  ));
-
-  specialProducts = specialProducts.map((item) => {
+  return data;
+};
+const generateSpecialCarouselItem = (products) => {
+  let data = [];
+  data = products.map((item) => {
     const { totalrating, brand } = item;
     return (
       <div key={item?._id} className="special-product-slider">
@@ -144,12 +90,109 @@ const Home = () => {
     );
   });
 
+  return data;
+};
+const Home = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const updateScreenWidth = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    dispatch(getAllBlogs({}));
+    dispatch(getProducts({ sort: "", minAmount: 0, maxAmount: 1000000007 }));
+    window.addEventListener("resize", updateScreenWidth);
+    return () => {
+      window.removeEventListener("resize", updateScreenWidth);
+    };
+  }, []);
+
+  const { blogs } = useSelector((state) => state.blog);
+  const { products, isLoading } = useSelector((state) => state.product);
+
+  // console.log("products", products);
+
+  let popularProducts = [];
+  let featureProducts = [];
+  let specialProducts = [];
+  let slider = [];
+  let newLaunch = [];
+  let latestProduct = [];
+  let newArrivals = [];
+  let bestSelling = [];
+  let topRated = [];
+  let mobilePhones = [];
+  let womenCollection = [];
+  let menCollection = [];
+  let shoes = [];
+
+  popularProducts = filterProduct(products, "tags", "popular");
+
+  featureProducts = filterProduct(products, "tags", "featured");
+
+  specialProducts = filterProduct(products, "tags", "special");
+
+  slider = filterProduct(products, "tags", "slider");
+
+  newLaunch = filterProduct(products, "tags", "newLaunch");
+
+  latestProduct = filterProduct(products, "tags", "latest");
+
+  newArrivals = filterProduct(products, "tags", "new_arrivals");
+
+  bestSelling = filterProduct(products, "tags", "best_selling");
+
+  topRated = filterProduct(products, "tags", "top_rated");
+
+  mobilePhones = filterProduct(products, "category", "Mobile Phone");
+
+  menCollection = filterProduct(products, "category", "Men Collection");
+
+  womenCollection = filterProduct(products, "category", "Women Collection");
+
+  shoes = filterProduct(products, "category", "Shoes");
+
+  // console.log(mobilePhones);
+
+  // console.log(bestSelling);
+  //console.log(newArrivals);
+
+  //console.log("New Launch", newLaunch);
+  //console.log("Slider", slider);
+  //console.log("Popular Product", popularProducts);
+  //console.log("Featured Product", featureProducts);
+  // console.log("Special Product",specialProducts);
+
+  newArrivals = totalDisplayImg(4, newArrivals);
+
+  if (screenWidth > 576 && screenWidth <= 992) {
+    newArrivals = totalDisplayImg(3, newArrivals);
+  }
+  const latestProducts = generateCarouselItem(latestProduct);
+
+  featureProducts = generateCarouselItem(featureProducts);
+
+  popularProducts = generateCarouselItem(popularProducts);
+
+  specialProducts = generateSpecialCarouselItem(specialProducts);
+
+  mobilePhones = generateSpecialCarouselItem(mobilePhones);
+
+  womenCollection = generateSpecialCarouselItem(womenCollection);
+
+  menCollection = generateSpecialCarouselItem(menCollection);
+
+  shoes = generateCarouselItem(shoes);
   //console.log(specialProducts);
   return (
     <>
+      {/* {isLoading && <Loader />} */}
       <Meta title="Shopito" />
       <Slider slider={slider} />
-      <Container class1="py-5">
+      {/* <Container class1="pt-5">
         <div className="home-container-1">
           <div>
             <div className="main-banner position-relative">
@@ -247,43 +290,11 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className="inner-container">
-                <div className="small-banner position-relative">
-                  <img
-                    src="images/catbanner-02.jpg"
-                    className="img-fluid rounded-3"
-                    alt="Main Banner"
-                  />
-                  <div className="small-banner-content position-absolute">
-                    <h4>15% OFF</h4>
-                    <h5>Smartwatch 7</h5>
-                    <p>
-                      Shop the latet band <br />
-                      styles and colors.
-                    </p>
-                  </div>
-                </div>
-                <div className="small-banner position-relative">
-                  <img
-                    src="images/catbanner-04.jpg"
-                    className="img-fluid rounded-3"
-                    alt="Main Banner"
-                  />
-                  <div className="small-banner-content position-absolute">
-                    <h4>FREE ENGRAVING</h4>
-                    <h5>AirPods Max</h5>
-                    <p>
-                      High-fidelity playback & <br />
-                      ultra-low distortion
-                    </p>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
-      </Container>
-      <Container class1="home-wrapper-2 py-5">
+      </Container> */}
+      <Container class1="home-wrapper-2 pt-5">
         <div className="services">
           {services?.map((item, indx) => {
             return (
@@ -298,365 +309,7 @@ const Home = () => {
           })}
         </div>
       </Container>
-      {/* <Container class1="home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-12">
-            <div className="categories d-flex justify-content-between align-items-center flex-wrap">
-              <div className=" d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/tv.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Headphone</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/headphone.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/tv.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Headphones</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/headphone.jpg" alt="camera" />
-              </div>
-              <div className="d-flex gap-30 align-items-center">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container> */}
-      <div className="container-xxl py-5">
-        <div className="container">
-          <PageHeading
-            heading={"Latest Products"}
-            btnText={"Shop Now >>>"}
-            type="latest"
-          />
-          <ProductCarousel products={latestProducts} />
-        </div>
-      </div>
-      {/* <Container class1="home-wrapper-2 py-5">
-        <div className="row home-container-2">
-          <div className="">
-            <div className="categories d-flex align-items-center flex-wrap">
-              <div className="">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/tv.jpg" alt="camera" />
-              </div>
-              <div className="">
-                <div>
-                  <h6>Headphones</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/headphone.jpg" alt="camera" />
-              </div>
-              <div className="">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row home-container-2">
-          <div className="">
-            <div className="categories d-flex align-items-center flex-wrap">
-              <div className="">
-                <div>
-                  <h6>Smart Tv</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/tv.jpg" alt="camera" />
-              </div>
-              <div className="">
-                <div>
-                  <h6>Headphones</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/headphone.jpg" alt="camera" />
-              </div>
-              <div className="">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-              <div className="">
-                <div>
-                  <h6>Cameras</h6>
-                  <p>10 Items</p>
-                </div>
-                <img src="images/camera.jpg" alt="camera" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container> */}
-      {/* {featureProducts.length !== 0 && (
-        <Container class1="featured-wrapper home-wrapper-2 py-5">
-          <div className="row">
-            <div className="col-12 --flex-between">
-              <h3 className="section-heading">Featured Collection</h3>
-              <button
-                className="--btn"
-                onClick={() =>
-                  navigate("/products", {
-                    state: {
-                      type: "featured",
-                    },
-                  })
-                }
-              >
-                Shop Now {">>>"}
-              </button>
-            </div>
-            {featureProducts?.length !== 0 &&
-              featureProducts.map((product) => {
-                const { _id, description, title, price, totalrating } = product;
-                return (
-                  <ProductCard
-                    key={_id}
-                    id={_id}
-                    title={title}
-                    description={description}
-                    price={price}
-                    imgURL={product?.image?.[0].url}
-                    rating={Number(totalrating)}
-                  />
-                );
-              })}
-          </div>
-        </Container>
-      )} */}
-      <Container class1="py-5">
-        <div className="container">
-          <PageHeading
-            heading={"Featured Products"}
-            btnText={"Shop Now >>>"}
-            type="featured"
-          />
-          <ProductCarousel products={featureProducts} />
-        </div>
-      </Container>
-      <Container class1="py-5">
-        <div className="container">
-          <PageHeading
-            heading={"Special Products"}
-            btnText={"Shop Now >>>"}
-            type="special"
-          />
-          <ProductCarousel products={specialProducts} />
-        </div>
-      </Container>
-      {/* <Container class1="famous-wrapper py-5 home-wrapper-2">
-        <div className="row">
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="images/SmartWatchSeries-07.webp"
-                className="img-fluid"
-                alt="Smart Watch"
-              />
-              <div className="famous-content position-absolute">
-                <h5>BIG SCREEN</h5>
-                <h6>Smart Watch Series 7</h6>
-                <p>From $399 or $16.62/mo for 24 mo.</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="images/macBook-01.webp"
-                className="img-fluid"
-                alt="Smart Watch"
-              />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">STUDIO DISPLAY</h5>
-                <h6 className="text-dark">600 nits of brightness</h6>
-                <p className="text-dark">27-inch 5K Retina Display</p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="images/iphone-01.webp"
-                className="img-fluid"
-                alt="I Phone"
-              />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">SMARTPHONES</h5>
-                <h6 className="text-dark">I Phone 13 Pro</h6>
-                <p className="text-dark">
-                  Now in Green From $999.00 or $41.62/mo for 24 mo Footnote*
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="famous-card position-relative">
-              <img
-                src="images/speaker.webp"
-                className="img-fluid"
-                alt="Smart Watch"
-              />
-              <div className="famous-content position-absolute">
-                <h5 className="text-dark">HOME SPEAKERS</h5>
-                <h6 className="text-dark">Room-filling sound</h6>
-                <p className="text-dark">From $699 or $116.58/mo for 6 mo.*</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container> */}
-      {/* {specialProducts.length !== 0 && (
-        <Container class1="home-wrapper-2 py-5">
-          <section className="special-product py-5 home-wrapper-2">
-            <div className="container-xxl">
-              <div className="row">
-                <div className="col-12 --flex-between">
-                  <h3 className="section-heading">Special Products</h3>
-                  <button
-                    className="--btn"
-                    onClick={() =>
-                      navigate("/products", {
-                        state: {
-                          type: "special",
-                        },
-                      })
-                    }
-                  >
-                    Shop Now {">>>"}
-                  </button>
-                </div>
-              </div>
-              <div className="row">
-                {specialProducts.length !== 0 &&
-                  specialProducts.map((product) => {
-                    const {
-                      _id,
-                      sold,
-                      quantity,
-                      title,
-                      price,
-                      totalrating,
-                      brand,
-                    } = product;
-                    return (
-                      <SpecialProduct
-                        key={_id}
-                        id={_id}
-                        brand={brand}
-                        title={title}
-                        sold={sold}
-                        quantity={quantity}
-                        price={price}
-                        imgURL={product?.image?.[0].url}
-                        rating={Number(totalrating)}
-                      />
-                    );
-                  })}
-              </div>
-            </div>
-          </section>
-        </Container>
-      )} */}
-      {/* {popularProducts.length !== 0 && (
-        <Container class1="popular-wrapper home-wrapper-2 py-5">
-          <div className="row">
-            <div className="col-12 --flex-between">
-              <h3 className="section-heading">Our Popular Products</h3>
-              <button
-                className="--btn"
-                onClick={() =>
-                  navigate("/products", {
-                    state: {
-                      type: "popular",
-                    },
-                  })
-                }
-              >
-                Shop Now {">>>"}
-              </button>
-            </div>
-            {popularProducts?.length !== 0 &&
-              popularProducts.map((product) => {
-                const { _id, description, title, price, totalrating, color } =
-                  product;
-                return (
-                  <ProductCard
-                    key={_id}
-                    id={_id}
-                    title={title}
-                    description={description}
-                    price={price}
-                    imgURL={product?.image?.[0].url}
-                    rating={Number(totalrating)}
-                    color={color?.[0]?.title}
-                  />
-                );
-              })}
-          </div>
-        </Container>
-      )} */}
-      <Container class1="py-5">
-        <div className="container">
-          <PageHeading heading={"Popular Products"} btnText={"Shop Now >>>"} />
-          <ProductCarousel products={popularProducts} />
-        </div>
-      </Container>
-      <Container class1="marquee-wrapper py-5">
+      <Container class1="marquee-wrapper pt-5">
         <h3 className="section-heading">Our Brands</h3>
         <div className="row">
           <div className="col-12">
@@ -691,24 +344,202 @@ const Home = () => {
           </div>
         </div>
       </Container>
+      <div className="container-xxl pt-5">
+        <PageHeading
+          heading={"Latest Products"}
+          btnText={"View all >>>"}
+          type="tags"
+          content="latest"
+        />
+        <ProductCarousel products={latestProducts} />
+      </div>
+      <div className="container-xxl py-5 new-arrival">
+        <PageHeading
+          heading={"New arrivals"}
+          btnText={"Shop now >>>"}
+          type="tags"
+          content="new_arrivals"
+        />
+        <div className="row">
+          {newArrivals?.length !== 0 &&
+            newArrivals?.map((product) => {
+              return (
+                <ProductCard
+                  key={product._id}
+                  baseURL="product"
+                  id={product._id}
+                  title={product.title}
+                  description={product.description}
+                  price={product.price}
+                  imgURL={product.image[0].url}
+                  rating={Number(product.totalrating)}
+                />
+              );
+            })}
+        </div>
+      </div>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Mobile Phones"}
+          btnText={"View all >>>"}
+          type="category"
+          content="Mobile Phone"
+        />
+        <ProductCarousel products={mobilePhones} />
+      </Container>
+      <div className="container-xxl pt-5 best-top-selling">
+        <div>
+          <PageHeading
+            heading={"Best Selling"}
+            btnText={"Shop now >>>"}
+            type="tags"
+            content="top_rated"
+          />
+          <div className="row">
+            {bestSelling?.length !== 0 &&
+              bestSelling?.map((product) => {
+                return (
+                  <div
+                    className="col-sm-6 col-12 best-selling-single-product"
+                    key={product?._id}
+                  >
+                    <div className="card-img">
+                      <img src={product?.image?.[0]?.url} alt="" />
+                    </div>
+                    <div className="card-body">
+                      <div className="card-title">
+                        {shortenText(product?.title, 15)}
+                      </div>
+                      {Number(product?.totalrating) != 0 && (
+                        <div className="product-star">
+                          <ReactStars
+                            count={5}
+                            size={24}
+                            value={Number(product?.totalrating)}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                      )}
+                      <div className="card-text">{`₹${product?.price}`}</div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+        <div>
+          <PageHeading
+            heading={"Top rated"}
+            btnText={"Shop now >>>"}
+            type="tags"
+            content="best_selling"
+          />
+          <div className="row">
+            {bestSelling?.length !== 0 &&
+              bestSelling?.map((product) => {
+                return (
+                  <div
+                    className="col-sm-6 col-12 best-selling-single-product"
+                    key={product?._id}
+                  >
+                    <div className="card-img">
+                      <img src={product?.image?.[0]?.url} alt="" />
+                    </div>
+                    <div className="card-body">
+                      <div className="card-title">
+                        {shortenText(product?.title, 15)}
+                      </div>
+                      {Number(product?.totalrating) != 0 && (
+                        <div className="product-star">
+                          <ReactStars
+                            count={5}
+                            size={24}
+                            value={Number(product?.totalrating)}
+                            edit={false}
+                            activeColor="#ffd700"
+                          />
+                        </div>
+                      )}
+                      <div className="card-text">{`₹${product?.price}`}</div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      </div>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Featured Products"}
+          btnText={"Shop Now >>>"}
+          type="tags"
+          content="featured"
+        />
+        <ProductCarousel products={featureProducts} />
+      </Container>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Special Products"}
+          btnText={"Shop Now >>>"}
+          type="tags"
+          content="special"
+        />
+        <ProductCarousel products={specialProducts} />
+      </Container>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Popular Products"}
+          btnText={"Shop Now >>>"}
+          type="tags"
+          content="popular"
+        />
+        <ProductCarousel products={popularProducts} />
+      </Container>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Men Collection"}
+          btnText={"Shop Now >>>"}
+          type="category"
+          content="Men Collection"
+        />
+        <ProductCarousel products={menCollection} />
+      </Container>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Women Collection"}
+          btnText={"Shop Now >>>"}
+          type="category"
+          content="Women Collection"
+        />
+        <ProductCarousel products={womenCollection} />
+      </Container>
+      <Container class1="pt-5">
+        <PageHeading
+          heading={"Shoes"}
+          btnText={"Shop Now >>>"}
+          type="category"
+          content="Shoes"
+        />
+        <ProductCarousel products={shoes} />
+      </Container>
       <Container class1="blog-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Our Latest Blogs</h3>
           </div>
           <div className="row">
-            {!blogs && blogs?.length !== 0 ? (
+            {blogs && blogs?.length !== 0 ? (
               blogs?.map((blog) => {
                 return (
-                  <div key={blog?._id} className="col-6 mb-3">
-                    <BlogCard
-                      title={blog?.title}
-                      description={blog?.description}
-                      id={blog?._id}
-                      imgURL={blog?.image?.[0]?.url}
-                      date={moment(blog?.createAt).format("DD-MMMM-YYYY")}
-                    />
-                  </div>
+                  <BlogCard
+                    title={blog?.title}
+                    key={blog?._id}
+                    description={blog?.description}
+                    id={blog?._id}
+                    imgURL={blog?.image?.[0]?.url}
+                    date={moment(blog?.createAt).format("DD-MMMM-YYYY")}
+                  />
                 );
               })
             ) : (

@@ -15,7 +15,9 @@
   --color-777777: #777777;
   --color-1c1b1b: #1c1b1b;
   --color-fc353c00: rgb(212, 25, 25);
+  --color-0c6efd: #1455ac;
 }
+
 .--btn {
   font-size: 1.6rem;
   font-weight: 400;
@@ -28,6 +30,8 @@
   justify-content: center;
   align-items: center;
   transition: all 0.3s;
+  background-color: white;
+  color: #1455ac;
 }
 
 .--btn:hover {
@@ -36,13 +40,14 @@
 
 .--btn-primary {
   color: #fff;
-  background: #007bff;
+  background: #1455ac;
 }
 
 .--flex-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
 }
 
 .--fw-thin {
@@ -50,7 +55,7 @@
 }
 
 .--hr {
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc; */
   margin-bottom: 1rem;
 }
 
@@ -121,7 +126,7 @@ a {
 }
 
 .header-bottom {
-  background-color: var(--color-232f3e);
+  background-color: var(--color-0c6efd);
 }
 
 .header-bottom .menu-links a,
@@ -167,7 +172,7 @@ a {
 /* Footer parts Start */
 
 footer {
-  background-color: var(--color-232f3e);
+  background-color: #1455ac;
 }
 
 /*footer :not(:first-child) {
@@ -591,6 +596,17 @@ footer .input-group-text {
 }
 
 .breadcrumb {
-  background-color: #0c6efd;
+  background-color: #1455ac;
   color: white;
+}
+
+.product-star {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 0px !important;
+}
+
+.card-date {
+  color: #1455ac !important;
 }

@@ -5,12 +5,13 @@ export const API_URL = `${BACKEND_URL}/api/products/`;
 
 // Get All Products
 const getProducts = async (query) => {
-  const { sort, minAmount, maxAmount, tags } = query;
+  const { sort, minAmount, maxAmount, tags, category } = query;
   const response = await axios.get(API_URL, {
     params: {
       sort: `${sort}`,
       numericFilters: `price>=${minAmount},price<=${maxAmount}`,
       tags,
+      category,
     },
   });
   return response.data;

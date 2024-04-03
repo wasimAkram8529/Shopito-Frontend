@@ -23,8 +23,8 @@ import Checkout from "./pages/checkout/Checkout";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getLoginStatus } from "./features/user/userSlice";
-import MyOrders from "./pages/MyOrders";
-import ViewOrder from "./pages/ViewOrder";
+import MyOrders from "./pages/myOrder/MyOrders";
+import ViewOrder from "./pages/myOrder/ViewOrder";
 import Profile from "./pages/profile/Profile";
 import SingleProduct from "./pages/singleProduct/SingleProduct";
 import BuyNow from "./pages/buyNow/BuyNow";
@@ -76,7 +76,7 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
 
             <Route path="my-orders" element={<MyOrders />} />
-            <Route path="my-orders/:id" element={<ViewOrder />} />
+            <Route path="my-order/:id/:id" element={<ViewOrder />} />
 
             <Route path="compare-product" element={<CompareProduct />} />
 

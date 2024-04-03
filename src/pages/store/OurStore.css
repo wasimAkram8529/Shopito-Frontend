@@ -48,7 +48,7 @@
 .store .store-left-part .select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #0d6efd;
+  border: 1px solid #1455ac;
   border-radius: 5px;
   color: rgb(130, 128, 128);
 }
@@ -60,7 +60,7 @@
 .price-filter-box input {
   width: 46%;
   padding: 5px;
-  border: 1px solid #0d6efd;
+  border: 1px solid #1455ac;
   border-radius: 5px;
 }
 
@@ -74,7 +74,7 @@
 
 .price-filter-box svg {
   font-size: 40px;
-  background-color: #0d6efd;
+  background-color: #1455ac;
   border-radius: 5px;
   color: white;
   cursor: pointer;
@@ -130,7 +130,7 @@
   }
 
   .open-filter {
-    background-color: #0d6efd;
+    background-color: #1455ac;
     color: white;
     cursor: pointer;
     border-radius: 20px;
