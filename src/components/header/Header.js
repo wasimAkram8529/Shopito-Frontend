@@ -25,6 +25,7 @@ import {
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getProducts } from "../../features/products/productSlice";
+import { shortenText } from "../../utils/Validator";
 
 export const logo = (
   <div className="logo">
@@ -68,7 +69,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
       options.push({
         id: i,
         productId: product?._id,
-        name: product?.title,
+        name: shortenText(product?.title, 15),
       });
     }
     //console.log(options);
@@ -149,7 +150,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
             placeholder="Search..."
             onChange={(selected) => {
               setSearchBar(false);
-              console.log("id", selected[0].productId);
+              // console.log("id", selected[0].productId);
               navigate(`/product/${selected[0].productId}`);
             }}
           />
@@ -163,13 +164,13 @@ const Header = ({ renderHeader, setRenderHeader }) => {
           <div className="container-xxl">
             <div className="row">
               <div className="col-6 shipping-text">
-                <p className="mb-0">Free Shipping Over $100 & Free Returns</p>
+                <p className="mb-0">Free Shipping Over ₹100 & Free Returns</p>
               </div>
               <div className="col-6 contact-number">
                 <p className="text-end mb-0">
                   Hotline:{" "}
                   <a className="" href="tel:+91 8529922324">
-                    +91 8529922324
+                    +91 XXXXXXXX24
                   </a>
                 </p>
               </div>
@@ -243,7 +244,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                         className={`wishlist ${activeLink}`}
                       >
                         <CiHeart className="icons" />
-                        <span>{wishList?.length}</span>
+                        <span>{wishList?.length || 0}</span>
                       </NavLink>
                     </div>
                     <div className="tooltip-wishlist">Wishlist</div>

@@ -12,6 +12,10 @@
   align-items: center;
 }
 
+.order-container .card a {
+  width: 100%;
+}
+
 .order-container .card .card-img {
   width: 50%;
 }

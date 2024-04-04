@@ -33,7 +33,34 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import CustomModel from "../../components/CustomModel";
 import { totalDisplayImg } from "../../utils/importantFunctions";
+import Loader from "../../components/loader/Loader";
+import SpecialProduct from "../../components/special-product/SpecialProduct";
+import ProductCarousel from "../../components/corousel/Carousel";
 
+const PageHeading = ({ heading, btnText, type, content }) => {
+  const navigate = useNavigate();
+  return (
+    <>
+      <div className="--flex-between">
+        <h2 className="--fw-thin">{heading}</h2>
+        <button
+          className="--btn"
+          onClick={() =>
+            navigate("/products", {
+              state: {
+                type,
+                content,
+              },
+            })
+          }
+        >
+          {btnText}
+        </button>
+      </div>
+      <div className="--hr"></div>
+    </>
+  );
+};
 const reviewSchema = Yup.object().shape({
   review: Yup.string().required("Product Review is Required"),
 });
@@ -204,8 +231,26 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
     zoomWidth: 500,
     img: `${product?.image?.[0]?.url}`,
   };
+
+  popularProducts = popularProducts.map((item) => {
+    const { totalrating, brand } = item;
+    return (
+      <div key={item?._id} className="special-product-slider">
+        <SpecialProduct
+          name={item?.title}
+          url={item?.image?.[0]?.url}
+          price={item?.price}
+          description={item?.description}
+          _id={item?._id}
+          brand={brand}
+          rating={Number(totalrating)}
+        />
+      </div>
+    );
+  });
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="ShopIto" />
       {!isLoading && (
         <>
@@ -282,7 +327,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                 </div>
                 <div className="py-3">
                   <div className="d-flex gap-10 align-items-center my-2">
-                    <h3 className="product-heading">Type:</h3>
+                    {/* <h3 className="product-heading">Type:</h3> */}
                     <p className="product-data">{product?.title}</p>
                   </div>
                   <div className="d-flex gap-10 align-items-center my-2">
@@ -573,27 +618,17 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
           </Container>
           <div className="container-xxl">
             <div className="row ">
-              <div className="col-12">
-                <h3 className="section-heading">Our Popular Products</h3>
-              </div>
-              {popularProducts?.length !== 0 &&
-                popularProducts.map((product) => {
-                  const { _id, description, title, price, totalrating } =
-                    product;
-                  return (
-                    <ProductCard
-                      key={_id}
-                      id={_id}
-                      title={title}
-                      baseURL="product"
-                      description={description}
-                      price={price}
-                      imgURL={product?.image?.[0].url}
-                      rating={totalrating ? totalrating : ""}
-                      colNumber={Math.round(12 / popularProducts?.length)}
-                    />
-                  );
-                })}
+              {
+                <>
+                  <PageHeading
+                    heading={"Popular Products"}
+                    btnText={"Shop Now >>>"}
+                    type="tags"
+                    content="featured"
+                  />
+                  <ProductCarousel products={popularProducts} />
+                </>
+              }
             </div>
             <CustomModel
               open={open}

@@ -8,6 +8,7 @@ import {
   removeFromWishList,
 } from "../features/user/userSlice";
 import { FaTimes } from "react-icons/fa";
+import Loader from "../components/loader/Loader";
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Wishlist = () => {
     dispatch(getUserWishList());
   }, []);
 
-  const { wishList } = useSelector((state) => state.auth);
+  const { wishList, isLoading } = useSelector((state) => state.auth);
   // console.log(wishList);
 
   const removeItemHandler = (id) => {
@@ -24,6 +25,7 @@ const Wishlist = () => {
   };
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="ShopIto" />
       <BreadCrumb title=" Wishlist" />
       <Container class1="wishlist-wrapper home-wrapper-2 py-5">

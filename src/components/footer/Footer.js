@@ -6,7 +6,7 @@ import { BsLinkedin, BsGithub, BsInstagram } from "react-icons/bs";
 const Footer = () => {
   return (
     <>
-      <footer className="py-4">
+      <footer className="py-4 footer">
         <div className="container-xxl">
           <div className="row align-items-center footer-top">
             <div className="col-5">
@@ -79,21 +79,10 @@ const Footer = () => {
             <div className="col-4">
               <h4 className="text-white mb-4">Information</h4>
               <div className="footer-links d-flex flex-column">
-                <Link to="/privacy-policy" className="text-white py-2 mb-1">
-                  Privacy Policy
-                </Link>
-                <Link to="/refund-policy" className="text-white py-2 mb-1">
-                  Refund Policy
-                </Link>
-                <Link to="shipping-policy" className="text-white py-2 mb-1">
-                  Shipping Policy
-                </Link>
-                <Link
-                  to="/terms-and-condition"
-                  className="text-white py-2 mb-1"
-                >
-                  Terms Of Service
-                </Link>
+                <Link className="text-white py-2 mb-1">Privacy Policy</Link>
+                <Link className="text-white py-2 mb-1">Refund Policy</Link>
+                <Link className="text-white py-2 mb-1">Shipping Policy</Link>
+                <Link className="text-white py-2 mb-1">Terms Of Service</Link>
               </div>
             </div>
             <div className="col-4">

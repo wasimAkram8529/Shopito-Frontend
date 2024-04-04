@@ -1,3 +1,21 @@
+.home-container {
+  background-color: #f1f3f6;
+}
+
+.home-container .container-xxl {
+  background-color: white !important;
+  padding: 50px 20px 50px 20px !important;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+/* .best-top-selling .container-xxl {
+  margin-left: 130px !important;
+} */
+
+.container-padding {
+  padding: 10px 0px 10px 0px;
+}
 .home-container-1 {
   display: flex;
   flex-direction: row;

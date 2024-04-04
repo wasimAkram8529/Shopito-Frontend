@@ -11,6 +11,7 @@ import { getProducts } from "../../features/products/productSlice";
 import { useLocation } from "react-router-dom";
 import { MdFilterAlt } from "react-icons/md";
 import { IoMdClose, IoIosArrowDroprightCircle } from "react-icons/io";
+import Loader from "../../components/loader/Loader";
 
 const OurStore = () => {
   const dispatch = useDispatch();
@@ -144,6 +145,7 @@ const OurStore = () => {
   //console.log(filterMenu);
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title="Our Store" />
       <Container class1="store-wrapper home-wrapper-2 py-5">

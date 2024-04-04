@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { RESET_AUTH, register } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/loader/Loader";
 
 let signUpSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -43,7 +44,7 @@ const SignUp = () => {
     },
   });
 
-  const { user, isSuccess, isError, message } = useSelector(
+  const { user, isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.auth
   );
 
@@ -61,6 +62,7 @@ const SignUp = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title=" Sign Up" />
       <Container class1="login-wrapper home-wrapper-2 py-5">

@@ -47,7 +47,7 @@ const MenuBar = ({ handleLogout }) => {
       <div>
         <ShowOnLogin>
           <CgProfile />
-          <NavLink to="/profile">Profile</NavLink>
+          <NavLink to="/user-profile">Profile</NavLink>
         </ShowOnLogin>
       </div>
       <div>

@@ -7,6 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 import { formatDate } from "../../utils/importantFunctions";
 import Container from "../../components/Container";
 import "./MyOrder.css";
+import Loader from "../../components/loader/Loader";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -56,15 +57,18 @@ const MyOrders = () => {
   // console.log(userOrders);
   // console.log(data);
   return (
-    <div className="order-container">
-      <div className="container-xxl py-5">
-        {userOrders && userOrders?.length !== 0 ? (
-          data
-        ) : (
-          <div>Your order is patiently waiting for your treasures.</div>
-        )}
+    <>
+      {isLoading && <Loader />}
+      <div className="order-container">
+        <div className="container-xxl py-5">
+          {userOrders && userOrders?.length !== 0 ? (
+            data
+          ) : (
+            <div>Your order is patiently waiting for your treasures.</div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

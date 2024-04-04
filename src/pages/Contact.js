@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createEnquiry } from "../features/contact/contactSlice";
+import Loader from "../components/loader/Loader";
 
 let enquirySchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -35,11 +36,12 @@ const Contact = () => {
     },
   });
 
-  const { contact } = useSelector((state) => state.contact);
+  const { contact, isLoading } = useSelector((state) => state.contact);
   //console.log(contact);
 
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title="Contact Us" />
       <Container class1="contact-wrapper home-wrapper-2 py-5">

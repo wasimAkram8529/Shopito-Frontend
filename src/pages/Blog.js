@@ -10,6 +10,7 @@ import { MdFilterAlt } from "react-icons/md";
 import { IoMdClose, IoIosArrowDroprightCircle } from "react-icons/io";
 import Container from "../components/Container";
 import ProductCard from "../components/productCard/ProductCard";
+import Loader from "../components/loader/Loader";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,11 @@ const Blog = () => {
     };
   }, [category, sort]);
 
-  const { blogs, isSuccess } = useSelector((state) => state.blog);
+  const { blogs, isSuccess, isLoading } = useSelector((state) => state.blog);
   //console.log(blogs);
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title="Blog" />
       <Container class1="store-wrapper home-wrapper-2 py-5">

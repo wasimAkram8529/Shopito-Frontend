@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { RESET_AUTH, login } from "../features/user/userSlice";
+import Loader from "../components/loader/Loader";
 //import Loader from ".././components/loader/Loader";
 
 let loginSchema = Yup.object().shape({
@@ -51,6 +52,7 @@ const Login = ({ setRenderHeader }) => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title=" Login" />
       {/* {!isLoading && <Loader />} */}

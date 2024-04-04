@@ -94,13 +94,13 @@ function App() {
 
             <Route path="reset-password/:token" element={<ResetPassword />} />
 
-            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            {/* <Route path="privacy-policy" element={<PrivacyPolicy />} />
 
             <Route path="refund-policy" element={<RefundPolicy />} />
 
             <Route path="shipping-policy" element={<ShippingPolicy />} />
 
-            <Route path="terms-and-condition" element={<TermsAndCondition />} />
+            <Route path="terms-and-condition" element={<TermsAndCondition />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

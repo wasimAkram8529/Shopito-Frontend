@@ -9,6 +9,7 @@ import { getUserCart, removeFromCart } from "../../features/user/userSlice";
 import CartComponent from "../../components/cartComponent/CartComponent";
 import { formateCurrency } from "../../utils/money";
 import { updateCartQuantity } from "../../features/user/userSlice";
+import Loader from "../../components/loader/Loader";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Cart = () => {
     dispatch(getUserCart());
   });
 
-  const { userCart } = useSelector((state) => state.auth);
+  const { userCart, isLoading } = useSelector((state) => state.auth);
   let initialTotalAmount = 0;
 
   const [shipping, setShipping] = useState({
@@ -74,6 +75,7 @@ const Cart = () => {
   //console.log(shipping);
   return (
     <>
+      {/* {isLoading && <Loader />} */}
       <Meta title="ShopIto" />
       <BreadCrumb title=" Cart" />
       {/* <Container class1="cart-wrapper home-wrapper-2 py-5">

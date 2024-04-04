@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/Container";
 import { RESET_BLOG, getABlog } from "../features/blogs/blogSlice";
 import { useEffect } from "react";
+import Loader from "../components/loader/Loader";
 
 const SingleBlog = () => {
   const location = useLocation();
@@ -21,10 +22,11 @@ const SingleBlog = () => {
     };
   }, [getBlogId]);
 
-  const { blog } = useSelector((state) => state.blog);
+  const { blog, isLoading } = useSelector((state) => state.blog);
   // console.log(blog);
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title=" Daily Blog" />
       <Container class1="blog-wrapper home-wrapper-2 py-5">

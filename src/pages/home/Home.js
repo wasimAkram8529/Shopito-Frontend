@@ -128,6 +128,8 @@ const Home = () => {
   let womenCollection = [];
   let menCollection = [];
   let shoes = [];
+  let watch = [];
+  let homeAndFurniture = [];
 
   popularProducts = filterProduct(products, "tags", "popular");
 
@@ -155,6 +157,10 @@ const Home = () => {
 
   shoes = filterProduct(products, "category", "Shoes");
 
+  watch = filterProduct(products, "category", "Watch");
+
+  homeAndFurniture = filterProduct(products, "category", "Home and furniture");
+
   // console.log(mobilePhones);
 
   // console.log(bestSelling);
@@ -166,7 +172,7 @@ const Home = () => {
   //console.log("Featured Product", featureProducts);
   // console.log("Special Product",specialProducts);
 
-  newArrivals = totalDisplayImg(4, newArrivals);
+  // newArrivals = totalDisplayImg(4, newArrivals);
 
   if (screenWidth > 576 && screenWidth <= 992) {
     newArrivals = totalDisplayImg(3, newArrivals);
@@ -186,13 +192,20 @@ const Home = () => {
   menCollection = generateSpecialCarouselItem(menCollection);
 
   shoes = generateCarouselItem(shoes);
+
+  newArrivals = generateSpecialCarouselItem(newArrivals);
+
+  watch = generateSpecialCarouselItem(watch);
+
+  homeAndFurniture = generateSpecialCarouselItem(homeAndFurniture);
   //console.log(specialProducts);
   return (
     <>
-      {/* {isLoading && <Loader />} */}
-      <Meta title="Shopito" />
-      <Slider slider={slider} />
-      {/* <Container class1="pt-5">
+      <div className="home-container">
+        {isLoading && <Loader />}
+        <Meta title="Shopito" />
+        <Slider slider={slider} />
+        {/* <Container class1="container-padding">
         <div className="home-container-1">
           <div>
             <div className="main-banner position-relative">
@@ -294,73 +307,74 @@ const Home = () => {
           </div>
         </div>
       </Container> */}
-      <Container class1="home-wrapper-2 pt-5">
-        <div className="services">
-          {services?.map((item, indx) => {
-            return (
-              <div className="d-flex align-items-center gap-15" key={indx}>
-                <img src={item.images} alt="Services" />
-                <div>
-                  <h6>{item.title}</h6>
-                  <p className="mb-0">{item.tagline}</p>
+        <Container class1="home-wrapper-2 container-padding">
+          <div className="services">
+            {services?.map((item, indx) => {
+              return (
+                <div className="d-flex align-items-center gap-15" key={indx}>
+                  <img src={item.images} alt="Services" />
+                  <div>
+                    <h6>{item.title}</h6>
+                    <p className="mb-0">{item.tagline}</p>
+                  </div>
                 </div>
+              );
+            })}
+          </div>
+        </Container>
+        <Container class1="marquee-wrapper container-padding">
+          <h3 className="section-heading">Our Brands</h3>
+          <div className="row">
+            <div className="col-12">
+              <div className="marquee-inner-wrapper card-wrapper">
+                <Marquee className="d-flex">
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-01.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-02.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-03.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-04.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-05.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-06.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-07.png" alt="brand" />
+                  </div>
+                  <div className="mx-4 w-25">
+                    <img src="images/brand-08.png" alt="brand" />
+                  </div>
+                </Marquee>
               </div>
-            );
-          })}
-        </div>
-      </Container>
-      <Container class1="marquee-wrapper pt-5">
-        <h3 className="section-heading">Our Brands</h3>
-        <div className="row">
-          <div className="col-12">
-            <div className="marquee-inner-wrapper card-wrapper">
-              <Marquee className="d-flex">
-                <div className="mx-4 w-25">
-                  <img src="images/brand-01.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-02.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-03.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-04.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-05.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-06.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-07.png" alt="brand" />
-                </div>
-                <div className="mx-4 w-25">
-                  <img src="images/brand-08.png" alt="brand" />
-                </div>
-              </Marquee>
             </div>
           </div>
+        </Container>
+        <div className="container-xxl container-padding">
+          <PageHeading
+            heading={"Latest Products"}
+            btnText={"View all >>>"}
+            type="tags"
+            content="latest"
+          />
+          <ProductCarousel products={latestProducts} />
         </div>
-      </Container>
-      <div className="container-xxl pt-5">
-        <PageHeading
-          heading={"Latest Products"}
-          btnText={"View all >>>"}
-          type="tags"
-          content="latest"
-        />
-        <ProductCarousel products={latestProducts} />
-      </div>
-      <div className="container-xxl py-5 new-arrival">
-        <PageHeading
-          heading={"New arrivals"}
-          btnText={"Shop now >>>"}
-          type="tags"
-          content="new_arrivals"
-        />
-        <div className="row">
+        <div className="container-xxl container-padding">
+          <PageHeading
+            heading={"New arrivals"}
+            btnText={"Shop now >>>"}
+            type="tags"
+            content="new_arrivals"
+          />
+          <ProductCarousel products={newArrivals} />
+          {/* <div className="row">
           {newArrivals?.length !== 0 &&
             newArrivals?.map((product) => {
               return (
@@ -376,181 +390,200 @@ const Home = () => {
                 />
               );
             })}
+        </div> */}
         </div>
-      </div>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Mobile Phones"}
-          btnText={"View all >>>"}
-          type="category"
-          content="Mobile Phone"
-        />
-        <ProductCarousel products={mobilePhones} />
-      </Container>
-      <div className="container-xxl pt-5 best-top-selling">
-        <div>
+        <Container class1="container-padding">
           <PageHeading
-            heading={"Best Selling"}
-            btnText={"Shop now >>>"}
-            type="tags"
-            content="top_rated"
+            heading={"Mobile Phones"}
+            btnText={"View all >>>"}
+            type="category"
+            content="Mobile Phone"
           />
-          <div className="row">
-            {bestSelling?.length !== 0 &&
-              bestSelling?.map((product) => {
-                return (
-                  <div
-                    className="col-sm-6 col-12 best-selling-single-product"
-                    key={product?._id}
-                  >
-                    <div className="card-img">
-                      <img src={product?.image?.[0]?.url} alt="" />
-                    </div>
-                    <div className="card-body">
-                      <div className="card-title">
-                        {shortenText(product?.title, 15)}
+          <ProductCarousel products={mobilePhones} />
+        </Container>
+        <div className="container-xxl container-padding best-top-selling">
+          <div className="">
+            <PageHeading
+              heading={"Best Selling"}
+              btnText={"Shop now >>>"}
+              type="tags"
+              content="top_rated"
+            />
+            <div className="row">
+              {bestSelling?.length !== 0 &&
+                bestSelling?.map((product) => {
+                  return (
+                    <div
+                      className="col-sm-6 col-12 best-selling-single-product"
+                      key={product?._id}
+                    >
+                      <div className="card-img">
+                        <img src={product?.image?.[0]?.url} alt="" />
                       </div>
-                      {Number(product?.totalrating) != 0 && (
-                        <div className="product-star">
-                          <ReactStars
-                            count={5}
-                            size={24}
-                            value={Number(product?.totalrating)}
-                            edit={false}
-                            activeColor="#ffd700"
-                          />
+                      <div className="card-body">
+                        <div className="card-title">
+                          {shortenText(product?.title, 15)}
                         </div>
-                      )}
-                      <div className="card-text">{`₹${product?.price}`}</div>
+                        {Number(product?.totalrating) != 0 && (
+                          <div className="product-star">
+                            <ReactStars
+                              count={5}
+                              size={24}
+                              value={Number(product?.totalrating)}
+                              edit={false}
+                              activeColor="#ffd700"
+                            />
+                          </div>
+                        )}
+                        <div className="card-text">{`₹${product?.price}`}</div>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+            </div>
+          </div>
+          <div className="">
+            <PageHeading
+              heading={"Top rated"}
+              btnText={"Shop now >>>"}
+              type="tags"
+              content="best_selling"
+            />
+            <div className="row">
+              {bestSelling?.length !== 0 &&
+                bestSelling?.map((product) => {
+                  return (
+                    <div
+                      className="col-sm-6 col-12 best-selling-single-product"
+                      key={product?._id}
+                    >
+                      <div className="card-img">
+                        <img src={product?.image?.[0]?.url} alt="" />
+                      </div>
+                      <div className="card-body">
+                        <div className="card-title">
+                          {shortenText(product?.title, 15)}
+                        </div>
+                        {Number(product?.totalrating) != 0 && (
+                          <div className="product-star">
+                            <ReactStars
+                              count={5}
+                              size={24}
+                              value={Number(product?.totalrating)}
+                              edit={false}
+                              activeColor="#ffd700"
+                            />
+                          </div>
+                        )}
+                        <div className="card-text">{`₹${product?.price}`}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
-        <div>
+        <Container class1="container-padding">
           <PageHeading
-            heading={"Top rated"}
-            btnText={"Shop now >>>"}
+            heading={"Featured Products"}
+            btnText={"Shop Now >>>"}
             type="tags"
-            content="best_selling"
+            content="featured"
           />
+          <ProductCarousel products={featureProducts} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Special Products"}
+            btnText={"Shop Now >>>"}
+            type="tags"
+            content="special"
+          />
+          <ProductCarousel products={specialProducts} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Popular Products"}
+            btnText={"Shop Now >>>"}
+            type="tags"
+            content="popular"
+          />
+          <ProductCarousel products={popularProducts} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Men Collection"}
+            btnText={"Shop Now >>>"}
+            type="category"
+            content="Men Collection"
+          />
+          <ProductCarousel products={menCollection} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Women Collection"}
+            btnText={"Shop Now >>>"}
+            type="category"
+            content="Women Collection"
+          />
+          <ProductCarousel products={womenCollection} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Shoes"}
+            btnText={"Shop Now >>>"}
+            type="category"
+            content="Shoes"
+          />
+          <ProductCarousel products={shoes} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Watch"}
+            btnText={"Shop Now >>>"}
+            type="category"
+            content="Watch"
+          />
+          <ProductCarousel products={watch} />
+        </Container>
+        <Container class1="container-padding">
+          <PageHeading
+            heading={"Home Appliances"}
+            btnText={"Shop Now >>>"}
+            type="category"
+            content="Home and furniture"
+          />
+          <ProductCarousel products={homeAndFurniture} />
+        </Container>
+        <Container class1="blog-wrapper home-wrapper-2 container-padding">
           <div className="row">
-            {bestSelling?.length !== 0 &&
-              bestSelling?.map((product) => {
-                return (
-                  <div
-                    className="col-sm-6 col-12 best-selling-single-product"
-                    key={product?._id}
-                  >
-                    <div className="card-img">
-                      <img src={product?.image?.[0]?.url} alt="" />
-                    </div>
-                    <div className="card-body">
-                      <div className="card-title">
-                        {shortenText(product?.title, 15)}
-                      </div>
-                      {Number(product?.totalrating) != 0 && (
-                        <div className="product-star">
-                          <ReactStars
-                            count={5}
-                            size={24}
-                            value={Number(product?.totalrating)}
-                            edit={false}
-                            activeColor="#ffd700"
-                          />
-                        </div>
-                      )}
-                      <div className="card-text">{`₹${product?.price}`}</div>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="col-12">
+              <h3 className="section-heading">Our Latest Blogs</h3>
+            </div>
+            <div className="row">
+              {blogs && blogs?.length !== 0 ? (
+                blogs?.map((blog) => {
+                  return (
+                    <BlogCard
+                      title={blog?.title}
+                      key={blog?._id}
+                      description={blog?.description}
+                      id={blog?._id}
+                      imgURL={blog?.image?.[0]?.url}
+                      date={moment(blog?.createAt).format("DD-MMMM-YYYY")}
+                    />
+                  );
+                })
+              ) : (
+                <div className="text-center fs-5">
+                  It's a blog break today! Visit us again tomorrow for your
+                  daily dose of insights.
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Featured Products"}
-          btnText={"Shop Now >>>"}
-          type="tags"
-          content="featured"
-        />
-        <ProductCarousel products={featureProducts} />
-      </Container>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Special Products"}
-          btnText={"Shop Now >>>"}
-          type="tags"
-          content="special"
-        />
-        <ProductCarousel products={specialProducts} />
-      </Container>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Popular Products"}
-          btnText={"Shop Now >>>"}
-          type="tags"
-          content="popular"
-        />
-        <ProductCarousel products={popularProducts} />
-      </Container>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Men Collection"}
-          btnText={"Shop Now >>>"}
-          type="category"
-          content="Men Collection"
-        />
-        <ProductCarousel products={menCollection} />
-      </Container>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Women Collection"}
-          btnText={"Shop Now >>>"}
-          type="category"
-          content="Women Collection"
-        />
-        <ProductCarousel products={womenCollection} />
-      </Container>
-      <Container class1="pt-5">
-        <PageHeading
-          heading={"Shoes"}
-          btnText={"Shop Now >>>"}
-          type="category"
-          content="Shoes"
-        />
-        <ProductCarousel products={shoes} />
-      </Container>
-      <Container class1="blog-wrapper home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-12">
-            <h3 className="section-heading">Our Latest Blogs</h3>
-          </div>
-          <div className="row">
-            {blogs && blogs?.length !== 0 ? (
-              blogs?.map((blog) => {
-                return (
-                  <BlogCard
-                    title={blog?.title}
-                    key={blog?._id}
-                    description={blog?.description}
-                    id={blog?._id}
-                    imgURL={blog?.image?.[0]?.url}
-                    date={moment(blog?.createAt).format("DD-MMMM-YYYY")}
-                  />
-                );
-              })
-            ) : (
-              <div className="text-center fs-5">
-                It's a blog break today! Visit us again tomorrow for your daily
-                dose of insights.
-              </div>
-            )}
-          </div>
-        </div>
-      </Container>
     </>
   );
 };

@@ -11,6 +11,7 @@ import { indianStates } from "../../utils/Data";
 import axios from "axios";
 import { createOrder } from "../../features/user/userSlice";
 import { formateCurrency } from "../../utils/money";
+import Loader from "../../components/loader/Loader";
 
 let shippingAddressSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is Required"),
@@ -30,7 +31,7 @@ const Checkout = (props) => {
   //console.log(product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userCart } = useSelector((state) => state.auth);
+  const { userCart, isLoading } = useSelector((state) => state.auth);
   const [shippingInfo, setShippingInfo] = useState({});
 
   //console.log(userCart);
@@ -195,6 +196,7 @@ const Checkout = (props) => {
 
   return (
     <>
+      {isLoading && <Loader />}
       <Container class1="checkout-wrapper home-wrapper-2 py-5">
         <div>
           <div>
