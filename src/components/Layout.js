@@ -4,6 +4,7 @@ import Header from "./header/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./footer/Footer";
+import ScrollToTop from "./ScrollToTop";
 
 const Layout = ({ renderHeader, setRenderHeader }) => {
   //console.log("Layout", renderHeader);
@@ -22,6 +23,7 @@ const Layout = ({ renderHeader, setRenderHeader }) => {
         pauseOnHover
         theme="light"
       />
+      <ScrollToTop />
       <Outlet />
       <Footer />
     </>

@@ -9,6 +9,9 @@
   margin-bottom: 30px;
 }
 
+.best-selling-single-product a {
+  width: 100%;
+}
 /* .best-top-selling .container-xxl {
   margin-left: 130px !important;
 } */
@@ -134,7 +137,7 @@
 .best-top-selling {
   padding-left: 20px;
 }
-.best-top-selling .best-selling-single-product {
+.best-top-selling .best-selling-single-product a {
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;

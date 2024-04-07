@@ -1,5 +1,5 @@
 import "./SingleProduct.css";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Meta from "../../components/Meta";
 import BreadCrumb from "../../components/BreadCrumb";
 import ProductCard from "../../components/productCard/ProductCard";
@@ -29,13 +29,15 @@ import {
   getUserCart,
 } from "../../features/user/userSlice";
 import { toast } from "react-toastify";
-import * as Yup from "yup";
-import { useFormik } from "formik";
 import CustomModel from "../../components/CustomModel";
-import { totalDisplayImg } from "../../utils/importantFunctions";
+import {
+  generateSpecialCarouselItem,
+  totalDisplayImg,
+} from "../../utils/importantFunctions";
 import Loader from "../../components/loader/Loader";
 import SpecialProduct from "../../components/special-product/SpecialProduct";
 import ProductCarousel from "../../components/corousel/Carousel";
+import CreateOrUpdateReview from "./CreateOrUpdateReview";
 
 const PageHeading = ({ heading, btnText, type, content }) => {
   const navigate = useNavigate();
@@ -61,16 +63,14 @@ const PageHeading = ({ heading, btnText, type, content }) => {
     </>
   );
 };
-const reviewSchema = Yup.object().shape({
-  review: Yup.string().required("Product Review is Required"),
-});
+
 const SingleProduct = ({ renderHeader, setRenderHeader }) => {
   //console.log(props);
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [star, setRating] = useState(0);
+
   const [edit, setEdit] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -90,8 +90,12 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
     setReviewId(id);
   };
 
-  const handleRatingChange = (newStar) => {
-    setRating(newStar);
+  const handleWriteReview = (newReview) => {
+    dispatch(writeProductReview(newReview));
+  };
+
+  const handleUpdateReview = (newReview) => {
+    dispatch(updateProductReview(newReview));
   };
 
   const [quantity, setQuantity] = useState(1);
@@ -113,11 +117,14 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
     dispatch(getAUser());
   }, [edit]);
 
-  const addToWishListHandler = (id) => {
-    dispatch(addToWishList(id)).then(() => {
-      setRenderHeader(!renderHeader);
-    });
-  };
+  const addToWishListHandler = useCallback(
+    (id) => {
+      dispatch(addToWishList(id)).then(() => {
+        setRenderHeader(!renderHeader);
+      });
+    },
+    [renderHeader]
+  );
 
   const { products } = useSelector((state) => state.product);
   const { user } = useSelector((state) => state.auth);
@@ -136,45 +143,8 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
   const { product, isLoading } = useSelector((state) => state.product);
   const { userCart } = useSelector((state) => state.auth);
 
-  //console.log(product);
+  // console.log(product);
   //console.log(userCart);
-  const formik = useFormik({
-    initialValues: {
-      review: "",
-    },
-    validationSchema: reviewSchema,
-    onSubmit: (values) => {
-      const currentDate = new Date();
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1;
-      const day = currentDate.getDate();
-      const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
-        day < 10 ? "0" + day : day
-      }`;
-
-      values.reviewDate = formattedDate;
-      values.star = star;
-      values.userId = user ? user?.[0]?._id : "";
-
-      //console.log(newReview);
-      if (!edit) {
-        const newReview = {
-          id: productId,
-          review: values,
-        };
-        dispatch(writeProductReview(newReview));
-      } else {
-        const newReview = {
-          id: productId,
-          review: values,
-        };
-        //console.log(newReview);
-        dispatch(updateProductReview(newReview));
-        setEdit(false);
-      }
-      formik.resetForm();
-    },
-  });
 
   const [isAvailable, setIsAvailable] = useState(false);
 
@@ -232,22 +202,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
     img: `${product?.image?.[0]?.url}`,
   };
 
-  popularProducts = popularProducts.map((item) => {
-    const { totalrating, brand } = item;
-    return (
-      <div key={item?._id} className="special-product-slider">
-        <SpecialProduct
-          name={item?.title}
-          url={item?.image?.[0]?.url}
-          price={item?.price}
-          description={item?.description}
-          _id={item?._id}
-          brand={brand}
-          rating={Number(totalrating)}
-        />
-      </div>
-    );
-  });
+  popularProducts = generateSpecialCarouselItem(popularProducts);
   return (
     <>
       {isLoading && <Loader />}
@@ -535,49 +490,18 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       </div>
                     )} */}
                   </div>
-                  <div className="review-form py-4">
-                    <h4>{edit ? "Update Your Review" : "Write a Review"}</h4>
-                    <form
-                      action=""
-                      onSubmit={formik.handleSubmit}
-                      className="d-flex flex-column gap-15"
-                    >
-                      <div>
-                        <ReactStars
-                          count={5}
-                          size={24}
-                          value={star}
-                          edit={true}
-                          onChange={handleRatingChange}
-                          activeColor="#ffd700"
-                        />
-                      </div>
-                      <div>
-                        <textarea
-                          name="review"
-                          id="review"
-                          className="w-100 form-control"
-                          cols="30"
-                          rows="4"
-                          value={formik.values.review}
-                          onChange={formik.handleChange("review")}
-                          onBlur={formik.handleBlur("review")}
-                          placeholder="Comments..."
-                        ></textarea>
-                        {formik.touched.review && formik.errors.review ? (
-                          <div>{formik.errors.review}</div>
-                        ) : null}
-                      </div>
-                      <div className="d-flex justify-content-end">
-                        <button className="button border-0" type="submit">
-                          {edit ? "Update Review" : "Submit Review"}
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                  <CreateOrUpdateReview
+                    handleUpdateReview={handleUpdateReview}
+                    handleWriteReview={handleWriteReview}
+                    edit={edit}
+                    user={user}
+                    productId={productId}
+                    setEdit={setEdit}
+                  />
                   <div className="reviews mt-4">
                     {!isLoading &&
                       product?.ratings?.map((review, index) => {
+                        console.log(user?.[0]?._id, review?.userId);
                         return (
                           <div key={index} className="review">
                             <div className="d-flex gap-10 align-items-center justify-content-between">
@@ -591,20 +515,24 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                                   activeColor="#ffd700"
                                 />
                               </div>
-                              <div>
-                                <FaEdit
-                                  className="fs-5 mx-3"
-                                  style={{ cursor: "pointer" }}
-                                  onClick={handleEditReview}
-                                />
-                                <MdDelete
-                                  className="fs-5"
-                                  style={{ cursor: "pointer" }}
-                                  onClick={() => {
-                                    showModal(review?.userId);
-                                  }}
-                                />
-                              </div>
+                              {user?.[0]._id === review?.userId ? (
+                                <div>
+                                  <FaEdit
+                                    className="fs-5 mx-3"
+                                    style={{ cursor: "pointer" }}
+                                    onClick={handleEditReview}
+                                  />
+                                  <MdDelete
+                                    className="fs-5"
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      showModal(review?.userId);
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div></div>
+                              )}
                             </div>
                             <p className="mt-0">{review?.reviewDate}</p>
                             <p className="mt-3">{review?.review}</p>

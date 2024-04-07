@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import "./Home.css";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../../components/BlogCard";
 import ProductCard from "../../components/productCard/ProductCard";
@@ -18,7 +24,12 @@ import moment from "moment";
 import { getProducts } from "../../features/products/productSlice";
 import { shortenText } from "../../utils/Validator";
 import Loader from "../../components/loader/Loader";
-import { totalDisplayImg } from "../../utils/importantFunctions";
+import {
+  filterProduct,
+  generateCarouselItem,
+  generateSpecialCarouselItem,
+  totalDisplayImg,
+} from "../../utils/importantFunctions";
 import ReactStars from "react-rating-stars-component";
 
 const PageHeading = ({ heading, btnText, type, content }) => {
@@ -46,52 +57,6 @@ const PageHeading = ({ heading, btnText, type, content }) => {
   );
 };
 
-const filterProduct = (products, filterType, filterOnWhich) => {
-  let data = [];
-
-  if (!products || products?.length !== 0) {
-    data = products?.filter((product) => product[filterType] === filterOnWhich);
-  }
-
-  return data;
-};
-
-const generateCarouselItem = (products) => {
-  let data = [];
-  data = products.map((item) => (
-    <div key={item?._id}>
-      <CarouselItem
-        name={item?.title}
-        url={item?.image?.[0]?.url}
-        price={item?.price}
-        description={item?.description}
-        _id={item?._id}
-      />
-    </div>
-  ));
-  return data;
-};
-const generateSpecialCarouselItem = (products) => {
-  let data = [];
-  data = products.map((item) => {
-    const { totalrating, brand } = item;
-    return (
-      <div key={item?._id} className="special-product-slider">
-        <SpecialProduct
-          name={item?.title}
-          url={item?.image?.[0]?.url}
-          price={item?.price}
-          description={item?.description}
-          _id={item?._id}
-          brand={brand}
-          rating={Number(totalrating)}
-        />
-      </div>
-    );
-  });
-
-  return data;
-};
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -160,19 +125,6 @@ const Home = () => {
   watch = filterProduct(products, "category", "Watch");
 
   homeAndFurniture = filterProduct(products, "category", "Home and furniture");
-
-  // console.log(mobilePhones);
-
-  // console.log(bestSelling);
-  //console.log(newArrivals);
-
-  //console.log("New Launch", newLaunch);
-  //console.log("Slider", slider);
-  //console.log("Popular Product", popularProducts);
-  //console.log("Featured Product", featureProducts);
-  // console.log("Special Product",specialProducts);
-
-  // newArrivals = totalDisplayImg(4, newArrivals);
 
   if (screenWidth > 576 && screenWidth <= 992) {
     newArrivals = totalDisplayImg(3, newArrivals);
@@ -417,26 +369,28 @@ const Home = () => {
                       className="col-sm-6 col-12 best-selling-single-product"
                       key={product?._id}
                     >
-                      <div className="card-img">
-                        <img src={product?.image?.[0]?.url} alt="" />
-                      </div>
-                      <div className="card-body">
-                        <div className="card-title">
-                          {shortenText(product?.title, 15)}
+                      <NavLink to={`/product/${product?._id}`}>
+                        <div className="card-img">
+                          <img src={product?.image?.[0]?.url} alt="" />
                         </div>
-                        {Number(product?.totalrating) != 0 && (
-                          <div className="product-star">
-                            <ReactStars
-                              count={5}
-                              size={24}
-                              value={Number(product?.totalrating)}
-                              edit={false}
-                              activeColor="#ffd700"
-                            />
+                        <div className="card-body">
+                          <div className="card-title">
+                            {shortenText(product?.title, 15)}
                           </div>
-                        )}
-                        <div className="card-text">{`₹${product?.price}`}</div>
-                      </div>
+                          {Number(product?.totalrating) != 0 && (
+                            <div className="product-star">
+                              <ReactStars
+                                count={5}
+                                size={24}
+                                value={Number(product?.totalrating)}
+                                edit={false}
+                                activeColor="#ffd700"
+                              />
+                            </div>
+                          )}
+                          <div className="card-text">{`₹${product?.price}`}</div>
+                        </div>
+                      </NavLink>
                     </div>
                   );
                 })}
@@ -457,26 +411,28 @@ const Home = () => {
                       className="col-sm-6 col-12 best-selling-single-product"
                       key={product?._id}
                     >
-                      <div className="card-img">
-                        <img src={product?.image?.[0]?.url} alt="" />
-                      </div>
-                      <div className="card-body">
-                        <div className="card-title">
-                          {shortenText(product?.title, 15)}
+                      <NavLink to={`/product/${product?._id}`}>
+                        <div className="card-img">
+                          <img src={product?.image?.[0]?.url} alt="" />
                         </div>
-                        {Number(product?.totalrating) != 0 && (
-                          <div className="product-star">
-                            <ReactStars
-                              count={5}
-                              size={24}
-                              value={Number(product?.totalrating)}
-                              edit={false}
-                              activeColor="#ffd700"
-                            />
+                        <div className="card-body">
+                          <div className="card-title">
+                            {shortenText(product?.title, 15)}
                           </div>
-                        )}
-                        <div className="card-text">{`₹${product?.price}`}</div>
-                      </div>
+                          {Number(product?.totalrating) != 0 && (
+                            <div className="product-star">
+                              <ReactStars
+                                count={5}
+                                size={24}
+                                value={Number(product?.totalrating)}
+                                edit={false}
+                                activeColor="#ffd700"
+                              />
+                            </div>
+                          )}
+                          <div className="card-text">{`₹${product?.price}`}</div>
+                        </div>
+                      </NavLink>
                     </div>
                   );
                 })}

@@ -28,6 +28,7 @@ import ViewOrder from "./pages/myOrder/ViewOrder";
 import Profile from "./pages/profile/Profile";
 import SingleProduct from "./pages/singleProduct/SingleProduct";
 import BuyNow from "./pages/buyNow/BuyNow";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   axios.defaults.withCredentials = true;
