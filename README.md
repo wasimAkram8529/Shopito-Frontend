@@ -1,4 +1,4 @@
-## Shopito Frontend
+# Shopito Frontend
 Welcome to the frontend of our e-commerce website project! This frontend is built using React.js to provide users with a seamless shopping experience.
 
 ## Table of Contents
