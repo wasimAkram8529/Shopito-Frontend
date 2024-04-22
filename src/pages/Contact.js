@@ -57,8 +57,35 @@ const Contact = () => {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <div className="col-12 mt-5">
-              <div className="contact-inner-wrapper d-flex justify-content-between">
-                <div>
+              <div className="contact-inner-wrapper row">
+                <div className="col-lg-6 col-md-6 col-sm-6">
+                  <h3 className="contact-title mb-4">Get in touch with us</h3>
+                  <div>
+                    <ul className="ps-0">
+                      <li className="mb-3 d-flex gap-15 align-items-center">
+                        <AiOutlineHome className="fs-5" />
+                        <address className="mb-0">
+                          Hostel No: 08, NIT Kurukshetra, Haryana, India
+                        </address>
+                      </li>
+                      <li className="mb-3 d-flex gap-15 align-items-center">
+                        <BiPhoneCall className="fs-5" />
+                        <a href="tel:+91 8529922324">+91 8529922324</a>
+                      </li>
+                      <li className="mb-3 d-flex gap-15 align-items-center">
+                        <AiOutlineMail className="fs-5" />
+                        <a href="mailto:codelikearockstar@gmail.com">
+                          codelikearockstar@gmail.com
+                        </a>
+                      </li>
+                      <li className="mb-3 d-flex gap-15 align-items-center">
+                        <BiInfoCircle className="fs-5" />
+                        <p className="mb-0">Monday - Friday 10 AM - 8 PM</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="col-lg-6 col-md-6 col-sm-6">
                   <h3 className="contact-title mb-4">Contact</h3>
                   <form
                     action=""
@@ -126,33 +153,6 @@ const Contact = () => {
                       <button className="button border-0">Submit</button>
                     </div>
                   </form>
-                </div>
-                <div>
-                  <h3 className="contact-title mb-4">Get in touch with us</h3>
-                  <div>
-                    <ul className="ps-0">
-                      <li className="mb-3 d-flex gap-15 align-items-center">
-                        <AiOutlineHome className="fs-5" />
-                        <address className="mb-0">
-                          Hostel No: 08, NIT Kurukshetra, Haryana, India
-                        </address>
-                      </li>
-                      <li className="mb-3 d-flex gap-15 align-items-center">
-                        <BiPhoneCall className="fs-5" />
-                        <a href="tel:+91 8529922324">+91 8529922324</a>
-                      </li>
-                      <li className="mb-3 d-flex gap-15 align-items-center">
-                        <AiOutlineMail className="fs-5" />
-                        <a href="mailto:codelikearockstar@gmail.com">
-                          codelikearockstar@gmail.com
-                        </a>
-                      </li>
-                      <li className="mb-3 d-flex gap-15 align-items-center">
-                        <BiInfoCircle className="fs-5" />
-                        <p className="mb-0">Monday - Friday 10 AM - 8 PM</p>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>

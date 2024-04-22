@@ -20,7 +20,6 @@ const Cart = () => {
   }, []);
 
   const { userCart, isLoading } = useSelector((state) => state.auth);
-  console.log(isLoading);
   let initialTotalAmount = 0;
 
   const [shipping, setShipping] = useState({

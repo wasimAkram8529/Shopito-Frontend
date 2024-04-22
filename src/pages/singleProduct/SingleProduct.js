@@ -440,7 +440,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
             </div>
           </Container>
           <Container className="description-wrapper home-wrapper-2 py-5">
-            <div className="row">
+            <div className="row py-3">
               <div className="col-12">
                 <h4>Description</h4>
                 <div className="bg-white p-3">
@@ -501,7 +501,6 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                   <div className="reviews mt-4">
                     {!isLoading &&
                       product?.ratings?.map((review, index) => {
-                        console.log(user?.[0]?._id, review?.userId);
                         return (
                           <div key={index} className="review">
                             <div className="d-flex gap-10 align-items-center justify-content-between">
@@ -515,7 +514,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                                   activeColor="#ffd700"
                                 />
                               </div>
-                              {user?.[0]._id === review?.userId ? (
+                              {user?.[0]?._id === review?.userId ? (
                                 <div>
                                   <FaEdit
                                     className="fs-5 mx-3"

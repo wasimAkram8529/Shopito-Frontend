@@ -51,7 +51,7 @@ const ViewOrder = () => {
       {order ? (
         <>
           <div className="container-xxl order pt-3">
-            <p>Delivery Address</p>
+            <p>Delivery Details</p>
             <p>{userName}</p>
             <p className="address">{address}</p>
           </div>

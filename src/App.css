@@ -445,15 +445,15 @@ footer .input-group-text {
 
 /* Contact */
 .contact-inner-wrapper {
-  padding: 30px 20px;
+  padding: 30px 0;
   border-radius: 15px;
   background-color: white;
-  gap: 15px;
+  /* gap: 15px; */
 }
 
-.contact-inner-wrapper > div {
+/* .contact-inner-wrapper > div {
   width: 48%;
-}
+} */
 
 .contact-title {
   font-size: 26px;
@@ -486,11 +486,17 @@ footer .input-group-text {
   border-radius: 10px;
 }
 
+.wishlist-card {
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px 0;
+}
 .compare-product-card .cross,
 .wishlist-card .cross {
-  top: 15px;
-  right: 15px;
-  width: 25px;
+  top: 8px;
+  right: 2px;
+  width: 20px;
   cursor: pointer;
 }
 

@@ -55,7 +55,7 @@ const Wishlist = () => {
               );
             })
           ) : (
-            <div className="text-center fs-5">Your WishList is Empty</div>
+            <div className="text-center fs-5">Your wishList is empty</div>
           )}
         </div>
       </Container>
