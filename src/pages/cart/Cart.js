@@ -17,9 +17,10 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getUserCart());
-  });
+  }, []);
 
   const { userCart, isLoading } = useSelector((state) => state.auth);
+  console.log(isLoading);
   let initialTotalAmount = 0;
 
   const [shipping, setShipping] = useState({
@@ -47,14 +48,9 @@ const Cart = () => {
     setTotalBeforeTax(totalBeforeTax_);
     setTax(tax_);
     setTotalAfterTax(total);
-    //calculateAmount(initialTotalAmount, shipping, count);
   }, [userCart, shipping]);
 
   //console.log(totalAmount);
-
-  // const handleTotalAmount = (newAmount = 0) => {
-  //   calculateAmount(totalAmount + newAmount, shipping, countCartItem);
-  // };
 
   const handleRemoveAProductFromCart = (productId) => {
     //console.log(productId);
@@ -75,50 +71,9 @@ const Cart = () => {
   //console.log(shipping);
   return (
     <>
-      {/* {isLoading && <Loader />} */}
+      {isLoading && <Loader />}
       <Meta title="ShopIto" />
       <BreadCrumb title=" Cart" />
-      {/* <Container class1="cart-wrapper home-wrapper-2 py-5">
-        <p>Taxes and shipping calculated at checkout</p>
-        {userCart.length !== 0 ? (
-          <div className="row">
-            <div className="col-12">
-              <div className="cart-header py-3 d-flex justify-content-between align-items-center">
-                <h4 className="cart-col-1">Product</h4>
-                <h4 className="cart-col-2">Price</h4>
-                <h4 className="cart-col-3">Quantity</h4>
-                <h4 className="cart-col-4">Total</h4>
-              </div>
-              {userCart &&
-                userCart?.map((cartItem) => {
-                  return (
-                    <CartComponent
-                      key={cartItem?._id}
-                      cartItem={cartItem}
-                      handleTotalAmount={handleTotalAmount}
-                      handleRemoveAProductFromCart={
-                        handleRemoveAProductFromCart
-                      }
-                    />
-                  );
-                })}
-            </div>
-            <h4>SubTotal: {`₹${totalAmount}`}</h4>
-            <div className="col-12 py-2 mt-4">
-              <div className="d-flex justify-content-between align-items-center cart-total-price">
-                <Link to="/products" className="button">
-                  Continue Shopping
-                </Link>
-                <Link to="/checkout" className="button">
-                  Checkout
-                </Link>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="text-center">Your Cart is Empty</div>
-        )}
-      </Container> */}
       <Container class1="cart-wrapper home-wrapper-2 py-5">
         {userCart && userCart?.length !== 0 ? (
           <div className="main">
