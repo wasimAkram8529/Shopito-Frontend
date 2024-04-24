@@ -126,9 +126,6 @@ const Home = () => {
 
   homeAndFurniture = filterProduct(products, "category", "Home and furniture");
 
-  if (screenWidth > 576 && screenWidth <= 992) {
-    newArrivals = totalDisplayImg(3, newArrivals);
-  }
   const latestProducts = generateCarouselItem(latestProduct);
 
   featureProducts = generateCarouselItem(featureProducts);
@@ -157,108 +154,6 @@ const Home = () => {
         {isLoading && <Loader />}
         <Meta title="Shopito" />
         <Slider slider={slider} />
-        {/* <Container class1="container-padding">
-        <div className="home-container-1">
-          <div>
-            <div className="main-banner position-relative">
-              <div className="picture-container">
-                <img
-                  src="images/main-banner-1.jpg"
-                  className="img-fluid rounded-3"
-                  alt="Main Banner"
-                />
-              </div>
-              <div className="main-banner-content position-absolute">
-                <h4>SUPERCHARGED FOR PROS.</h4>
-                <h5>{newLaunch?.[0]?.title}</h5>
-                <p>
-                  From {`₹${newLaunch?.[0]?.price}`} or{" "}
-                  {`₹${Math.round(newLaunch?.[0]?.price / 6)}`}/mo. <br />
-                  for 6 mo. Footnote*
-                </p>
-                <Link className="button" to={`/product/${newLaunch?.[0]?._id}`}>
-                  BUY NOW
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="main-banner-content-2">
-              <div className="inner-container">
-                <div
-                  className="small-banner-content-2 position-relative"
-                  onClick={() => navigate(`/product/${newLaunch?.[1]?._id}`)}
-                >
-                  <div className="picture-container">
-                    <img
-                      src="images/catbanner-01.jpg"
-                      className="img-fluid rounded-3"
-                      alt="Main Banner"
-                    />
-                  </div>
-                  <div className="small-banner-content position-absolute">
-                    <h4>BEST SALE</h4>
-                    <h5>{shortenText(newLaunch?.[1]?.title, 10)}</h5>
-                    <p>
-                      From {`₹${newLaunch?.[1]?.price}`} or{" "}
-                      {`₹${Math.round(newLaunch?.[1]?.price / 6)}`}/mo.
-                    </p>
-                  </div>
-                </div>
-                <div className="small-banner-content-2 position-relative">
-                  <img
-                    src="images/catbanner-03.jpg"
-                    className="img-fluid rounded-3"
-                    alt="Main Banner"
-                  />
-                  <div className="small-banner-content position-absolute">
-                    <h4>NEW ARRIVAL</h4>
-                    <h5>{shortenText(newLaunch?.[2]?.title, 10)}</h5>
-                    <p>
-                      From {`₹${newLaunch?.[2]?.price}`} or{" "}
-                      {`₹${Math.round(newLaunch?.[2]?.price / 6)}`}/mo.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="inner-container">
-                <div className="small-banner-content-2 position-relative">
-                  <div className="picture-container">
-                    <img
-                      src="images/catbanner-01.jpg"
-                      className="img-fluid rounded-3"
-                      alt="Main Banner"
-                    />
-                  </div>
-                  <div className="small-banner-content position-absolute">
-                    <h4>BEST SALE</h4>
-                    <h5>{shortenText(newLaunch?.[3]?.title, 10)}</h5>
-                    <p>
-                      From {`₹${newLaunch?.[3]?.price}`} or{" "}
-                      {`₹${Math.round(newLaunch?.[3]?.price / 6)}`}/mo.
-                    </p>
-                  </div>
-                </div>
-                <div className="small-banner-content-2 position-relative">
-                  <img
-                    src="images/catbanner-03.jpg"
-                    className="img-fluid rounded-3"
-                    alt="Main Banner"
-                  />
-                  <div className="small-banner-content position-absolute">
-                    <h4>NEW ARRIVAL</h4>
-                    <h5>{shortenText(newLaunch?.[4]?.title, 10)}</h5>
-                    <p>
-                      From {`₹${newLaunch?.[4]?.price}`} or{" "}
-                      {`₹${Math.round(newLaunch?.[4]?.price / 6)}`}/mo.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container> */}
         <Container class1="home-wrapper-2 container-padding">
           <div className="services">
             {services?.map((item, indx) => {
@@ -326,23 +221,6 @@ const Home = () => {
             content="new_arrivals"
           />
           <ProductCarousel products={newArrivals} />
-          {/* <div className="row">
-          {newArrivals?.length !== 0 &&
-            newArrivals?.map((product) => {
-              return (
-                <ProductCard
-                  key={product._id}
-                  baseURL="product"
-                  id={product._id}
-                  title={product.title}
-                  description={product.description}
-                  price={product.price}
-                  imgURL={product.image[0].url}
-                  rating={Number(product.totalrating)}
-                />
-              );
-            })}
-        </div> */}
         </div>
         <Container class1="container-padding">
           <PageHeading
