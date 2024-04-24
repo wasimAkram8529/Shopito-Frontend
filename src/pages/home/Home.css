@@ -124,6 +124,22 @@
   flex-wrap: wrap;
 }
 
+.services img {
+  width: 30px;
+}
+
+.services h6 {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.services p {
+  font-size: 0.9rem;
+}
+
+.services div {
+  margin-top: 5px;
+}
 .special-product-slider .product-card {
   width: 99%;
 }
