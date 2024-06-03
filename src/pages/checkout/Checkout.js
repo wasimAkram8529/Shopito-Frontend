@@ -9,7 +9,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { indianStates } from "../../utils/Data";
 import axios from "axios";
-import { createOrder } from "../../features/user/userSlice";
+import { clearCart, createOrder } from "../../features/user/userSlice";
 import { formateCurrency } from "../../utils/money";
 import Loader from "../../components/loader/Loader";
 
@@ -144,6 +144,7 @@ const Checkout = (props) => {
               };
               //console.log(data);
               dispatch(createOrder(data));
+              // dispatch(clearCart());
               setTimeout(() => {
                 navigate("/my-orders");
               }, 2000);

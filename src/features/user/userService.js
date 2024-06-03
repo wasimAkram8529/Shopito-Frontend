@@ -52,6 +52,12 @@ const getUserCart = async () => {
   return response.data;
 };
 
+// Add To Cart
+const clearCart = async () => {
+  const response = await axios.delete(API_URL + "cart/clearCart");
+  return response.data;
+};
+
 // Remove From WishList
 const removeFromWishList = async (id) => {
   const response = await axios.patch(API_URL + "remove", { id });
@@ -139,5 +145,6 @@ const userService = {
   updateUserPhoto,
   forgotPasswordToken,
   resetPassword,
+  clearCart,
 };
 export default userService;

@@ -199,6 +199,24 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+// Remove A Item From cart
+export const clearCart = createAsyncThunk(
+  "auth/ClearCart",
+  async (_, thunkAPI) => {
+    try {
+      return await userService.clearCart();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 // Update Cart Quantity
 export const updateCartQuantity = createAsyncThunk(
   "auth/update-cart",
@@ -514,6 +532,21 @@ export const authSlice = createSlice({
         toast.success("Added To Cart");
       })
       .addCase(addToCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      .addCase(clearCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(clearCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.cart = [];
+      })
+      .addCase(clearCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
