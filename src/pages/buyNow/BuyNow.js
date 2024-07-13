@@ -35,6 +35,7 @@ const BuyNow = () => {
   const [tax, setTax] = useState(0);
   const [totalAfterTax, setTotalAfterTax] = useState(0);
   const [shippingDateString, setDateString] = useState(findDate(7));
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   let totalAmount = quantity * product?.price;
 
@@ -194,20 +195,31 @@ const BuyNow = () => {
                 </div>
               </div>
 
-              <button
-                class="place-order-button button-primary"
-                onClick={() => {
-                  navigate("/checkout", {
-                    state: {
-                      totalAmount: formateCurrency(totalAfterTax),
-                      product,
-                      quantity,
-                    },
-                  });
-                }}
-              >
-                Place your order
-              </button>
+              {isLoggedIn ? (
+                <button
+                  class="place-order-button button-primary"
+                  onClick={() => {
+                    navigate("/checkout", {
+                      state: {
+                        totalAmount: formateCurrency(totalAfterTax),
+                        product,
+                        quantity,
+                      },
+                    });
+                  }}
+                >
+                  Place your order
+                </button>
+              ) : (
+                <button
+                  class="place-order-button button-primary"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Please login
+                </button>
+              )}
             </div>
           </div>
         </div>
