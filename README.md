@@ -2,31 +2,31 @@
 Welcome to the frontend of our e-commerce website project! This frontend is built using React.js to provide users with a seamless shopping experience.
 
 ## Table of Contents
-### Introduction
-### Features
-### Prerequisites
-### Getting Started
-### Folder Structure
-### Technologies Used
-### Contributing
-### License
+#### Introduction
+#### Features
+#### Prerequisites
+#### Getting Started
+#### Folder Structure
+#### Technologies Used
+#### Contributing
+#### License
 
 ## Introduction
 This frontend is responsible for rendering the user interface of our e-commerce website. It allows users to browse products, view product details, add products to their cart, and proceed with the checkout process.
 
 ## Features
-### Product browsing and searching
-### Product filtering and sorting
-### Product details and images
-### Adding products to the cart
-### Cart management (viewing, updating, and removing items)
-### Checkout process
-### Prerequisites
+#### Product browsing and searching
+#### Product filtering and sorting
+#### Product details and images
+#### Adding products to the cart
+#### Cart management (viewing, updating, and removing items)
+#### Checkout process
+#### Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-### Node.js and npm installed on your machine. You can download and install them from https://nodejs.org/.
-### Access to the backend API of the e-commerce website
+#### `Node.js` and `npm` installed on your machine. You can download and install them from `https://nodejs.org/`.
+#### Access to the backend API of the e-commerce website
 
 Getting Started
 To get started with the frontend, follow these steps:
@@ -63,11 +63,11 @@ The project folder structure is as follows:
 ### │   └── ...
 ### └── ...
 Technologies Used
-### React.js
-### React Router
-### [Additional libraries and frameworks]
+#### React.js
+#### React Router
+#### [Additional libraries and frameworks]
 ## Contributing
-### Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
+#### Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
 
 ## License
 This project is licensed under the MIT License.
