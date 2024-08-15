@@ -297,13 +297,27 @@ const OurStore = () => {
                       }
                     }}
                   >
-                    <option value="Features">Features</option>
-                    <option value="title">Alphabetically, A-Z</option>
-                    <option value="-title">Alphabetically, Z-A</option>
-                    <option value="price">Price, low to high</option>
-                    <option value="-price">Price, high to low</option>
-                    <option value="createdAt">Date, old to new</option>
-                    <option value="-createdAt">Date, new to old</option>
+                    <option value="Features" style={{ cursor: "pointer" }}>
+                      Features
+                    </option>
+                    <option value="title" style={{ cursor: "pointer" }}>
+                      Alphabetically, A-Z
+                    </option>
+                    <option value="-title" style={{ cursor: "pointer" }}>
+                      Alphabetically, Z-A
+                    </option>
+                    <option value="price" style={{ cursor: "pointer" }}>
+                      Price, low to high
+                    </option>
+                    <option value="-price" style={{ cursor: "pointer" }}>
+                      Price, high to low
+                    </option>
+                    <option value="createdAt" style={{ cursor: "pointer" }}>
+                      Date, old to new
+                    </option>
+                    <option value="-createdAt" style={{ cursor: "pointer" }}>
+                      Date, new to old
+                    </option>
                   </select>
                 </div>
                 <div className="d-flex align-items-center gap-10 grid store-top-right-part">

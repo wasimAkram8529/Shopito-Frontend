@@ -4,23 +4,15 @@ import { AiFillDelete } from "react-icons/ai";
 import { updateCartQuantity } from "../../features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { MdProductionQuantityLimits } from "react-icons/md";
-import dayjs from "dayjs";
 
-const findDate = (number = 7) => {
-  const today = dayjs();
-  const deliveryDate = today.add(number, "days");
-  const dateString = deliveryDate.format("dddd, MMMM D");
-  return dateString;
-};
 const CartComponent = ({
   handleRemoveAProductFromCart,
   matchingProduct,
   setShipping,
   handleQuantityChange,
+  shippingDateString,
 }) => {
   const [quantity, setCartQuantity] = useState(matchingProduct?.quantity);
-  let initialDate = findDate(7);
-  const [shippingDateString, setDateString] = useState(initialDate);
   //console.log(initialDate);
   const dispatch = useDispatch();
 
@@ -67,75 +59,13 @@ const CartComponent = ({
               Update
             </span>
             <span
-              className="delete-quantity-link link-primary"
+              className="delete-quantity-link link-secondary"
               onClick={() =>
                 handleRemoveAProductFromCart(matchingProduct?.productId?._id)
               }
             >
               Delete
             </span>
-          </div>
-        </div>
-
-        <div className="delivery-options">
-          <div className="delivery-options-title">
-            Choose a delivery option:
-          </div>
-          <div className="delivery-option">
-            <input
-              type="radio"
-              className="delivery-option-input"
-              name="delivery-option-1"
-              value="1"
-              onClick={(e) => {
-                setShipping({ id: "1", deliveryDays: 7, price: 0 });
-                setDateString(findDate(7));
-              }}
-            />
-            <div>
-              <div className="delivery-option-date">{findDate(7)}</div>
-              <div className="delivery-option-price">FREE Shipping</div>
-            </div>
-          </div>
-          <div className="delivery-option">
-            <input
-              type="radio"
-              className="delivery-option-input"
-              name="delivery-option-1"
-              value="2"
-              onClick={(e) => {
-                setShipping({
-                  id: "2",
-                  deliveryDays: 3,
-                  price: 49,
-                });
-                setDateString(findDate(3));
-              }}
-            />
-            <div>
-              <div className="delivery-option-date">{findDate(3)}</div>
-              <div className="delivery-option-price">₹49.00 - Shipping</div>
-            </div>
-          </div>
-          <div className="delivery-option">
-            <input
-              type="radio"
-              className="delivery-option-input"
-              name="delivery-option-1"
-              value="3"
-              onClick={(e) => {
-                setShipping({
-                  id: "3",
-                  deliveryDays: 1,
-                  price: 99,
-                });
-                setDateString(findDate(1));
-              }}
-            />
-            <div>
-              <div className="delivery-option-date">{findDate(1)}</div>
-              <div className="delivery-option-price">₹99.00 - Shipping</div>
-            </div>
           </div>
         </div>
       </div>

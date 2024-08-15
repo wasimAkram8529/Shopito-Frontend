@@ -127,79 +127,11 @@ const Header = ({ renderHeader, setRenderHeader }) => {
   );
   return (
     <>
-      <div className="header-container">
-        <div
-          className={
-            openSearchBar
-              ? `open-search-bar pop-up-search-bar`
-              : `close-search-bar pop-up-search-bar`
-          }
-        >
-          <div className="cross-sign">
-            <IoMdClose
-              className="close-search-bar-icon"
-              onClick={() => setSearchBar(!openSearchBar)}
-            />
-          </div>
-          <div className="input-group search-bar">
-            <Typeahead
-              id="pagination-example"
-              onPaginate={() => console.log("Results paginated")}
-              options={searchOptions}
-              paginate={paginate}
-              labelKey={"name"}
-              placeholder="Search..."
-              onChange={(selected) => {
-                setSearchBar(false);
-                // console.log("id", selected[0].productId);
-                navigate(`/product/${selected[0].productId}`);
-              }}
-            />
-            <span className="input-group-text" id="basic-addon2">
-              <BsSearch className="fs-6" />
-            </span>
-          </div>
-        </div>
-        <Container class1="top-header">
-          <header className="header-top-strip py-3">
-            <div className="container-xxl">
-              <div className="row">
-                <div className="col-6 shipping-text">
-                  <p className="mb-0">Free Shipping Over ₹100 & Free Returns</p>
-                </div>
-                <div className="col-6 contact-number">
-                  <p className="text-end mb-0">
-                    Hotline:{" "}
-                    <a className="" href="tel:+91 8529922324">
-                      +91 XXXXXXXX24
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </header>
-        </Container>
+      <div className="new-header-container">
         <Container class1="middle-header">
           <header>
-            <div className="header">
+            <div className="new-header">
               {logo}
-              <div className="input-group search-bar header-middle-section">
-                <Typeahead
-                  id="pagination-example"
-                  onPaginate={() => console.log("Results paginated")}
-                  options={searchOptions}
-                  paginate={paginate}
-                  labelKey={"name"}
-                  placeholder="search..."
-                  onChange={(selected) => {
-                    setSearchBar(false);
-                    navigate(`/product/${selected[0].productId}`);
-                  }}
-                />
-                <span className="input-group-text" id="basic-addon2">
-                  <BsSearch className="fs-6" />
-                </span>
-              </div>
               <div className="header-last-section">
                 <span className="links">
                   <div

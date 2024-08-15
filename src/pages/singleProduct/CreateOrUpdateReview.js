@@ -87,11 +87,11 @@ const CreateOrUpdateReview = ({
             placeholder="Comments..."
           ></textarea>
           {formik.touched.review && formik.errors.review ? (
-            <div>{formik.errors.review}</div>
+            <div style={{ color: "red" }}>{formik.errors.review}</div>
           ) : null}
         </div>
         <div className="d-flex justify-content-end">
-          <button className="button border-0" type="submit">
+          <button className="button border-0 submit-review" type="submit">
             {edit ? "Update Review" : "Submit Review"}
           </button>
         </div>

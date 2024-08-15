@@ -10,10 +10,20 @@ import CartComponent from "../../components/cartComponent/CartComponent";
 import { formateCurrency } from "../../utils/money";
 import { updateCartQuantity } from "../../features/user/userSlice";
 import Loader from "../../components/loader/Loader";
+import dayjs from "dayjs";
+
+const findDate = (number = 7) => {
+  const today = dayjs();
+  const deliveryDate = today.add(number, "days");
+  const dateString = deliveryDate.format("dddd, MMMM D");
+  return dateString;
+};
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let initialDate = findDate(7);
+  const [shippingDateString, setDateString] = useState(initialDate);
 
   useEffect(() => {
     dispatch(getUserCart());
@@ -73,7 +83,7 @@ const Cart = () => {
       {isLoading && <Loader />}
       <Meta title="ShopIto" />
       <BreadCrumb title=" Cart" />
-      <Container class1="cart-wrapper home-wrapper-2 py-5">
+      <Container class1="cart-wrapper">
         {userCart && userCart?.length !== 0 ? (
           <div className="main">
             <div className="page-title">Review your order</div>
@@ -91,67 +101,146 @@ const Cart = () => {
                             handleRemoveAProductFromCart
                           }
                           handleQuantityChange={handleQuantityChange}
+                          shippingDateString={shippingDateString}
                         />
                       </div>
                     );
                   })}
               </div>
-
-              <div className="payment-summary">
-                <div className="payment-summary-title">Order Summary</div>
-
-                <div className="payment-summary-row">
-                  <div>Items ({countCartItem}):</div>
-                  <div className="payment-summary-money">
-                    {`₹${formateCurrency(totalAmount)}`}
+              <div className="payment-section">
+                <div className="delivery-date-section">
+                  <div className="delivery-options">
+                    <div className="delivery-options-title">
+                      Choose a delivery option:
+                    </div>
+                    <div className="delivery-option">
+                      <input
+                        type="radio"
+                        className="delivery-option-input"
+                        name="delivery-option-1"
+                        value="1"
+                        onClick={(e) => {
+                          setShipping({ id: "1", deliveryDays: 7, price: 0 });
+                          setDateString(findDate(7));
+                        }}
+                      />
+                      <div>
+                        <div className="delivery-option-date">
+                          {findDate(7)}
+                        </div>
+                        <div className="delivery-option-price">
+                          FREE Shipping
+                        </div>
+                      </div>
+                    </div>
+                    <div className="delivery-option">
+                      <input
+                        type="radio"
+                        className="delivery-option-input"
+                        name="delivery-option-1"
+                        value="2"
+                        onClick={(e) => {
+                          setShipping({
+                            id: "2",
+                            deliveryDays: 3,
+                            price: 49,
+                          });
+                          setDateString(findDate(3));
+                        }}
+                      />
+                      <div>
+                        <div className="delivery-option-date">
+                          {findDate(3)}
+                        </div>
+                        <div className="delivery-option-price">
+                          ₹49.00 - Shipping
+                        </div>
+                      </div>
+                    </div>
+                    <div className="delivery-option">
+                      <input
+                        type="radio"
+                        className="delivery-option-input"
+                        name="delivery-option-1"
+                        value="3"
+                        onClick={(e) => {
+                          setShipping({
+                            id: "3",
+                            deliveryDays: 1,
+                            price: 99,
+                          });
+                          setDateString(findDate(1));
+                        }}
+                      />
+                      <div>
+                        <div className="delivery-option-date">
+                          {findDate(1)}
+                        </div>
+                        <div className="delivery-option-price">
+                          ₹99.00 - Shipping
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <div className="payment-summary">
+                  <div className="payment-summary-title">Order Summary</div>
 
-                <div className="payment-summary-row">
-                  <div>Shipping &amp; handling:</div>
-                  <div className="payment-summary-money">
-                    {`₹${formateCurrency(shipping?.price)}`}
+                  <div className="payment-summary-row">
+                    <div>Items ({countCartItem}):</div>
+                    <div className="payment-summary-money">
+                      {`₹${formateCurrency(totalAmount)}`}
+                    </div>
                   </div>
-                </div>
 
-                <div className="payment-summary-row subtotal-row">
-                  <div>Total before tax:</div>
-                  <div className="payment-summary-money">
-                    {`₹${formateCurrency(totalBeforeTax)}`}
+                  <div className="payment-summary-row">
+                    <div>Shipping &amp; handling:</div>
+                    <div className="payment-summary-money">
+                      {`₹${formateCurrency(shipping?.price)}`}
+                    </div>
                   </div>
-                </div>
 
-                <div className="payment-summary-row">
-                  <div>Estimated tax (10%):</div>
-                  <div className="payment-summary-money">
-                    {`₹${formateCurrency(tax)}`}
+                  <div className="payment-summary-row subtotal-row">
+                    <div>Total before tax:</div>
+                    <div className="payment-summary-money">
+                      {`₹${formateCurrency(totalBeforeTax)}`}
+                    </div>
                   </div>
-                </div>
 
-                <div className="payment-summary-row total-row">
-                  <div>Order total:</div>
-                  <div className="payment-summary-money">
-                    {`₹${formateCurrency(totalAfterTax)}`}
+                  <div className="payment-summary-row">
+                    <div>Estimated tax (10%):</div>
+                    <div className="payment-summary-money">
+                      {`₹${formateCurrency(tax)}`}
+                    </div>
                   </div>
-                </div>
 
-                <button
-                  className="place-order-button button-primary"
-                  onClick={() => {
-                    navigate("/checkout", {
-                      state: {
-                        totalAmount: totalBeforeTax,
-                      },
-                    });
-                  }}
-                >
-                  Place your order
-                </button>
+                  <div className="payment-summary-row total-row">
+                    <div>Order total:</div>
+                    <div className="payment-summary-money">
+                      {`₹${formateCurrency(totalAfterTax)}`}
+                    </div>
+                  </div>
+
+                  <button
+                    className="place-order-button button-primary"
+                    onClick={() => {
+                      navigate("/checkout", {
+                        state: {
+                          totalAmount: totalBeforeTax,
+                        },
+                      });
+                    }}
+                  >
+                    Place your order
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         ) : (
-          <div style={{ textAlign: "center" }}>Your Cart is Empty</div>
+          <div style={{ textAlign: "center" }} className="cart-item-container">
+            Your Cart is Empty
+          </div>
         )}
       </Container>
     </>

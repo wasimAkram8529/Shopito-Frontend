@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { shortenText } from "../utils/Validator";
 
 const BreadCrumb = (props) => {
   const { title } = props;
@@ -9,10 +10,7 @@ const BreadCrumb = (props) => {
         <div className="row">
           <div className="col-12">
             <p className="text-center mb-0">
-              <Link to="/" className="text-white">
-                Home &nbsp;
-              </Link>{" "}
-              / {title}
+              <Link to="/">Home &nbsp;</Link> / {shortenText(title, 15)}
             </p>
           </div>
         </div>
