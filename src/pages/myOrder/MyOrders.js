@@ -3,12 +3,13 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 // import { AiFillDelete, AiOutlineEye } from "react-icons/ai";
 import { getOrders } from "../../features/user/userSlice";
-import { Link, NavLink } from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/importantFunctions";
 import Container from "../../components/Container";
 import "./MyOrder.css";
 import Loader from "../../components/loader/Loader";
 import dayjs from "dayjs";
+import buyItAgainImg from "../../images/buy-again.png";
 
 const findDate = (number = 7) => {
   const today = dayjs();
@@ -19,11 +20,13 @@ const findDate = (number = 7) => {
 
 const MyOrders = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
   const { userOrders, isLoading } = useSelector((state) => state.auth);
+  // console.log(userOrders);
   return (
     <>
       {isLoading && <Loader />}
@@ -82,10 +85,17 @@ const MyOrders = () => {
                             <div className="product-quantity">
                               Quantity: {`${orderedProduct?.product?.quantity}`}
                             </div>
-                            <button className="buy-again-button button-primary">
+                            <button
+                              className="buy-again-button button-primary"
+                              onClick={() => {
+                                navigate(
+                                  `/product/${orderedProduct?.product?._id}`
+                                );
+                              }}
+                            >
                               <img
                                 className="buy-again-icon"
-                                src="../../images/icons/buy-again.png"
+                                src={buyItAgainImg}
                               />
                               <span className="buy-again-message">
                                 Buy it again
@@ -97,8 +107,10 @@ const MyOrders = () => {
                             className="product-actions"
                             key={orderedProduct?._id + "c"}
                           >
-                            <a href="tracking.html">
-                              <button className="track-package-button">
+                            <a
+                              href={`/my-order/${order?._id}/${orderedProduct?.product?._id}`}
+                            >
+                              <button className="track-package-button button-secondary">
                                 Track package
                               </button>
                             </a>
@@ -118,68 +130,5 @@ const MyOrders = () => {
     </>
   );
 };
-
-// const MyOrders = () => {
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     dispatch(getOrders());
-//   }, [dispatch]);
-
-//   const { userOrders, isLoading } = useSelector((state) => state.auth);
-
-//   let count = 0;
-//   let sNumber = function increment() {
-//     return ++count;
-//   };
-
-//   let data = [];
-
-//   if (userOrders && userOrders?.length !== 0) {
-//     for (let i = 0; i < userOrders?.length; i++) {
-//       for (let j = 0; j < userOrders?.[i]?.orderItems?.length; j++) {
-//         let order = userOrders?.[i]?.orderItems?.[j];
-//         data.push(
-//           <div className="card" key={order?._id}>
-//             <NavLink
-//               className="single-order"
-//               to={`/my-order/${userOrders?.[i]?._id}/${order?._id}`}
-//             >
-//               <div className="card-img">
-//                 <img
-//                   src={`${order?.product?.image?.[0]?.url}`}
-//                   alt="product-image"
-//                 />
-//               </div>
-//               <div className="card-body">
-//                 <span>{order?.product?.title}</span>
-//                 <span className="card-price">{`₹${order?.product?.price}`}</span>
-//               </div>
-//               <div className="card-body">
-//                 <span>{userOrders?.[i]?.orderStatus}</span>
-//               </div>
-//             </NavLink>
-//           </div>
-//         );
-//       }
-//     }
-//   }
-//   // console.log(userOrders);
-//   // console.log(data);
-//   return (
-//     <>
-//       {isLoading && <Loader />}
-//       <div className="order-container">
-//         <div className="container-xxl py-5">
-//           {userOrders && userOrders?.length !== 0 ? (
-//             data
-//           ) : (
-//             <div>Your order is patiently waiting for your treasures.</div>
-//           )}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
 
 export default MyOrders;

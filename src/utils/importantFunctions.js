@@ -2,7 +2,11 @@ import CarouselItem from "../components/corousel/CarouselItem";
 import SpecialProduct from "../components/special-product/SpecialProduct";
 
 export function formatDate(inputDateString) {
-  const dateObject = new Date(inputDateString);
+  const inputDate =
+    inputDateString !== undefined
+      ? inputDateString
+      : "2024-03-23T10:37:04.909Z";
+  const dateObject = new Date(inputDate);
 
   const options = { year: "numeric", month: "long", day: "numeric" };
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
@@ -13,9 +17,13 @@ export function formatDate(inputDateString) {
 }
 
 export function formateDate2(inputDateString) {
-  const inputDate = new Date(inputDateString);
+  const inputDate =
+    inputDateString !== undefined
+      ? inputDateString
+      : "2024-03-23T10:37:04.909Z";
+  const dateObject = new Date(inputDate);
 
-  const formattedDate = inputDate.toISOString().split("T")[0];
+  const formattedDate = dateObject.toISOString().split("T")[0];
   return formattedDate;
 }
 

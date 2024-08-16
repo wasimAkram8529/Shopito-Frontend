@@ -637,3 +637,41 @@ footer .input-group-text {
 .card-date {
   color: #1455ac !important;
 }
+
+.button-primary {
+  color: rgb(33, 33, 33);
+  background-color: rgb(255, 216, 20);
+  border: 1px solid rgb(252, 210, 0);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.button-primary:hover {
+  background-color: rgb(247, 202, 0);
+  border: 1px solid rgb(242, 194, 0);
+}
+
+.button-primary:active {
+  background: rgb(255, 216, 20);
+  border-color: rgb(252, 210, 0);
+  box-shadow: none;
+}
+
+.button-secondary {
+  color: rgb(33, 33, 33);
+  background: white;
+  border: 1px solid rgb(213, 217, 217);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+.button-secondary:hover {
+  background-color: rgb(247, 250, 250);
+}
+
+.button-secondary:active {
+  background-color: rgb(237, 253, 255);
+  box-shadow: none;
+}
