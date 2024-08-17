@@ -54,47 +54,50 @@ const BuyNow = () => {
     <>
       <Meta title="ShopIto" />
       <BreadCrumb title="Buy Now" />
-      <Container class1="cart-wrapper home-wrapper-2 py-5">
-        <div class="main">
-          <div class="page-title">Review your order</div>
-
-          <div class="checkout-grid">
-            <div class="order-summary">
-              <div class="cart-item-container">
-                <div class="delivery-date">
+      <Container className1="cart-wrapper home-wrapper-2 py-5">
+        <div className="cart-main">
+          <div className="page-title">Review your order</div>
+          <div className="checkout-grid">
+            <div className="order-summary">
+              <div className="cart-item-container">
+                <div className="delivery-date">
                   Delivery date: {shippingDateString}
                 </div>
 
-                <div class="cart-item-details-grid">
-                  <img class="product-image" src={product?.image?.[0]?.url} />
+                <div className="cart-item-details-grid">
+                  <img
+                    className="product-image"
+                    src={product?.image?.[0]?.url}
+                  />
 
-                  <div class="cart-item-details">
-                    <div class="product-name">{product?.title}</div>
-                    <div class="product-price">{`₹${formateCurrency(
+                  <div className="cart-item-details">
+                    <div className="product-name">{product?.title}</div>
+                    <div className="product-price">{`₹${formateCurrency(
                       totalAmount
                     )}`}</div>
-                    <div class="product-quantity">
+                    <div className="product-quantity">
                       <span>
-                        Quantity: <span class="quantity-label">{quantity}</span>
+                        Quantity:{" "}
+                        <span className="quantity-label">{quantity}</span>
                       </span>
-                      {/* <span class="update-quantity-link link-primary">
+                      {/* <span className="update-quantity-link link-primary">
                         Update
                       </span>
-                      <span class="delete-quantity-link link-primary">
+                      <span className="delete-quantity-link link-primary">
                         Delete
                       </span> */}
                     </div>
                   </div>
 
-                  <div class="delivery-options">
-                    <div class="delivery-options-title">
+                  <div className="delivery-options">
+                    <div className="delivery-options-title">
                       Choose a delivery option:
                     </div>
 
-                    <div class="delivery-option">
+                    <div className="delivery-option">
                       <input
                         type="radio"
-                        class="delivery-option-input"
+                        className="delivery-option-input"
                         name="delivery-option-2"
                         onClick={() => {
                           setDateString(findDate(7));
@@ -106,14 +109,18 @@ const BuyNow = () => {
                         }}
                       />
                       <div>
-                        <div class="delivery-option-date">{findDate(7)}</div>
-                        <div class="delivery-option-price">FREE Shipping</div>
+                        <div className="delivery-option-date">
+                          {findDate(7)}
+                        </div>
+                        <div className="delivery-option-price">
+                          FREE Shipping
+                        </div>
                       </div>
                     </div>
-                    <div class="delivery-option">
+                    <div className="delivery-option">
                       <input
                         type="radio"
-                        class="delivery-option-input"
+                        className="delivery-option-input"
                         name="delivery-option-2"
                         onClick={() => {
                           setDateString(findDate(3));
@@ -125,16 +132,18 @@ const BuyNow = () => {
                         }}
                       />
                       <div>
-                        <div class="delivery-option-date">{findDate(3)}</div>
-                        <div class="delivery-option-price">
+                        <div className="delivery-option-date">
+                          {findDate(3)}
+                        </div>
+                        <div className="delivery-option-price">
                           ₹49.00 - Shipping
                         </div>
                       </div>
                     </div>
-                    <div class="delivery-option">
+                    <div className="delivery-option">
                       <input
                         type="radio"
-                        class="delivery-option-input"
+                        className="delivery-option-input"
                         name="delivery-option-2"
                         onClick={() => {
                           setDateString(findDate(1));
@@ -146,8 +155,10 @@ const BuyNow = () => {
                         }}
                       />
                       <div>
-                        <div class="delivery-option-date">{findDate(1)}</div>
-                        <div class="delivery-option-price">
+                        <div className="delivery-option-date">
+                          {findDate(1)}
+                        </div>
+                        <div className="delivery-option-price">
                           ₹99.00 - Shipping
                         </div>
                       </div>
@@ -157,53 +168,54 @@ const BuyNow = () => {
               </div>
             </div>
 
-            <div class="payment-summary">
-              <div class="payment-summary-title">Order Summary</div>
+            <div className="payment-summary">
+              <div className="payment-summary-title">Order Summary</div>
 
-              <div class="payment-summary-row">
+              <div className="payment-summary-row">
                 <div>Items (1):</div>
-                <div class="payment-summary-money">
+                <div className="payment-summary-money">
                   {`₹${formateCurrency(totalAmount)}`}
                 </div>
               </div>
 
-              <div class="payment-summary-row">
+              <div className="payment-summary-row">
                 <div>Shipping &amp; handling:</div>
-                <div class="payment-summary-money">
+                <div className="payment-summary-money">
                   {`₹${formateCurrency(shipping?.price)}`}
                 </div>
               </div>
 
-              <div class="payment-summary-row subtotal-row">
+              <div className="payment-summary-row subtotal-row">
                 <div>Total before tax:</div>
-                <div class="payment-summary-money">
+                <div className="payment-summary-money">
                   {`₹${formateCurrency(totalBeforeTax)}`}
                 </div>
               </div>
 
-              <div class="payment-summary-row">
+              <div className="payment-summary-row">
                 <div>Estimated tax (10%):</div>
-                <div class="payment-summary-money">{`₹${formateCurrency(
+                <div className="payment-summary-money">{`₹${formateCurrency(
                   tax
                 )}`}</div>
               </div>
 
-              <div class="payment-summary-row total-row">
+              <div className="payment-summary-row total-row">
                 <div>Order total:</div>
-                <div class="payment-summary-money">
+                <div className="payment-summary-money">
                   {`₹${formateCurrency(totalAfterTax)}`}
                 </div>
               </div>
 
               {isLoggedIn ? (
                 <button
-                  class="place-order-button button-primary"
+                  className="place-order-button button-primary"
                   onClick={() => {
                     navigate("/checkout", {
                       state: {
                         totalAmount: formateCurrency(totalAfterTax),
                         product,
                         quantity,
+                        deliveryDate: shippingDateString,
                       },
                     });
                   }}
@@ -212,7 +224,7 @@ const BuyNow = () => {
                 </button>
               ) : (
                 <button
-                  class="place-order-button button-primary"
+                  className="place-order-button button-primary"
                   onClick={() => {
                     navigate("/login");
                   }}

@@ -10,6 +10,7 @@ import "./MyOrder.css";
 import Loader from "../../components/loader/Loader";
 import dayjs from "dayjs";
 import buyItAgainImg from "../../images/buy-again.png";
+import { shortenText } from "../../utils/Validator";
 
 const findDate = (number = 7) => {
   const today = dayjs();
@@ -26,7 +27,6 @@ const MyOrders = () => {
     dispatch(getOrders());
   }, [dispatch]);
   const { userOrders, isLoading } = useSelector((state) => state.auth);
-  // console.log(userOrders);
   return (
     <>
       {isLoading && <Loader />}
@@ -46,7 +46,7 @@ const MyOrders = () => {
                       </div>
                       <div className="order-total">
                         <div className="order-header-label">Total:</div>
-                        <div>{`${order?.totalPrice}`}</div>
+                        <div>{`₹${order?.totalPrice}`}</div>
                       </div>
                     </div>
 
@@ -62,7 +62,7 @@ const MyOrders = () => {
                         <>
                           <div
                             className="product-image-container"
-                            key={orderedProduct?._id + "a"}
+                            key={orderedProduct?._id + 1}
                           >
                             <img
                               src={`${orderedProduct?.product?.image?.[0]?.url}`}
@@ -71,19 +71,22 @@ const MyOrders = () => {
 
                           <div
                             className="product-details"
-                            key={orderedProduct?._id + "b"}
+                            key={orderedProduct?._id + 2}
                           >
                             <div className="product-name">
-                              {`${orderedProduct?.product?.title}`}
+                              {`${shortenText(
+                                orderedProduct?.product?.title,
+                                15
+                              )}`}
                             </div>
                             <div className="product-delivery-date">
                               Arriving on:{" "}
-                              {`${formatDate(
-                                orderedProduct?.product?.createdAt
-                              )}`}
+                              {order?.deliveryDate === null
+                                ? formatDate(order?.createdAt)
+                                : order?.deliveryDate}
                             </div>
                             <div className="product-quantity">
-                              Quantity: {`${orderedProduct?.product?.quantity}`}
+                              Quantity: {`${orderedProduct?.quantity}`}
                             </div>
                             <button
                               className="buy-again-button button-primary"
@@ -105,7 +108,7 @@ const MyOrders = () => {
 
                           <div
                             className="product-actions"
-                            key={orderedProduct?._id + "c"}
+                            key={orderedProduct?._id + 3}
                           >
                             <a
                               href={`/my-order/${order?._id}/${orderedProduct?.product?._id}`}

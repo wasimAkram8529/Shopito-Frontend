@@ -66,7 +66,7 @@ const removeFromWishList = async (id) => {
 
 // Remove From Cart
 const removeFromCart = async (id) => {
-  const response = await axios.delete(API_URL + `cart/${id}`);
+  const response = await axios.delete(API_URL + `cart/remove-item/${id}`);
   return response.data;
 };
 

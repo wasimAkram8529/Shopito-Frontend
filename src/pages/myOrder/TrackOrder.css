@@ -13,7 +13,7 @@
   margin-bottom: 3px;
 }
 
-.product-image {
+.order-tracking .product-image {
   max-width: 150px;
   max-height: 150px;
   margin-top: 25px;
@@ -40,7 +40,7 @@
 
 @media (max-width: 450px) {
   .progress-labels-container {
-    flex-direction: column;
+    /* flex-direction: column; */
     margin-bottom: 5px;
   }
 

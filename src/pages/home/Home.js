@@ -255,12 +255,12 @@ const Home = () => {
                           <div className="card-title">
                             {shortenText(product?.title, 15)}
                           </div>
-                          {Number(product?.totalrating) != 0 && (
+                          {Number(product?.totalRating) != 0 && (
                             <div className="product-star">
                               <ReactStars
                                 count={5}
                                 size={24}
-                                value={Number(product?.totalrating)}
+                                value={Number(product?.totalRating)}
                                 edit={false}
                                 activeColor="#ffd700"
                               />
@@ -297,12 +297,12 @@ const Home = () => {
                           <div className="card-title">
                             {shortenText(product?.title, 15)}
                           </div>
-                          {Number(product?.totalrating) != 0 && (
+                          {Number(product?.totalRating) != 0 && (
                             <div className="product-star">
                               <ReactStars
                                 count={5}
                                 size={24}
-                                value={Number(product?.totalrating)}
+                                value={Number(product?.totalRating)}
                                 edit={false}
                                 activeColor="#ffd700"
                               />

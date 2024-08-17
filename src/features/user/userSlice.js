@@ -608,7 +608,7 @@ export const authSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.order = action.payload;
+        state.order = action.payload.newOrder;
         toast.success("Order Created");
       })
       .addCase(createOrder.rejected, (state, action) => {

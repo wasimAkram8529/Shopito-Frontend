@@ -302,7 +302,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       <ReactStars
                         count={5}
                         size={24}
-                        value={Number(product?.totalrating)}
+                        value={Number(product?.totalRating)}
                         edit={false}
                         activeColor="#ffd700"
                       />
@@ -484,7 +484,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                               <ReactStars
                                 count={5}
                                 size={24}
-                                value={Number(product?.totalrating)}
+                                value={Number(product?.totalRating)}
                                 edit={false}
                                 activeColor="#ffd700"
                               />

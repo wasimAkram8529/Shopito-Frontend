@@ -26,13 +26,14 @@ let shippingAddressSchema = Yup.object().shape({
 const Checkout = (props) => {
   const location = useLocation();
   const productAmount = location.state.totalAmount;
+  const deliveryDate = location.state.deliveryDate;
   const product = location.state.product;
   const quantity = location.state.quantity;
   //console.log(product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userCart, isLoading } = useSelector((state) => state.auth);
-  const [shippingInfo, setShippingInfo] = useState({});
+  // const [shippingInfo, setShippingInfo] = useState({});
 
   //console.log(userCart);
   let totalAmount = productAmount;
@@ -59,7 +60,7 @@ const Checkout = (props) => {
     });
   };
 
-  const checkOutHandler = async () => {
+  const checkOutHandler = async (shippingInfo) => {
     // Load Razorpay SDK
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     const res = await loadScript(
@@ -141,9 +142,14 @@ const Checkout = (props) => {
                 totalPrice,
                 totalPriceAfterDiscount: totalAmount - 500,
                 paymentInfo: result.data,
+                deliveryDate,
               };
               //console.log(data);
-              dispatch(createOrder(data));
+              dispatch(createOrder(data)).then((response) => {
+                if (!product && response.payload.status === "ok") {
+                  dispatch(clearCart());
+                }
+              });
               // dispatch(clearCart());
               setTimeout(() => {
                 navigate("/my-orders");
@@ -188,10 +194,8 @@ const Checkout = (props) => {
     },
     validationSchema: shippingAddressSchema,
     onSubmit: (values) => {
-      setShippingInfo(values);
-      checkOutHandler();
-
-      //console.log(values);
+      // setShippingInfo(values);
+      checkOutHandler(values);
     },
   });
 

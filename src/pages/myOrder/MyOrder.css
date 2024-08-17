@@ -108,11 +108,11 @@
   }
 }
 
-.product-image-container {
+.order-details-grid .product-image-container {
   text-align: center;
 }
 
-.product-image-container img {
+.order-details-grid .product-image-container img {
   max-width: 110px;
   max-height: 110px;
 }
@@ -172,12 +172,12 @@
 }
 
 @media (max-width: 450px) {
-  .product-image-container {
+  .order-details-grid .product-image-container {
     text-align: center;
     margin-bottom: 25px;
   }
 
-  .product-image-container img {
+  .order-details-grid .product-image-container img {
     max-width: 150px;
     max-height: 150px;
   }
@@ -326,7 +326,6 @@
   }
   .order-container .order .card {
     width: 60% !important;
-    /* height: 100px !important; */
   }
   .vertical-shipment-status {
     display: block;

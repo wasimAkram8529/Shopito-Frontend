@@ -355,7 +355,7 @@ const OurStore = () => {
                           description={product.description}
                           price={product.price}
                           imgURL={product.image[0].url}
-                          rating={Number(product.totalrating)}
+                          rating={Number(product.totalRating)}
                         />
                       );
                     })
@@ -369,7 +369,7 @@ const OurStore = () => {
                           description={product.description}
                           price={product.price}
                           imgURL={product.image[0].url}
-                          rating={Number(product.totalrating)}
+                          rating={Number(product.totalRating)}
                         />
                       );
                     })}

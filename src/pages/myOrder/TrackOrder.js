@@ -46,9 +46,7 @@ const TrackOrder = () => {
 
           <div className="product-info">{`${product?.[0]?.product?.title}`}</div>
 
-          <div className="product-info">
-            Quantity: {product?.[0]?.product?.quantity}
-          </div>
+          <div className="product-info">Quantity: 1</div>
 
           <img
             className="product-image"

@@ -85,7 +85,7 @@ const Cart = () => {
       <BreadCrumb title=" Cart" />
       <Container class1="cart-wrapper">
         {userCart && userCart?.length !== 0 ? (
-          <div className="main">
+          <div className="cart-main">
             <div className="page-title">Review your order</div>
 
             <div className="checkout-grid">
@@ -227,6 +227,7 @@ const Cart = () => {
                       navigate("/checkout", {
                         state: {
                           totalAmount: totalBeforeTax,
+                          deliveryDate: shippingDateString,
                         },
                       });
                     }}
