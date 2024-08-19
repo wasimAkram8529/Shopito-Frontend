@@ -38,6 +38,7 @@ import Loader from "../../components/loader/Loader";
 import SpecialProduct from "../../components/special-product/SpecialProduct";
 import ProductCarousel from "../../components/corousel/Carousel";
 import CreateOrUpdateReview from "./CreateOrUpdateReview";
+import { useTranslation } from "react-i18next";
 
 const PageHeading = ({ heading, btnText, type, content }) => {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
   const productId = location.pathname.split("/")[2];
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [edit, setEdit] = useState(false);
 
@@ -158,7 +160,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
     });
     //props.setRender(true);
     // setIsAvailable(true);
-    navigate("/cart");
+    navigate(`/cart/:${userCart?.[0]?.userId}`);
   };
 
   useEffect(() => {
@@ -264,7 +266,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       }
                     }}
                   >
-                    BUY IT NOW
+                    {t("but_it_now")}
                   </button>
                   {isLoggedIn &&
                     (!isAvailable ? (
@@ -282,11 +284,14 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                           updateCart(cartData);
                         }}
                       >
-                        ADD TO CART
+                        {t("add_to_cart")}
                       </button>
                     ) : (
-                      <NavLink to={`/cart`} className="button border-0">
-                        GO TO CART
+                      <NavLink
+                        to={`/cart/${userCart?.[0]?.userId}`}
+                        className="button border-0"
+                      >
+                        {t("go_to_cart")}
                       </NavLink>
                     ))}
                 </div>
@@ -308,7 +313,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       />
                       <p className="mb-0 t-review">{`(${product?.ratings?.length} review)`}</p>
                     </div>
-                    <a href="#review">Write a Review</a>
+                    <a href="#review">{t("write_a_review")}</a>
                   </div>
                   <div className="py-3">
                     <div className="d-flex gap-10 align-items-center my-2">
@@ -316,21 +321,23 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       {/* <p className="product-data">{product?.title}</p> */}
                     </div>
                     <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Brand:</h3>
+                      <h3 className="product-heading">{t("brand")}:</h3>
                       <p className="product-data">{product?.brand}</p>
                     </div>
                     <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Category:</h3>
+                      <h3 className="product-heading">{t("category")}:</h3>
                       <p className="product-data">{product?.category}</p>
                     </div>
                     <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Tags:</h3>
+                      <h3 className="product-heading">{t("tags")}:</h3>
                       <p className="product-data">{product?.tags}</p>
                     </div>
                     <div className="d-flex gap-10 align-items-center my-2">
-                      <h3 className="product-heading">Availability:</h3>
+                      <h3 className="product-heading">{t("availability")}:</h3>
                       <p className="product-data">
-                        {product?.quantity ? `In Stock` : `Out of Stock`}
+                        {product?.quantity
+                          ? `${t(`in_stock`)}`
+                          : `${t(`out_of_stock`)}`}
                       </p>
                     </div>
                     {/* <div className="d-flex gap-10 flex-column mt-2 mb-3 product-size">
@@ -355,7 +362,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                   </div> */}
                     {!isAvailable && (
                       <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                        <h3 className="product-heading">Color:</h3>
+                        <h3 className="product-heading">{t("color")}:</h3>
                         <Color
                           colorData={product?.color}
                           setColorHandler={setColorHandler}
@@ -366,7 +373,9 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       {!isAvailable && (
                         <>
                           <div className="product-quantity gap-15">
-                            <h3 className="product-heading">Quantity:</h3>
+                            <h3 className="product-heading">
+                              {t("quantities")}:
+                            </h3>
                             <div>
                               <input
                                 type="number"
@@ -388,7 +397,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       <div>
                         <NavLink to="">
                           <TbGitCompare className="fs-5 me-2" />
-                          Add to Compare
+                          {t("add_to_compare")}
                         </NavLink>
                       </div>
                       <div>
@@ -400,12 +409,14 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                               addToWishListHandler(productId);
                             }}
                           />
-                          Add to Wishlist
+                          {t("add_to_wishlist")}
                         </button>
                       </div>
                     </div>
                     <div className="d-flex flex-column gap-10 my-3">
-                      <h3 className="product-heading">Shipping & Returns :</h3>
+                      <h3 className="product-heading">
+                        {t("shipping_&_returns")} :
+                      </h3>
                       <p className="product-data">
                         Free shipping and returns available on all orders! we
                         ship all us domestic orders within{" "}
@@ -413,31 +424,31 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                       </p>
                     </div>
                     <div className="d-flex gap-10 align-items-center my-3">
-                      <h3 className="product-heading">Product Link :</h3>
+                      <h3 className="product-heading">{t("product_link")} :</h3>
                       <NavLink
                         to="#"
                         onClick={() => {
                           copyToClipboard(window.location.href);
                         }}
                       >
-                        Copy Product Link
+                        {t("copy_product_link")}
                       </NavLink>
                     </div>
                   </div>
                 </div>
                 <details className="product-description description-wrapper">
-                  <summary className="">Description</summary>
+                  <summary className="">{t("description")}</summary>
                   <div className="product-description-content">
                     <p>{product?.description}</p>
                   </div>
                 </details>
                 <div className="product-review">
                   <div className="">
-                    <h3 id="review">Reviews</h3>
+                    <h3 id="review">{t("reviews")}</h3>
                     <div className="review-inner-wrapper">
                       <div className="review-head d-flex justify-content-between align-items-end">
                         <div>
-                          <h4 className="mb-2">Customer Review</h4>
+                          <h4 className="mb-2">{t("customer_review")}</h4>
                           <div className="reviews mt-4">
                             {!isLoading &&
                               product?.ratings?.map((review, index) => {
@@ -489,14 +500,14 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                                 activeColor="#ffd700"
                               />
                               <p className="mb-0">
-                                Based on{" "}
+                                {t("based_on")}{" "}
                                 {`${
                                   product?.ratings?.length
                                     ? product?.ratings?.length
                                     : "0"
                                 }`}
                                 {"  "}
-                                reviews
+                                {t("reviews")}
                               </p>
                             </div>
                           )}
@@ -518,7 +529,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
             <div className="product-recommendation">
               <div>
                 <PageHeading
-                  heading={"Popular Products"}
+                  heading={t("popular_products")}
                   btnText={"Shop Now >>>"}
                   type="tags"
                   content="featured"
@@ -529,7 +540,7 @@ const SingleProduct = ({ renderHeader, setRenderHeader }) => {
                 open={open}
                 hideModal={hideModal}
                 performAction={() => deleteReviewHandler(reviewId)}
-                title="Are you sure want to delete this review"
+                title="are_you_sure_want_to_delete_this_review"
               />
             </div>
           </Container>

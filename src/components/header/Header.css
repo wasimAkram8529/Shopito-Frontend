@@ -1,13 +1,25 @@
 .header-container {
   position: sticky;
-  background-color: #85aed7;
+  background-color: #ebeef2;
   top: -45px;
   z-index: 1001;
 }
 
+.header-top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-top-section select {
+  background-color: #ebeef2;
+  border: none;
+  width: 100px;
+}
+
 .new-header-container {
   position: sticky;
-  background-color: #85aed7;
+  background-color: #ebeef2;
   top: -18px;
   z-index: 1001;
 }
@@ -66,7 +78,7 @@
 }
 
 .pop-up-search-bar span {
-  background-color: #1455ac;
+  background-color: #ebeef2;
 }
 
 .menu-bar {

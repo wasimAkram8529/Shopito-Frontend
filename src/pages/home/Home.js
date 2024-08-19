@@ -31,6 +31,7 @@ import {
   totalDisplayImg,
 } from "../../utils/importantFunctions";
 import ReactStars from "react-rating-stars-component";
+import { useTranslation } from "react-i18next";
 
 const PageHeading = ({ heading, btnText, type, content }) => {
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const { t } = useTranslation();
 
   const updateScreenWidth = () => {
     setScreenWidth(window.innerWidth);
@@ -170,7 +172,7 @@ const Home = () => {
           </div>
         </Container>
         <Container class1="marquee-wrapper container-padding">
-          <h3 className="section-heading">Our Brands</h3>
+          <h3 className="section-heading">{t("our_brands")}</h3>
           <div className="row">
             <div className="col-12">
               <div className="marquee-inner-wrapper card-wrapper">
@@ -206,8 +208,8 @@ const Home = () => {
         </Container>
         <div className="container-xxl container-padding">
           <PageHeading
-            heading={"Latest Products"}
-            btnText={"View all >>>"}
+            heading={t("latest_products")}
+            btnText={t("shop_now_>>>")}
             type="tags"
             content="latest"
           />
@@ -215,8 +217,8 @@ const Home = () => {
         </div>
         <div className="container-xxl container-padding">
           <PageHeading
-            heading={"New arrivals"}
-            btnText={"Shop now >>>"}
+            heading={t("new_arrivals")}
+            btnText={t("shop_now_>>>")}
             type="tags"
             content="new_arrivals"
           />
@@ -224,8 +226,8 @@ const Home = () => {
         </div>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Mobile Phones"}
-            btnText={"View all >>>"}
+            heading={t("mobile_phones")}
+            btnText={t("shop_now_>>>")}
             type="category"
             content="Mobile Phone"
           />
@@ -234,10 +236,10 @@ const Home = () => {
         <div className="container-xxl container-padding best-top-selling">
           <div className="">
             <PageHeading
-              heading={"Best Selling"}
-              btnText={"Shop now >>>"}
+              heading={t("best_selling")}
+              btnText={t("shop_now_>>>")}
               type="tags"
-              content="top_rated"
+              content="best_selling"
             />
             <div className="row">
               {bestSelling?.length !== 0 &&
@@ -276,8 +278,8 @@ const Home = () => {
           </div>
           <div className="">
             <PageHeading
-              heading={"Top rated"}
-              btnText={"Shop now >>>"}
+              heading={t("top_rated")}
+              btnText={t("shop_now_>>>")}
               type="tags"
               content="best_selling"
             />
@@ -319,8 +321,8 @@ const Home = () => {
         </div>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Featured Products"}
-            btnText={"Shop Now >>>"}
+            heading={t("featured_products")}
+            btnText={t("shop_now_>>>")}
             type="tags"
             content="featured"
           />
@@ -328,8 +330,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Special Products"}
-            btnText={"Shop Now >>>"}
+            heading={t("special_products")}
+            btnText={t("shop_now_>>>")}
             type="tags"
             content="special"
           />
@@ -337,8 +339,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Popular Products"}
-            btnText={"Shop Now >>>"}
+            heading={t("popular_products")}
+            btnText={t("shop_Now_>>>")}
             type="tags"
             content="popular"
           />
@@ -346,8 +348,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Men Collection"}
-            btnText={"Shop Now >>>"}
+            heading={t("men_collection")}
+            btnText={t("shop_now_>>>")}
             type="category"
             content="Men Collection"
           />
@@ -355,8 +357,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Women Collection"}
-            btnText={"Shop Now >>>"}
+            heading={t("women_collection")}
+            btnText={t("shop_now_>>>")}
             type="category"
             content="Women Collection"
           />
@@ -364,8 +366,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Shoes"}
-            btnText={"Shop Now >>>"}
+            heading={t("shoes")}
+            btnText={t("shop_now_>>>")}
             type="category"
             content="Shoes"
           />
@@ -373,8 +375,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Watch"}
-            btnText={"Shop Now >>>"}
+            heading={t("watch")}
+            btnText={t("shop_now_>>>")}
             type="category"
             content="Watch"
           />
@@ -382,8 +384,8 @@ const Home = () => {
         </Container>
         <Container class1="container-padding">
           <PageHeading
-            heading={"Home Appliances"}
-            btnText={"Shop Now >>>"}
+            heading={t("home_appliances")}
+            btnText={t("shop_now_>>>")}
             type="category"
             content="Home and furniture"
           />
@@ -392,7 +394,7 @@ const Home = () => {
         <Container class1="blog-wrapper home-wrapper-2 container-padding">
           <div className="row">
             <div className="col-12">
-              <h3 className="section-heading">Our Latest Blogs</h3>
+              <h3 className="section-heading">{t("our_latest_blogs")}</h3>
             </div>
             <div className="row">
               {blogs && blogs?.length !== 0 ? (
@@ -409,10 +411,7 @@ const Home = () => {
                   );
                 })
               ) : (
-                <div className="text-center fs-5">
-                  It's a blog break today! Visit us again tomorrow for your
-                  daily dose of insights.
-                </div>
+                <div className="text-center fs-5">{t("empty_blogs")}</div>
               )}
             </div>
           </div>

@@ -4,6 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { updateCartQuantity } from "../../features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { MdProductionQuantityLimits } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const CartComponent = ({
   handleRemoveAProductFromCart,
@@ -13,12 +14,15 @@ const CartComponent = ({
   shippingDateString,
 }) => {
   const [quantity, setCartQuantity] = useState(matchingProduct?.quantity);
+  const { t } = useTranslation();
   //console.log(initialDate);
   const dispatch = useDispatch();
 
   return (
     <div className="cart-item-container">
-      <div className="delivery-date">Delivery date: {shippingDateString}</div>
+      <div className="delivery-date">
+        {t("delivery_date")}: {shippingDateString}
+      </div>
 
       <div className="cart-item-details-grid">
         <img
@@ -33,7 +37,7 @@ const CartComponent = ({
           <div className="product-price">{matchingProduct?.price}</div>
           <div className="product-quantity">
             <span>
-              Quantity:{" "}
+              {t("quantities")}:{" "}
               <input
                 min={1}
                 max={matchingProduct?.productId?.quantity}
@@ -56,7 +60,7 @@ const CartComponent = ({
                 handleQuantityChange(matchingProduct?.productId?._id, quantity)
               }
             >
-              Update
+              {t("update")}
             </span>
             <span
               className="delete-quantity-link link-secondary"
@@ -64,7 +68,7 @@ const CartComponent = ({
                 handleRemoveAProductFromCart(matchingProduct?.productId?._id)
               }
             >
-              Delete
+              {t("delete")}
             </span>
           </div>
         </div>

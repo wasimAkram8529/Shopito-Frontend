@@ -3,6 +3,7 @@ import "./Slider.css";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate, NavLink } from "react-router-dom";
 import { shortenText } from "../../utils/Validator";
+import { useTranslation } from "react-i18next";
 
 const Slider = ({ slider }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,6 +12,7 @@ const Slider = ({ slider }) => {
   const autoScroll = true;
   let slideInterval;
   const intervalTime = 5000;
+  const { t } = useTranslation();
 
   const nextSlide = () => {
     setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1);
@@ -64,7 +66,7 @@ const Slider = ({ slider }) => {
                     className="--btn --btn-primary"
                     to={`/product/${slide?._id}`}
                   >
-                    Shop Now
+                    {t("shop_now")}
                   </NavLink>
                 </div>
               </>

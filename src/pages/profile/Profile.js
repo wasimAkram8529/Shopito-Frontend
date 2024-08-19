@@ -18,6 +18,7 @@ import "./Profile.css";
 import { uploadProductImg } from "../../features/upload/uploadSlice";
 import { toast } from "react-toastify";
 import Dropzone from "react-dropzone";
+import { useTranslation } from "react-i18next";
 
 let loginSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -34,6 +35,7 @@ const Profile = () => {
   // const navigate = useNavigate();
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -168,7 +170,7 @@ const Profile = () => {
                 className="d-flex flex-column gap-15"
               >
                 <div className="text-center">
-                  <label className="mx-3">Change Photo:</label>
+                  <label className="mx-3">{t("change_photo")}:</label>
                   <Dropzone
                     onDrop={(acceptedFiles) => {
                       showImage(acceptedFiles);
@@ -179,8 +181,9 @@ const Profile = () => {
                         <div {...getRootProps()}>
                           <input {...getInputProps()} />
                           <p>
-                            Drag 'n' drop some files here, or click to select
-                            files
+                            {t(
+                              "drag_'n'_drop_some_files_here_or_click_to_select_files"
+                            )}
                           </p>
                         </div>
                       </section>
@@ -289,7 +292,7 @@ const Profile = () => {
                 <div>
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
                     <button className="button border-0" type="submit">
-                      Update Profile
+                      {t("update_profile")}
                     </button>
                   </div>
                 </div>

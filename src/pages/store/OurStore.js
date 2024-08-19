@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { MdFilterAlt } from "react-icons/md";
 import { IoMdClose, IoIosArrowDroprightCircle } from "react-icons/io";
 import Loader from "../../components/loader/Loader";
+import { useTranslation } from "react-i18next";
 
 const OurStore = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const OurStore = () => {
   });
   const [sort, setSort] = useState("");
   const [filterMenu, setFilterMenu] = useState(false);
+  const { t } = useTranslation();
 
   //console.log(location?.state);
 
@@ -164,7 +166,7 @@ const OurStore = () => {
               <IoMdClose onClick={() => setFilterMenu(!filterMenu)} />
             </div>
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Shop By Categories</h3>
+              <h3 className="filter-title">{t("shop_by_categories")}</h3>
               <div>
                 <select
                   className="select"
@@ -175,7 +177,7 @@ const OurStore = () => {
                     });
                   }}
                 >
-                  <option>Choose</option>
+                  <option>{t("choose")}</option>
                   {pCategories?.map((category, indx) => {
                     return (
                       <option
@@ -192,7 +194,7 @@ const OurStore = () => {
               </div>
             </div>
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Product Tag</h3>
+              <h3 className="filter-title">{t("product_tags")}</h3>
               <div>
                 <select
                   className="select"
@@ -203,7 +205,7 @@ const OurStore = () => {
                     });
                   }}
                 >
-                  <option>Choose</option>
+                  <option>{t("choose")}</option>
                   {pTags?.map((tag, indx) => {
                     return (
                       <option
@@ -220,7 +222,7 @@ const OurStore = () => {
               </div>
             </div>
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Product Brands</h3>
+              <h3 className="filter-title">{t("product_brands")}</h3>
               <div>
                 <select
                   className="select"
@@ -231,7 +233,7 @@ const OurStore = () => {
                     });
                   }}
                 >
-                  <option>Choose</option>
+                  <option>{t("choose")}</option>
                   {brands?.map((brand, indx) => {
                     return (
                       <option
@@ -247,26 +249,14 @@ const OurStore = () => {
                 </select>
               </div>
             </div>
-            {/* <div className="filter-card mb-3">
-              <button
-                className="button"
-                style={{ width: "100%" }}
-                onClick={() => {
-                  setRelatedProducts([]);
-                  setFilterMenu(!filterMenu);
-                }}
-              >
-                Reset Tags
-              </button>
-            </div> */}
             <div className="filter-card mb-3">
-              <h3 className="filter-title">Filter By</h3>
+              <h3 className="filter-title">{t("filter_by")}</h3>
               <div>
-                <h5 className="sub-title">Price</h5>
+                <h5 className="sub-title">{t("price")}</h5>
                 <div className="price-filter-box">
-                  <input type="text" placeholder="Min" ref={minInputRef} />
+                  <input type="text" placeholder={t("min")} ref={minInputRef} />
                   <span>To</span>
-                  <input type="text" placeholder="Max" ref={maxInputRef} />
+                  <input type="text" placeholder={t("max")} ref={maxInputRef} />
                   <div>
                     <IoIosArrowDroprightCircle
                       onClick={() => {
@@ -284,7 +274,7 @@ const OurStore = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-10">
                   <p className="mb-0 d-block" style={{ width: "100px" }}>
-                    Sort By:
+                    {t("sort_by")}:
                   </p>
                   <select
                     className="form-control form-select"
@@ -325,14 +315,14 @@ const OurStore = () => {
                     {relatedProducts.length !== 0
                       ? relatedProducts?.length
                       : products?.length}{" "}
-                    Products
+                    {"products"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="store-middle-right-part">
               <p className="mb-0 d-block" style={{ width: "100px" }}>
-                Apply filters {">"}
+                {t("apply_filters")} {">"}
               </p>
               <div
                 className="open-filter"

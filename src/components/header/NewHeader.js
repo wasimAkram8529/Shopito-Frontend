@@ -117,7 +117,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
   const cart = (
     <div className="cart-container">
       <div>
-        <NavLink to={"/cart"} className="cart">
+        <NavLink to={`/cart/${userCart?.[0]?.userId}`} className="cart">
           <FaShoppingCart className="icons" />
           <span>{userCart?.length}</span>
         </NavLink>
@@ -241,7 +241,10 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                       Contact
                     </NavLink>
                     <ShowOnLogin>
-                      <NavLink className="text-white" to="/my-orders">
+                      <NavLink
+                        className="text-white"
+                        to={`/my-orders/${userCart?.[0]?.userId}`}
+                      >
                         My Order
                       </NavLink>
                     </ShowOnLogin>
@@ -258,7 +261,11 @@ const Header = ({ renderHeader, setRenderHeader }) => {
           <div className="close-menu-icon" onClick={hideMenu}>
             <FaTimes />
           </div>
-          <MenuBar click={handleClick} handleLogout={handleLogout} />
+          <MenuBar
+            click={handleClick}
+            handleLogout={handleLogout}
+            userCart={userCart}
+          />
         </div>
       </div>
     </>

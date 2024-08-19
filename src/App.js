@@ -73,10 +73,10 @@ function App() {
             <Route path="blog" element={<Blog />} />
             <Route path="blog/:id" element={<SingleBlog />} />
 
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
+            <Route path="cart/:id" element={<Cart />} />
+            <Route path="checkout/:id" element={<Checkout />} />
 
-            <Route path="my-orders" element={<MyOrders />} />
+            <Route path="my-orders/:id" element={<MyOrders />} />
             <Route path="my-order/:id/:id" element={<TrackOrder />} />
 
             <Route path="compare-product" element={<CompareProduct />} />
@@ -89,7 +89,7 @@ function App() {
             />
 
             <Route path="signup" element={<SignUp />} />
-            <Route path="user-profile" element={<Profile />} />
+            <Route path="user-profile/:id" element={<Profile />} />
 
             <Route path="forgot-password" element={<ForgotPassword />} />
 

@@ -2,9 +2,11 @@ import "./Footer.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import { BsLinkedin, BsGithub, BsInstagram } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 // import newLetterImg from '../../'
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <>
       <footer className="py-4 footer">
@@ -13,7 +15,9 @@ const Footer = () => {
             <div className="col-5">
               <div className="footer-top-data d-flex gap-30 align-items-center">
                 <img src="../../images/newsletter.png" alt="newsletter" />
-                <h2 className="mb-0 text-white">Sign Up for Newsletter</h2>
+                <h2 className="mb-0 text-white">
+                  {t("sign_up_for_newsletter")}
+                </h2>
               </div>
             </div>
             <div className="col-7">
@@ -26,7 +30,7 @@ const Footer = () => {
                   aria-describedby="basic-addon2"
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
-                  Subscribe
+                  {t("subscribe")}
                 </span>
               </div>
             </div>
@@ -37,7 +41,7 @@ const Footer = () => {
         <div className="container-xxl">
           <div className="row">
             <div className="col-4">
-              <h4 className="text-white mb-4">Contact Us</h4>
+              <h4 className="text-white mb-4">{t("contact_us")}</h4>
               <div>
                 <address className="text-white fs-6">
                   Hno: 16 , At Rajpur, <br /> Supaul, Bihar <br />
@@ -53,7 +57,7 @@ const Footer = () => {
                   href="mailto: codelikearockstar@gmail.com"
                   className="mt-2 d-block mb-0 text-white"
                 >
-                  Email to admin
+                  {t("email_to_admin")}
                 </a>
                 <div className="social-icons d-flex align-items-center gap-15">
                   <a
@@ -78,21 +82,29 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-4">
-              <h4 className="text-white mb-4">Information</h4>
+              <h4 className="text-white mb-4">{t("information")}</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Privacy Policy</Link>
-                <Link className="text-white py-2 mb-1">Refund Policy</Link>
-                <Link className="text-white py-2 mb-1">Shipping Policy</Link>
-                <Link className="text-white py-2 mb-1">Terms Of Service</Link>
+                <Link className="text-white py-2 mb-1">
+                  {t("privacy_policy")}
+                </Link>
+                <Link className="text-white py-2 mb-1">
+                  {t("refund_policy")}
+                </Link>
+                <Link className="text-white py-2 mb-1">
+                  {t("shipping_policy")}
+                </Link>
+                <Link className="text-white py-2 mb-1">
+                  {t("terms_of_service")}
+                </Link>
               </div>
             </div>
             <div className="col-4">
-              <h4 className="text-white mb-4">Account</h4>
+              <h4 className="text-white mb-4">{t("account")}</h4>
               <div className="footer-links d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Search</Link>
-                <Link className="text-white py-2 mb-1">About Us</Link>
-                <Link className="text-white py-2 mb-1">Faq</Link>
-                <Link className="text-white py-2 mb-1">Contact</Link>
+                <Link className="text-white py-2 mb-1">{t("search")}</Link>
+                <Link className="text-white py-2 mb-1">{t("about_us")}</Link>
+                <Link className="text-white py-2 mb-1">{t("faq")}</Link>
+                <Link className="text-white py-2 mb-1">{t("contact")}</Link>
               </div>
             </div>
           </div>

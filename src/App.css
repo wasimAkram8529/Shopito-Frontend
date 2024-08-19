@@ -76,6 +76,13 @@
   box-shadow: 0 0 10px #0000001a;
   padding: 15px;
 }
+
+.blog-card .image-size {
+  max-width: 100%;
+}
+.blog-card {
+  height: 280px !important;
+}
 body {
   font-family: "Rubik", sans-serif;
 }

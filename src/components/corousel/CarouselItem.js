@@ -2,9 +2,11 @@ import React from "react";
 import "./Carousel.css";
 import { Link, useNavigate } from "react-router-dom";
 import { shortenText } from "../../utils/Validator";
+import { useTranslation } from "react-i18next";
 
 const CarouselItem = ({ url, name, price, description, _id }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <div className="carouselItem">
       <Link to={`/product/${_id}`}>
@@ -19,7 +21,7 @@ const CarouselItem = ({ url, name, price, description, _id }) => {
         className="--btn --btn-primary --btn-block"
         onClick={() => navigate(`/product/${_id}`)}
       >
-        View
+        {t("view")}
       </button>
     </div>
   );

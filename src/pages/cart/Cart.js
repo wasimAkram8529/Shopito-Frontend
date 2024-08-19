@@ -11,6 +11,7 @@ import { formateCurrency } from "../../utils/money";
 import { updateCartQuantity } from "../../features/user/userSlice";
 import Loader from "../../components/loader/Loader";
 import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
 
 const findDate = (number = 7) => {
   const today = dayjs();
@@ -42,6 +43,7 @@ const Cart = () => {
   const [totalBeforeTax, setTotalBeforeTax] = useState(0);
   const [tax, setTax] = useState(0);
   const [totalAfterTax, setTotalAfterTax] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     let count = 0;
@@ -86,7 +88,7 @@ const Cart = () => {
       <Container class1="cart-wrapper">
         {userCart && userCart?.length !== 0 ? (
           <div className="cart-main">
-            <div className="page-title">Review your order</div>
+            <div className="page-title">{t("review_your_order")}</div>
 
             <div className="checkout-grid">
               <div className="order-summary">
@@ -111,7 +113,7 @@ const Cart = () => {
                 <div className="delivery-date-section">
                   <div className="delivery-options">
                     <div className="delivery-options-title">
-                      Choose a delivery option:
+                      {t("choose_a_delivery_option")}:
                     </div>
                     <div className="delivery-option">
                       <input
@@ -119,6 +121,7 @@ const Cart = () => {
                         className="delivery-option-input"
                         name="delivery-option-1"
                         value="1"
+                        defaultChecked
                         onClick={(e) => {
                           setShipping({ id: "1", deliveryDays: 7, price: 0 });
                           setDateString(findDate(7));
@@ -129,7 +132,7 @@ const Cart = () => {
                           {findDate(7)}
                         </div>
                         <div className="delivery-option-price">
-                          FREE Shipping
+                          {t("FREE_shipping")}
                         </div>
                       </div>
                     </div>
@@ -153,7 +156,7 @@ const Cart = () => {
                           {findDate(3)}
                         </div>
                         <div className="delivery-option-price">
-                          ₹49.00 - Shipping
+                          ₹49.00 - {t("shipping")}
                         </div>
                       </div>
                     </div>
@@ -177,45 +180,49 @@ const Cart = () => {
                           {findDate(1)}
                         </div>
                         <div className="delivery-option-price">
-                          ₹99.00 - Shipping
+                          ₹99.00 - {t("shipping")}
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="payment-summary">
-                  <div className="payment-summary-title">Order Summary</div>
+                  <div className="payment-summary-title">
+                    {t("order_summary")}
+                  </div>
 
                   <div className="payment-summary-row">
-                    <div>Items ({countCartItem}):</div>
+                    <div>
+                      {t("items")} ({countCartItem}):
+                    </div>
                     <div className="payment-summary-money">
                       {`₹${formateCurrency(totalAmount)}`}
                     </div>
                   </div>
 
                   <div className="payment-summary-row">
-                    <div>Shipping &amp; handling:</div>
+                    <div>{t("shipping_&amp_;_handling")}:</div>
                     <div className="payment-summary-money">
                       {`₹${formateCurrency(shipping?.price)}`}
                     </div>
                   </div>
 
                   <div className="payment-summary-row subtotal-row">
-                    <div>Total before tax:</div>
+                    <div>{t("total_before_tax")}:</div>
                     <div className="payment-summary-money">
                       {`₹${formateCurrency(totalBeforeTax)}`}
                     </div>
                   </div>
 
                   <div className="payment-summary-row">
-                    <div>Estimated tax (10%):</div>
+                    <div>{"estimated_tax"} (10%):</div>
                     <div className="payment-summary-money">
                       {`₹${formateCurrency(tax)}`}
                     </div>
                   </div>
 
                   <div className="payment-summary-row total-row">
-                    <div>Order total:</div>
+                    <div>{t("order_total")}:</div>
                     <div className="payment-summary-money">
                       {`₹${formateCurrency(totalAfterTax)}`}
                     </div>
@@ -224,7 +231,7 @@ const Cart = () => {
                   <button
                     className="place-order-button button-primary"
                     onClick={() => {
-                      navigate("/checkout", {
+                      navigate(`/checkout/${userCart?.[0]?.userId}`, {
                         state: {
                           totalAmount: totalBeforeTax,
                           deliveryDate: shippingDateString,
@@ -232,7 +239,7 @@ const Cart = () => {
                       });
                     }}
                   >
-                    Place your order
+                    {t("place_your_order")}
                   </button>
                 </div>
               </div>
@@ -240,7 +247,7 @@ const Cart = () => {
           </div>
         ) : (
           <div style={{ textAlign: "center" }} className="cart-item-container">
-            Your Cart is Empty
+            {t("your_cart_is_empty")}
           </div>
         )}
       </Container>

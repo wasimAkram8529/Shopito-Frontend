@@ -9,7 +9,7 @@ import ScrollToTop from "./ScrollToTop";
 
 const Layout = ({ renderHeader, setRenderHeader }) => {
   const location = useLocation();
-  const newHeaderPaths = ["/cart", "/checkout"];
+  const newHeaderPaths = ["/cart", "/checkout", "/contact"];
 
   const isNewHeader = newHeaderPaths.includes(location.pathname);
 

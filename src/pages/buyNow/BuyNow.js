@@ -99,6 +99,7 @@ const BuyNow = () => {
                         type="radio"
                         className="delivery-option-input"
                         name="delivery-option-2"
+                        defaultChecked
                         onClick={() => {
                           setDateString(findDate(7));
                           setShipping({

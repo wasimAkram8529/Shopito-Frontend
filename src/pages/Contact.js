@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createEnquiry } from "../features/contact/contactSlice";
 import Loader from "../components/loader/Loader";
+import { useTranslation } from "react-i18next";
 
 let enquirySchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -20,6 +21,7 @@ let enquirySchema = Yup.object().shape({
 
 const Contact = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +50,7 @@ const Contact = () => {
         <div className="row">
           <div className="col-12">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3457.1087648494204!2d76.82013447519668!3d29.947549974972524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e3f422f5244e7%3A0x9c630c311d6349b8!2sNIT%20KURUKSHETRA!5e0!3m2!1sen!2sin!4v1699971414669!5m2!1sen!2sin"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.7854007480037!2d86.65527797497383!3d26.17111759156741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ee43e8825b4a01%3A0x4623a147f198b129!2sNOORAANI%20MASJID%20RAJPUR!5e0!3m2!1sen!2sin!4v1724041887138!5m2!1sen!2sin"
               width="600"
               height="450"
               className="border-0 w-100"
@@ -59,7 +61,9 @@ const Contact = () => {
             <div className="col-12 mt-5">
               <div className="contact-inner-wrapper row">
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3 className="contact-title mb-4">Get in touch with us</h3>
+                  <h3 className="contact-title mb-4">
+                    {t("get_in_touch_with_us")}
+                  </h3>
                   <div>
                     <ul className="ps-0">
                       <li className="mb-3 d-flex gap-15 align-items-center">
@@ -86,7 +90,7 @@ const Contact = () => {
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6">
-                  <h3 className="contact-title mb-4">Contact</h3>
+                  <h3 className="contact-title mb-4">{t("contact")}</h3>
                   <form
                     action=""
                     className="d-flex flex-column gap-15"
@@ -94,7 +98,7 @@ const Contact = () => {
                   >
                     <CustomInput
                       type="text"
-                      placeholder="Name"
+                      placeholder={t("name")}
                       name="name"
                       value={formik.values.name}
                       onChange={formik.handleChange("name")}
@@ -107,7 +111,7 @@ const Contact = () => {
                     </div>
                     <CustomInput
                       type="text"
-                      placeholder="Email"
+                      placeholder={t("email")}
                       name="email"
                       value={formik.values.email}
                       onChange={formik.handleChange("email")}
@@ -120,7 +124,7 @@ const Contact = () => {
                     </div>
                     <CustomInput
                       type="text"
-                      placeholder="Mobile"
+                      placeholder={t("mobile")}
                       name="mobile"
                       value={formik.values.mobile}
                       onChange={formik.handleChange("mobile")}
@@ -138,7 +142,7 @@ const Contact = () => {
                         className="w-100 form-control"
                         cols="30"
                         rows="4"
-                        placeholder="Comments..."
+                        placeholder={t("comments")}
                         onChange={formik.handleChange("comment")}
                         onBlur={formik.handleBlur("comment")}
                         value={formik.values.comment}
@@ -150,7 +154,7 @@ const Contact = () => {
                       ) : null}
                     </div>
                     <div>
-                      <button className="button border-0">Submit</button>
+                      <button className="button border-0">{t("submit")}</button>
                     </div>
                   </form>
                 </div>

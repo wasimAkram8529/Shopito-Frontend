@@ -12,6 +12,7 @@ import axios from "axios";
 import { clearCart, createOrder } from "../../features/user/userSlice";
 import { formateCurrency } from "../../utils/money";
 import Loader from "../../components/loader/Loader";
+import { useTranslation } from "react-i18next";
 
 let shippingAddressSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is Required"),
@@ -33,6 +34,7 @@ const Checkout = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userCart, isLoading } = useSelector((state) => state.auth);
+  const { t } = useTranslation();
   // const [shippingInfo, setShippingInfo] = useState({});
 
   //console.log(userCart);
@@ -214,18 +216,18 @@ const Checkout = (props) => {
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
                     <Link to="/cart" className="text-dark">
-                      Cart
+                      {t("cart")}
                     </Link>
                   </li>
                   <span className="divider">/</span>
                   <li className="breadcrumb-item active" aria-current="page">
-                    Information
+                    {t("information")}
                   </li>
                   <span className="divider">/</span>
-                  <li className="breadcrumb-item active">Shipping</li>
+                  <li className="breadcrumb-item active">{"shipping"}</li>
                   <span className="divider">/</span>
                   <li className="breadcrumb-item active" aria-current="page">
-                    Payment
+                    {t("payment")}
                   </li>
                 </ol>
               </nav>
@@ -233,7 +235,7 @@ const Checkout = (props) => {
               <p className="user-details">
                 Wasim Akram(codelikearockstar@gmail.com)
               </p> */}
-              <h4 className="mb-3">Shipping Address</h4>
+              <h4 className="mb-3">{t("shipping_address")}</h4>
             </div>
           </div>
           <div>
@@ -320,59 +322,8 @@ const Checkout = (props) => {
                     );
                   })
                 )}
-                {/* {userCart?.length !== 0 &&
-                  userCart?.map((cartItem) => {
-                    return (
-                      <div key={cartItem?._id} className="border-bottom py-4">
-                        <div className="d-flex mb-2 align-items-center justify-content-between">
-                          <div className="d-flex gap-10 w-75">
-                            <div className="w-25 position-relative">
-                              <span
-                                style={{ top: "-14px", right: "-3px" }}
-                                className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
-                              >
-                                {cartItem?.quantity}
-                              </span>
-                              <img
-                                className="img-fluid"
-                                src={cartItem?.productId?.image?.[0]?.url}
-                                alt="Headphone"
-                              />
-                            </div>
-                            <div>
-                              <h5 className="title">
-                                {cartItem?.productId?.title}
-                              </h5>
-                              <p
-                                className="size-color"
-                                style={{
-                                  width: "20px",
-                                  height: "20px",
-                                  borderRadius: "10px",
-                                  backgroundColor: `${cartItem?.color?.title}`,
-                                }}
-                              ></p>
-                            </div>
-                          </div>
-                          <h5 className="total-price">{`₹${
-                            cartItem?.quantity * cartItem?.productId?.price
-                          }`}</h5>
-                        </div>
-                      </div>
-                    );
-                  })} */}
-                {/* <div className="border-bottom py-4">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <p className="total">SubTotal</p>
-                    <p className="total-price">{`₹${totalAmount}`}</p>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <p className="mb-0 total">Shipping</p>
-                    <p className="mb-0 total-price">{`₹40`}</p>
-                  </div>
-                </div> */}
                 <div className="d-flex justify-content-between align-items-center border-bottom py-4">
-                  <h4 className="total">Total</h4>
+                  <h4 className="total">{t("Total")}</h4>
                   <h5 className="total-price">{`₹${totalAmount}`}</h5>
                 </div>
               </div>
@@ -394,9 +345,9 @@ const Checkout = (props) => {
                         onBlur={formik.handleBlur("country")}
                       >
                         <option value="" defaultValue="Select Country">
-                          Select Country
+                          {t("select_country")}
                         </option>
-                        <option>India</option>
+                        <option>{t("india")}</option>
                       </select>
                       <div className="error">
                         {formik.touched.country && formik.errors.country ? (
@@ -406,7 +357,7 @@ const Checkout = (props) => {
                     </div>
                     <CustomInput
                       type="text"
-                      placeholder="First Name"
+                      placeholder={t("first_name")}
                       name="firstName"
                       value={formik.values.firstName}
                       onChange={formik.handleChange("firstName")}
@@ -420,7 +371,7 @@ const Checkout = (props) => {
                     </div>
                     <CustomInput
                       type="text"
-                      placeholder="Last Name"
+                      placeholder={t("last_name")}
                       name="lastName"
                       value={formik.values.lastName}
                       onChange={formik.handleChange("lastName")}
@@ -434,7 +385,7 @@ const Checkout = (props) => {
                     </div>
                     <CustomInput
                       type="text"
-                      placeholder="Address"
+                      placeholder={t("address")}
                       name="address"
                       value={formik.values.address}
                       onChange={formik.handleChange("address")}
@@ -453,7 +404,7 @@ const Checkout = (props) => {
                 /> */}
                     <CustomInput
                       type="text"
-                      placeholder="Apartment, Suite, etc (Optional)"
+                      placeholder={t("apartment_Suite_etc_Optional")}
                       name="others"
                       value={formik.values.others}
                       onChange={formik.handleChange("others")}
@@ -463,7 +414,7 @@ const Checkout = (props) => {
                     <div className="flex-grow-1">
                       <CustomInput
                         type="text"
-                        placeholder="City"
+                        placeholder={t("city")}
                         name="city"
                         value={formik.values.city}
                         onChange={formik.handleChange("city")}
@@ -484,7 +435,7 @@ const Checkout = (props) => {
                 /> */}
                     <div className="flex-grow-1">
                       <select
-                        name="state"
+                        name={t("state")}
                         id="state"
                         className="form-control 
                   form-select"
@@ -509,7 +460,7 @@ const Checkout = (props) => {
                     </div>
                     <CustomInput
                       type="text"
-                      placeholder="Pin Code"
+                      placeholder={t("pin_code")}
                       name="pinCode"
                       value={formik.values.pinCode}
                       onChange={formik.handleChange("pinCode")}
@@ -524,13 +475,13 @@ const Checkout = (props) => {
                     <div className="w-100" style={{ marginTop: "10px" }}>
                       <div className="d-flex justify-content-between align-items-center">
                         <Link to="/cart" className="text-dark">
-                          <BiArrowBack /> Back
+                          <BiArrowBack /> {t("back")}
                         </Link>
                         <button
                           type="submit"
                           className=" border-0 bg-danger button"
                         >
-                          Continue to Payment
+                          {t("continue_to_payment")}
                         </button>
                       </div>
                     </div>

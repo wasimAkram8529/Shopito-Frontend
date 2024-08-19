@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import ReactStars from "react-rating-stars-component";
+import { useTranslation } from "react-i18next";
 
 const reviewSchema = Yup.object().shape({
   review: Yup.string().required("Product Review is Required"),
@@ -15,6 +16,7 @@ const CreateOrUpdateReview = ({
   setEdit,
 }) => {
   const [star, setRating] = useState(0);
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       review: "",
@@ -58,7 +60,7 @@ const CreateOrUpdateReview = ({
   };
   return (
     <div className="review-form py-4">
-      <h4>{edit ? "Update Your Review" : "Write a Review"}</h4>
+      <h4>{edit ? t("update_your_review") : t("write_a_review")}</h4>
       <form
         action=""
         onSubmit={formik.handleSubmit}
@@ -92,7 +94,7 @@ const CreateOrUpdateReview = ({
         </div>
         <div className="d-flex justify-content-end">
           <button className="button border-0 submit-review" type="submit">
-            {edit ? "Update Review" : "Submit Review"}
+            {edit ? t("update_review") : t("submit_review")}
           </button>
         </div>
       </form>
