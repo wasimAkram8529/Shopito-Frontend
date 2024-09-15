@@ -112,12 +112,12 @@ const Header = ({ renderHeader, setRenderHeader }) => {
       });
   };
 
-  const { wishList, userCart } = useSelector((state) => state.auth);
+  const { wishList, userCart, userOrders } = useSelector((state) => state.auth);
   //console.log(userCart);
   const cart = (
     <div className="cart-container">
       <div>
-        <NavLink to={`/cart/${userCart?.[0]?.userId}`} className="cart">
+        <NavLink to={`/cart/${userOrders?.[0]?.user?._id}`} className="cart">
           <FaShoppingCart className="icons" />
           <span>{userCart?.length}</span>
         </NavLink>
@@ -243,7 +243,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                     <ShowOnLogin>
                       <NavLink
                         className="text-white"
-                        to={`/my-orders/${userCart?.[0]?.userId}`}
+                        to={`/my-orders/${userOrders?.[0]?.user?._id}`}
                       >
                         My Order
                       </NavLink>
@@ -264,7 +264,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
           <MenuBar
             click={handleClick}
             handleLogout={handleLogout}
-            userCart={userCart}
+            userOrders={userOrders}
           />
         </div>
       </div>

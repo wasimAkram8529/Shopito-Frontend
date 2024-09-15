@@ -11,6 +11,7 @@
     "antd": "^5.15.3",
     "axios": "^1.6.7",
     "color-name-list": "^10.19.0",
+    "ecommerce-app": "file:",
     "formik": "^2.4.5",
     "i18next": "^23.13.0",
     "moment": "^2.30.1",

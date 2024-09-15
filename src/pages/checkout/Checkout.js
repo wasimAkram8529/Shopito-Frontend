@@ -33,7 +33,9 @@ const Checkout = (props) => {
   //console.log(product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userCart, isLoading } = useSelector((state) => state.auth);
+  const { userCart, userOrders, isLoading } = useSelector(
+    (state) => state.auth
+  );
   const { t } = useTranslation();
   // const [shippingInfo, setShippingInfo] = useState({});
 
@@ -154,7 +156,7 @@ const Checkout = (props) => {
               });
               // dispatch(clearCart());
               setTimeout(() => {
-                navigate("/my-orders");
+                navigate(`/my-orders/${userOrders?.[0]?.user?._id}`);
               }, 2000);
             }
           } catch (error) {

@@ -22,7 +22,7 @@ import {
   getUserWishList,
   logout,
 } from "../../features/user/userSlice";
-import { Typeahead } from "react-bootstrap-typeahead";
+import { Loader, Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getProducts } from "../../features/products/productSlice";
 import { shortenText } from "../../utils/Validator";
@@ -117,12 +117,14 @@ const Header = ({ renderHeader, setRenderHeader }) => {
       });
   };
 
-  const { wishList, userCart } = useSelector((state) => state.auth);
-  // console.log(userCart);
+  const { wishList, userCart, userOrders, isLoading } = useSelector(
+    (state) => state.auth
+  );
+  // console.log(order, userOrders);
   const cart = (
     <div className="cart-container">
       <div>
-        <NavLink to={`/cart/${userCart?.[0]?.userId}`} className="cart">
+        <NavLink to={`/cart/${userOrders?.[0]?.user?._id}`} className="cart">
           <FaShoppingCart className="icons" />
           <span>{userCart?.length}</span>
         </NavLink>
@@ -132,6 +134,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
   );
   return (
     <>
+      {isLoading && <Loader />}
       <div className="header-container">
         <div
           className={
@@ -248,7 +251,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                     <div className="wishlist-container">
                       <div>
                         <NavLink
-                          to={`user-profile/${userCart?.[0]?.userId}`}
+                          to={`user-profile/${userOrders?.[0]?.user?._id}`}
                           className={`wishlist ${activeLink}`}
                         >
                           <CiUser className="icons" />
@@ -321,7 +324,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                     <ShowOnLogin>
                       <NavLink
                         className="text-white"
-                        to={`/my-orders/${userCart?.[0]?.userId}`}
+                        to={`/my-orders/${userOrders?.[0]?.user?._id}`}
                       >
                         {t("my_order")}
                       </NavLink>
@@ -342,7 +345,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
           <MenuBar
             click={handleClick}
             handleLogout={handleLogout}
-            userCart={userCart}
+            userOrders={userOrders}
           />
         </div>
       </div>

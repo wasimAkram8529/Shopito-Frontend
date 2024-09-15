@@ -14,7 +14,7 @@ import "./MenuBar.css";
 import ShowOnLogin, { ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { useTranslation } from "react-i18next";
 
-const MenuBar = ({ handleLogout, userCart }) => {
+const MenuBar = ({ handleLogout, userOrders }) => {
   const { t } = useTranslation();
   return (
     <div className="menu-options">
@@ -37,7 +37,7 @@ const MenuBar = ({ handleLogout, userCart }) => {
       <div>
         <ShowOnLogin>
           <OrderedListOutlined />
-          <NavLink to={`/my-orders/${userCart?.[0]?.userId}`}>
+          <NavLink to={`/my-orders/${userOrders?.[0]?.user?._id}`}>
             {t("my_order")}
           </NavLink>
         </ShowOnLogin>
@@ -51,7 +51,7 @@ const MenuBar = ({ handleLogout, userCart }) => {
       <div>
         <ShowOnLogin>
           <CgProfile />
-          <NavLink to={`/user-profile/${userCart?.[0]?.userId}`}>
+          <NavLink to={`/user-profile/${userOrders?.[0]?.user?._id}`}>
             {t("my_profile")}
           </NavLink>
         </ShowOnLogin>

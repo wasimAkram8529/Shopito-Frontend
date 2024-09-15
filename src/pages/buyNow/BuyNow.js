@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAProduct } from "../../features/products/productSlice";
 import { formateCurrency } from "../../utils/money";
 import dayjs from "dayjs";
+import { Loader } from "react-bootstrap-typeahead";
 
 const findDate = (number = 7) => {
   const today = dayjs();
@@ -36,6 +37,7 @@ const BuyNow = () => {
   const [totalAfterTax, setTotalAfterTax] = useState(0);
   const [shippingDateString, setDateString] = useState(findDate(7));
   const { isLoggedIn } = useSelector((state) => state.auth);
+  const { userCart, isLoading } = useSelector((state) => state.auth);
 
   let totalAmount = quantity * product?.price;
 
@@ -50,8 +52,10 @@ const BuyNow = () => {
 
   //console.log(totalAfterTax);
   //console.log(product);
+  // console.log(isLoading);
   return (
     <>
+      {isLoading && <Loader />}
       <Meta title="ShopIto" />
       <BreadCrumb title="Buy Now" />
       <Container className1="cart-wrapper home-wrapper-2 py-5">
@@ -211,7 +215,7 @@ const BuyNow = () => {
                 <button
                   className="place-order-button button-primary"
                   onClick={() => {
-                    navigate("/checkout", {
+                    navigate(`/checkout/${userCart?.[0]?.userId}`, {
                       state: {
                         totalAmount: formateCurrency(totalAfterTax),
                         product,
