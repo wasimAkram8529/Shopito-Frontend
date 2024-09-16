@@ -26,6 +26,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getProducts } from "../../features/products/productSlice";
 import { shortenText } from "../../utils/Validator";
+import { useTranslation } from "react-i18next";
 
 export const logo = (
   <div className="logo">
@@ -46,12 +47,11 @@ const Header = ({ renderHeader, setRenderHeader }) => {
   const [openSearchBar, setSearchBar] = useState(false);
   const [paginate, setPaginate] = useState(true);
   const [searchOptions, setSearchOptions] = useState([]);
+  const { t } = useTranslation();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
-  //console.log(isLoggedIn);
 
   useEffect(() => {
-    //console.log("1");
     dispatch(getProducts());
     if (isLoggedIn) {
       dispatch(getUserWishList());
@@ -60,7 +60,6 @@ const Header = ({ renderHeader, setRenderHeader }) => {
   }, [renderHeader, isLoggedIn]);
 
   const { products } = useSelector((state) => state.product);
-  //console.log(products);
 
   useEffect(() => {
     let options = [];
@@ -141,7 +140,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                     <div className="header-right-options">
                       <BsSearch color="#1455AC" className="icons" />
                     </div>
-                    <div className="tooltip-search">Search</div>
+                    <div className="tooltip-search">{t("search")}</div>
                   </div>
                   <ShowOnLogin>
                     <div className="logout-container">
@@ -153,20 +152,20 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                           <CiLogout className="icons" />
                         </button>
                       </div>
-                      <div className="tooltip-logout">Log Out</div>
+                      <div className="tooltip-logout">{t("log_out")}</div>
                     </div>
                   </ShowOnLogin>
                   <ShowOnLogin>
                     <div className="wishlist-container">
                       <div>
                         <NavLink
-                          to={"user-profile"}
+                          to={`/user-profile/${userOrders?.[0]?.user?._id}`}
                           className={`wishlist ${activeLink}`}
                         >
                           <CiUser className="icons" />
                         </NavLink>
                       </div>
-                      <div className="tooltip-wishlist">My Profile</div>
+                      <div className="tooltip-wishlist">{t("my_profile")}</div>
                     </div>
                   </ShowOnLogin>
                   <ShowOnLogin>
@@ -180,7 +179,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                           <span>{wishList?.length || 0}</span>
                         </NavLink>
                       </div>
-                      <div className="tooltip-wishlist">Wishlist</div>
+                      <div className="tooltip-wishlist">{t("wishlist")}</div>
                     </div>
                   </ShowOnLogin>
                   <ShowOnLogout>
@@ -190,7 +189,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                           <CiLogin className="icons" />
                         </NavLink>
                       </div>
-                      <div className="tooltip-login">Login</div>
+                      <div className="tooltip-login">{t("login")}</div>
                     </div>
                   </ShowOnLogout>
                   {/* <ShowOnLogout>
@@ -210,7 +209,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                           <FaUser className="icons" />
                         </NavLink>
                       </div>
-                      <div className="tooltip-register">Register</div>
+                      <div className="tooltip-register">{t("register")}</div>
                     </div>
                   </ShowOnLogout>
                   {cart}
@@ -229,23 +228,23 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
                     <NavLink className="text-white" to="/">
-                      Home
+                      {t("home")}
                     </NavLink>
                     <NavLink className="text-white" to="/products">
-                      Our Store
+                      {t("our_store")}
                     </NavLink>
                     <NavLink className="text-white" to="/blog">
-                      Blogs
+                      {t("blogs")}
                     </NavLink>
                     <NavLink className="text-white" to="/contact">
-                      Contact
+                      {t("contact")}
                     </NavLink>
                     <ShowOnLogin>
                       <NavLink
                         className="text-white"
                         to={`/my-orders/${userOrders?.[0]?.user?._id}`}
                       >
-                        My Order
+                        {t("my_order")}
                       </NavLink>
                     </ShowOnLogin>
                   </div>

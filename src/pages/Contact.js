@@ -69,7 +69,7 @@ const Contact = () => {
                       <li className="mb-3 d-flex gap-15 align-items-center">
                         <AiOutlineHome className="fs-5" />
                         <address className="mb-0">
-                          Hostel No: 08, NIT Kurukshetra, Haryana, India
+                          At Rajput 852138, Supaul, Bihar, India
                         </address>
                       </li>
                       <li className="mb-3 d-flex gap-15 align-items-center">

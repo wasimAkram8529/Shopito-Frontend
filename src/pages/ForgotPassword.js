@@ -8,12 +8,14 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { forgotPassword } from "../features/user/userSlice";
+import { useTranslation } from "react-i18next";
 
 let forgotSchema = Yup.object().shape({
   email: Yup.string().email().required("Please Enter A Unique Email"),
 });
 const ForgotPassword = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -26,6 +28,7 @@ const ForgotPassword = () => {
       formik.resetForm();
     },
   });
+
   return (
     <>
       <Meta title="ShopIto" />
@@ -59,7 +62,7 @@ const ForgotPassword = () => {
                 <div>
                   <div className="mt-3 d-flex justify-content-center flex-column gap-15 align-items-center">
                     <button className="button border-0" type="submit">
-                      Submit
+                      {t("submit")}
                     </button>
                     <NavLink to="/login">Cancel</NavLink>
                   </div>

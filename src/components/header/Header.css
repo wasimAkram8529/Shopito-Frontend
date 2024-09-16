@@ -17,6 +17,10 @@
   width: 100px;
 }
 
+.header-top-section select:focus {
+  outline: none;
+}
+
 .new-header-container {
   position: sticky;
   background-color: #ebeef2;

@@ -8,6 +8,7 @@ import { getAProduct } from "../../features/products/productSlice";
 import { formateCurrency } from "../../utils/money";
 import dayjs from "dayjs";
 import { Loader } from "react-bootstrap-typeahead";
+import { useTranslation } from "react-i18next";
 
 const findDate = (number = 7) => {
   const today = dayjs();
@@ -22,6 +23,7 @@ const BuyNow = () => {
   const navigate = useNavigate();
   const productId = location?.pathname.split("/")[3];
   const product = location?.state?.product;
+  const { t } = useTranslation();
   //console.log(product);
   //console.log(product);
 
@@ -95,7 +97,7 @@ const BuyNow = () => {
 
                   <div className="delivery-options">
                     <div className="delivery-options-title">
-                      Choose a delivery option:
+                      {t("choose_a_delivery_option")}:
                     </div>
 
                     <div className="delivery-option">
@@ -118,7 +120,7 @@ const BuyNow = () => {
                           {findDate(7)}
                         </div>
                         <div className="delivery-option-price">
-                          FREE Shipping
+                          {t("FREE_shipping")}
                         </div>
                       </div>
                     </div>
@@ -141,7 +143,7 @@ const BuyNow = () => {
                           {findDate(3)}
                         </div>
                         <div className="delivery-option-price">
-                          ₹49.00 - Shipping
+                          ₹49.00 - {t("shipping")}
                         </div>
                       </div>
                     </div>
@@ -164,7 +166,7 @@ const BuyNow = () => {
                           {findDate(1)}
                         </div>
                         <div className="delivery-option-price">
-                          ₹99.00 - Shipping
+                          ₹99.00 - {t("shipping")}
                         </div>
                       </div>
                     </div>
@@ -174,38 +176,38 @@ const BuyNow = () => {
             </div>
 
             <div className="payment-summary">
-              <div className="payment-summary-title">Order Summary</div>
+              <div className="payment-summary-title">{t("order_summary")}</div>
 
               <div className="payment-summary-row">
-                <div>Items (1):</div>
+                <div>{t("items")} (1):</div>
                 <div className="payment-summary-money">
                   {`₹${formateCurrency(totalAmount)}`}
                 </div>
               </div>
 
               <div className="payment-summary-row">
-                <div>Shipping &amp; handling:</div>
+                <div>{t("shipping_&amp_;_handling")}:</div>
                 <div className="payment-summary-money">
                   {`₹${formateCurrency(shipping?.price)}`}
                 </div>
               </div>
 
               <div className="payment-summary-row subtotal-row">
-                <div>Total before tax:</div>
+                <div>{t("total_before_tax")}:</div>
                 <div className="payment-summary-money">
                   {`₹${formateCurrency(totalBeforeTax)}`}
                 </div>
               </div>
 
               <div className="payment-summary-row">
-                <div>Estimated tax (10%):</div>
+                <div>{t("estimated_tax")} (10%):</div>
                 <div className="payment-summary-money">{`₹${formateCurrency(
                   tax
                 )}`}</div>
               </div>
 
               <div className="payment-summary-row total-row">
-                <div>Order total:</div>
+                <div>{t("order_total")}:</div>
                 <div className="payment-summary-money">
                   {`₹${formateCurrency(totalAfterTax)}`}
                 </div>
@@ -225,7 +227,7 @@ const BuyNow = () => {
                     });
                   }}
                 >
-                  Place your order
+                  {t("place_your_order")}
                 </button>
               ) : (
                 <button

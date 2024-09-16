@@ -1,5 +1,5 @@
 import "./Checkout.css";
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Container from "../../components/Container";
@@ -39,16 +39,7 @@ const Checkout = (props) => {
   const { t } = useTranslation();
   // const [shippingInfo, setShippingInfo] = useState({});
 
-  //console.log(userCart);
   let totalAmount = productAmount;
-  //console.log(totalAmount);
-  // if (product) {
-  //   totalAmount = product?.product?.price * Number(product?.quantity);
-  // } else {
-  //   userCart.forEach((cartItem) => {
-  //     totalAmount += cartItem?.quantity * cartItem?.price;
-  //   });
-  // }
 
   const loadScript = (src) => {
     return new Promise((resolve) => {

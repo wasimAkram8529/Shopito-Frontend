@@ -39,6 +39,9 @@ const resources = {
   my: {
     translation: malayalamTranslation,
   },
+  marathi: {
+    translation: marathiTranslation,
+  },
 };
 
 i18n.use(initReactI18next).init({

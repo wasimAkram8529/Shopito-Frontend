@@ -134,7 +134,6 @@ const Header = ({ renderHeader, setRenderHeader }) => {
   );
   return (
     <>
-      {isLoading && <Loader />}
       <div className="header-container">
         <div
           className={
@@ -191,6 +190,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                   <option value="ud">Urdu</option>
                   <option value="kd">Kannada</option>
                   <option value="gt">Gujarati</option>
+                  <option value="marathi">Marathi</option>
                 </select>
                 {/* <p className="text-end mb-0">
                     Hotline:{" "}
@@ -251,7 +251,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                     <div className="wishlist-container">
                       <div>
                         <NavLink
-                          to={`user-profile/${userOrders?.[0]?.user?._id}`}
+                          to={`/user-profile/${userOrders?.[0]?.user?._id}`}
                           className={`wishlist ${activeLink}`}
                         >
                           <CiUser className="icons" />

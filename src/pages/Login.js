@@ -41,7 +41,7 @@ const Login = ({ setRenderHeader }) => {
   useEffect(() => {
     if (isSuccess && user?.length !== 0) {
       setRenderHeader(true);
-      navigate("/");
+      navigate(-1);
     } else if (isError) {
       //console.log(message);
     }
@@ -55,13 +55,12 @@ const Login = ({ setRenderHeader }) => {
       {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title=" Login" />
-      {/* {!isLoading && <Loader />} */}
       <Container class1="login-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="auth-card">
               <h3 className="text-center mb-3">Login</h3>
-              <div className="error text-center">{message}</div>
+              {/* <div className="error text-center">{message}</div> */}
               <form
                 action=""
                 onSubmit={formik.handleSubmit}

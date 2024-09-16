@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/loader/Loader";
 
 let signUpSchema = Yup.object().shape({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
   email: Yup.string().email("Email is required").required(),
-  mobile: Yup.string().required("Mobile Number is required"),
+  mobile: Yup.string().required("Mobile number is required"),
   password: Yup.string().required("Password is required"),
-  confirmPassword: Yup.string().required("Confirm Password is required"),
+  confirmPassword: Yup.string().required("Confirm password is required"),
 });
 
 const SignUp = () => {
@@ -53,7 +53,7 @@ const SignUp = () => {
       RESET_AUTH();
       navigate("/");
     } else if (isError) {
-      console.log(message);
+      // console.log(message);
     }
     return () => {
       RESET_AUTH();
@@ -70,7 +70,7 @@ const SignUp = () => {
           <div className="col-12">
             <div className="auth-card">
               <h3 className="text-center mb-3">Create Account</h3>
-              <div className="error text-center">{message}</div>
+              {/* <div className="error text-center">{message}</div> */}
               <form
                 action=""
                 onSubmit={formik.handleSubmit}
@@ -78,7 +78,7 @@ const SignUp = () => {
               >
                 <CustomInput
                   type="text"
-                  placeholder="First Name"
+                  placeholder="First name"
                   name="firstName"
                   value={formik.values.firstName}
                   onChange={formik.handleChange("firstName")}
@@ -91,7 +91,7 @@ const SignUp = () => {
                 </div>
                 <CustomInput
                   type="text"
-                  placeholder="Last Name"
+                  placeholder="Last name"
                   name="lastName"
                   value={formik.values.lastName}
                   onChange={formik.handleChange("lastName")}
@@ -119,7 +119,7 @@ const SignUp = () => {
                 <CustomInput
                   type="tel"
                   className="mt-1"
-                  placeholder="Mobile Number"
+                  placeholder="Mobile number"
                   name="mobile"
                   value={formik.values.mobile}
                   onChange={formik.handleChange("mobile")}
@@ -147,7 +147,7 @@ const SignUp = () => {
                 <CustomInput
                   type="password"
                   className="mt-1"
-                  placeholder="Confirm Password"
+                  placeholder="Confirm password"
                   name="confirmPassword"
                   value={formik.values.confirmPassword}
                   onChange={formik.handleChange("confirmPassword")}

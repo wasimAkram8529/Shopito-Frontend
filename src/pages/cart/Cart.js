@@ -215,7 +215,7 @@ const Cart = () => {
                   </div>
 
                   <div className="payment-summary-row">
-                    <div>{"estimated_tax"} (10%):</div>
+                    <div>{t("estimated_tax")} (10%):</div>
                     <div className="payment-summary-money">
                       {`₹${formateCurrency(tax)}`}
                     </div>
