@@ -34,7 +34,7 @@ const CartComponent = ({
           <div className="product-name">
             {matchingProduct?.productId?.title}
           </div>
-          <div className="product-price">{matchingProduct?.price}</div>
+          <div className="product-price">{`₹${matchingProduct?.price}`}</div>
           <div className="product-quantity">
             <span>
               {t("quantities")}:{" "}

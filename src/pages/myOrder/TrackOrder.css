@@ -62,5 +62,12 @@
   height: 100%;
   background-color: green;
   border-radius: 50px;
+}
+
+.progress-bar-delivered {
+  width: 100%;
+}
+
+.progress-bar-shipped {
   width: 50%;
 }

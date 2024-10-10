@@ -2,7 +2,7 @@ import "./Cart.css";
 import React, { useEffect, useState } from "react";
 import Meta from "../../components/Meta";
 import BreadCrumb from "../../components/BreadCrumb";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Container from "../../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserCart, removeFromCart } from "../../features/user/userSlice";
@@ -12,6 +12,7 @@ import { updateCartQuantity } from "../../features/user/userSlice";
 import Loader from "../../components/loader/Loader";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
+import emptyCartImg from "../../images/empty-cart.webp";
 
 const findDate = (number = 7) => {
   const today = dayjs();
@@ -247,7 +248,14 @@ const Cart = () => {
           </div>
         ) : (
           <div style={{ textAlign: "center" }} className="cart-item-container">
-            {t("your_cart_is_empty")}
+            <div className="empty-cart-img">
+              <img src={emptyCartImg} alt="empty cart" />
+            </div>
+            <div>
+              <p className="empty-cart-message">Your cart is empty!</p>
+              <p className="add-item-message">Add items to it now.</p>
+              <NavLink to="/products">Shop now</NavLink>
+            </div>
           </div>
         )}
       </Container>

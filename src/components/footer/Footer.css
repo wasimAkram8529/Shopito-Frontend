@@ -2,6 +2,20 @@
   cursor: pointer;
 }
 
+footer {
+  background-color: #1455ac;
+}
+
+/*footer :not(:first-child) {
+  border-bottom: 1px solid rgba(219, 201, 201, 0.1);
+}*/
+
+footer .input-group-text {
+  background-color: var(--color-232f3e);
+  color: white;
+  padding: 8px, 17px;
+}
+
 /* .footer .container-xxl {
   background-color: #1455ac !important;
 } */

@@ -46,7 +46,7 @@ const Contact = () => {
       {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title="Contact Us" />
-      <Container class1="contact-wrapper home-wrapper-2 py-5">
+      <Container class1="contact-wrapper home-wrapper-2 py-3">
         <div className="row">
           <div className="col-12">
             <iframe

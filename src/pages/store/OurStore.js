@@ -150,7 +150,7 @@ const OurStore = () => {
       {isLoading && <Loader />}
       <Meta title="Shopito" />
       <BreadCrumb title="Our Store" />
-      <Container class1="store-wrapper home-wrapper-2 py-5">
+      <Container class1="store-wrapper home-wrapper-2 py-3">
         <div className="store">
           <div
             className={
@@ -158,9 +158,6 @@ const OurStore = () => {
                 ? "store-left-part"
                 : "close-filter-menu store-left-part"
             }
-            // onClick={(e) => {
-            //   console.log(e.target);
-            // }}
           >
             <div className="filter-card close-menu">
               <IoMdClose onClick={() => setFilterMenu(!filterMenu)} />

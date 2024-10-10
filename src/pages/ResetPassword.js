@@ -9,6 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { resetPassword } from "../features/user/userSlice";
 import { toast } from "react-toastify";
+import resetPasswordImg from "../assets/forgot.png";
 
 let resetPasswordSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
@@ -52,52 +53,53 @@ const ResetPassword = () => {
     <>
       <Meta title="ShopIto" />
       <BreadCrumb title=" Reset Password" />
-      <Container class1="login-wrapper home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-12">
-            <div className="auth-card">
-              <h3 className="text-center mb-3">Reset Password</h3>
-              <form
-                action=""
-                onSubmit={formik.handleSubmit}
-                className="d-flex flex-column gap-15"
-              >
-                <CustomInput
-                  type="text"
-                  placeholder="Password"
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange("password")}
-                  onBlur={formik.handleBlur("password")}
-                />
-                <div className="error">
-                  {formik.touched.password && formik.errors.password ? (
-                    <div>{formik.errors.password}</div>
-                  ) : null}
+      <Container class1="login-wrapper">
+        <div className="auth-container">
+          <div className="auth-login-img">
+            <img src={resetPasswordImg} alt="Reset Password" />
+          </div>
+          <div className="auth-card">
+            <h3 className="text-center mb-3">Reset password</h3>
+            <form
+              action=""
+              onSubmit={formik.handleSubmit}
+              className="d-flex flex-column gap-15"
+            >
+              <CustomInput
+                type="text"
+                placeholder="Password"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange("password")}
+                onBlur={formik.handleBlur("password")}
+              />
+              <div className="error">
+                {formik.touched.password && formik.errors.password ? (
+                  <div>{formik.errors.password}</div>
+                ) : null}
+              </div>
+              <CustomInput
+                type="text"
+                placeholder="Confirm password"
+                name="confirmPassword"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange("confirmPassword")}
+                onBlur={formik.handleBlur("confirmPassword")}
+              />
+              <div className="error">
+                {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword ? (
+                  <div>{formik.errors.confirmPassword}</div>
+                ) : null}
+              </div>
+              <div>
+                <div className="d-flex justify-content-center gap-15 align-items-center">
+                  <button className="auth-button border-0" type="submit">
+                    Ok
+                  </button>
                 </div>
-                <CustomInput
-                  type="text"
-                  placeholder="Confirm Password"
-                  name="confirmPassword"
-                  value={formik.values.confirmPassword}
-                  onChange={formik.handleChange("confirmPassword")}
-                  onBlur={formik.handleBlur("confirmPassword")}
-                />
-                <div className="error">
-                  {formik.touched.confirmPassword &&
-                  formik.errors.confirmPassword ? (
-                    <div>{formik.errors.confirmPassword}</div>
-                  ) : null}
-                </div>
-                <div>
-                  <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
-                    <button className="button border-0" type="submit">
-                      Ok
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </Container>

@@ -14,10 +14,14 @@
 }
 
 .menu-options div a {
+  font-size: 14px;
+  font-weight: 500;
   color: rgb(91, 89, 89);
 }
 
 .menu-options div button {
+  font-size: 14px;
+  font-weight: 500;
   border: none;
   background-color: white;
   color: rgb(91, 89, 89);

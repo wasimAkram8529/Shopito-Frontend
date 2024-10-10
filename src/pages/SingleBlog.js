@@ -33,7 +33,7 @@ const SingleBlog = () => {
         <div className="row">
           <div className="col-12">
             <div className="single-blog-card">
-              <Link to="/blogs" className="d-flex align-items-center gap-10">
+              <Link to={-1} className="d-flex align-items-center gap-10">
                 <HiOutlineArrowLeft className="fs-4" /> Go back to blogs
               </Link>
               <h3 className="title">
@@ -41,7 +41,7 @@ const SingleBlog = () => {
               </h3>
               <img
                 src={blog ? blog.image?.[0]?.url : "../images/blog-1.jpg"}
-                className="img-fluid w-100 my-4"
+                className="blog-img"
                 alt="Blog"
               />
               <p>

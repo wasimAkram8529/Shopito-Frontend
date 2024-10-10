@@ -12,6 +12,7 @@ import {
   CiLogout,
   CiUser,
 } from "react-icons/ci";
+import { MdOutlineStorefront } from "react-icons/md";
 import MenuBar from "./../menuBar/MenuBar";
 import ShowOnLogin, { ShowOnLogout } from "./../hiddenLink/hiddenLink";
 import { useDispatch, useSelector } from "react-redux";
@@ -294,7 +295,7 @@ const Header = ({ renderHeader, setRenderHeader }) => {
                       <div className="tooltip-register">{t("register")}</div>
                     </div>
                   </ShowOnLogout>
-                  {cart}
+                  <ShowOnLogin>{cart}</ShowOnLogin>
                   <div className="menu-bar" onClick={toggleMenu}>
                     <CiMenuBurger className="icons" />
                   </div>

@@ -32,6 +32,9 @@
   }
 }
 
+.cart-item-container {
+  margin-top: 10px;
+}
 .cart-item-container,
 .payment-summary,
 .delivery-date-section {
@@ -70,6 +73,29 @@
   display: grid;
   grid-template-columns: 100px 1fr 1fr;
   column-gap: 25px;
+}
+
+.empty-cart-img {
+  margin-bottom: 10px;
+}
+
+.empty-cart-img img {
+  max-width: 130px;
+}
+
+.empty-cart-message {
+  font-size: 20px;
+}
+
+.add-item-message {
+  font-size: 13px;
+}
+
+.cart-item-container a {
+  padding: 10px 40px 10px 40px;
+  border: 1px solid #ccc;
+  background-color: #007bff;
+  color: white;
 }
 
 @media (max-width: 1000px) {

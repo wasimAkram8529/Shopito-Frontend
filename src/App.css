@@ -81,8 +81,11 @@
   max-width: 100%;
 }
 .blog-card {
-  height: 280px !important;
+  max-width: 220px;
+  height: 300px !important;
+  margin-left: 10px;
 }
+
 body {
   font-family: "Rubik", sans-serif;
 }
@@ -92,6 +95,9 @@ a {
   display: inline-block;
 }
 
+.bread-crumb-text a {
+  color: #007bff !important;
+}
 .form-control:focus {
   box-shadow: none;
   border-color: inherit;
@@ -114,10 +120,10 @@ a {
 }
 
 .button {
-  background-color: var(--color-232f3e);
+  background-color: #007bff;
   color: white;
   font-size: 14px;
-  padding: 13px 33px 13px 33px;
+  padding: 10px 10px 10px 10px;
   /* border-radius: 25px; */
 }
 
@@ -125,77 +131,6 @@ a {
   background-color: var(--color-febd69);
   color: #131921;
 }
-/* Header Parts */
-
-.header-top-strip p,
-.header-top-strip a {
-  color: black;
-}
-
-.header-upper {
-  background-color: var(--color-131921);
-}
-
-.header-bottom {
-  background-color: var(--color-0c6efd);
-}
-
-.header-bottom .menu-links a,
-.header-bottom .dropdown button {
-  color: white;
-  font-size: 14px;
-  line-height: 18px;
-  font-weight: 400;
-  letter-spacing: 0.3;
-  text-transform: uppercase;
-}
-
-.header-bottom .dropdown button:focus {
-  box-shadow: none;
-}
-.header-bottom .dropdown-menu {
-  background-color: var(--color-131921);
-  width: 100%;
-  transform: translate3d(0px, 57px, 0px) !important;
-}
-
-.header-bottom .dropdown-item {
-  padding: 20px;
-  margin-bottom: 3px;
-  border-bottom: 1px, solid, var(--color-3b4149);
-}
-
-.header-bottom .dropdown-item:hover {
-  background-color: transparent;
-  color: var(--color-febd69) !important;
-}
-
-.header-upper .input-group-text {
-  background-color: var(--color-febd69);
-}
-
-.header-upper .header-upper-links img {
-  width: 35px;
-  height: 35px;
-}
-/* Header Parts end here */
-
-/* Footer parts Start */
-
-footer {
-  background-color: #1455ac;
-}
-
-/*footer :not(:first-child) {
-  border-bottom: 1px solid rgba(219, 201, 201, 0.1);
-}*/
-
-footer .input-group-text {
-  background-color: var(--color-232f3e);
-  color: white;
-  padding: 8px, 17px;
-}
-/* Footer parts End Here */
 
 /* .small-banner {
   width: 49%;
@@ -246,16 +181,23 @@ footer .input-group-text {
   font-size: 26px;
   line-height: 32px;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding-top: 15px;
+  padding-left: 20px;
 }
+
 .blog-card {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .blog-card img {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.blog-card img:hover {
+  transform: scale(1.17) !important;
 }
 
 .blog-content {
@@ -291,6 +233,11 @@ footer .input-group-text {
   font-size: 24px;
   font-weight: 600;
   color: var(--color-1c1b1b);
+}
+
+.blog-img {
+  max-width: 100%;
+  max-height: 300px;
 }
 
 .single-blog-card p {
@@ -399,9 +346,11 @@ footer .input-group-text {
 }
 
 .filter-sort-grid {
+  width: 100% !important;
   padding: 10px;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 6px;
+  margin-left: 5px;
 }
 
 .filter-sort-grid select {
@@ -456,8 +405,9 @@ footer .input-group-text {
 
 /* Contact */
 .contact-inner-wrapper {
-  padding: 30px 0;
-  border-radius: 15px;
+  margin: 1px;
+  padding: 20px 0;
+  border-radius: 5px;
   background-color: white;
   /* gap: 15px; */
 }
@@ -681,4 +631,60 @@ footer .input-group-text {
 .button-secondary:active {
   background-color: rgb(237, 253, 255);
   box-shadow: none;
+}
+
+/* login page */
+
+.auth-container {
+  max-width: 1000px;
+  min-height: 68vh;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.auth-login-img,
+.auth-register-img {
+  width: 60%;
+}
+
+.auth-login-img img,
+.auth-register-img img {
+  max-width: 100%;
+}
+
+.auth-button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  padding: 13px 33px 13px 33px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.signup-box {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: normal;
+}
+
+.signup-box a {
+  color: #007bff;
+}
+
+.auth-text {
+  color: orangered;
+}
+
+@media screen and (max-width: 500px) {
+  .auth-login-img,
+  .auth-register-img {
+    display: none;
+  }
 }
